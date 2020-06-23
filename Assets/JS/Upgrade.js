@@ -95,13 +95,13 @@ var upgrades = [
 		game.updateWorkerButton(1);
 	}),
 	new Upgrade("Older Men Who Drink Blacker Coffee", "", 50, 0, 50, 0, 0, function(){
-		consoleDisplay.pushMessage("Sip Size of Old Men increased by 300%");
+		consoleDisplay.pushMessage("Sip Size of Old Men increased by 700%");
 		workers[2].baseSipSize = roundTwoDecimals(workers[2].baseSipSize*7);
 
 		game.updateWorkerButton(2);
 	}),
 	new Upgrade("Oldest Men Who Drink Blackest Coffee", "", 150, 0, 150, 0, 0, function(){
-		consoleDisplay.pushMessage("Sip Size of Old Men increased by 300%");
+		consoleDisplay.pushMessage("Sip Size of Old Men increased by 700%");
 		workers[2].baseSipSize = roundTwoDecimals(workers[2].baseSipSize*7);
 
 		game.updateWorkerButton(2);

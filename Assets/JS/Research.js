@@ -103,6 +103,9 @@ var research = [
 	new Research("Max Caffeine to 40", "",				 60,  30, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
 	}),
+	new Research("Start a Cult", "",					 60,  10, 0, 0, 0, function(){
+		player.influence += 1;
+	}),
 	new Research("Max Caffeine to 50", "",				 60,  40, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
 	}),
@@ -120,6 +123,7 @@ var research = [
 	}),
 	new Research("Max Caffeine to 100", "",				 60,  90, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
-	}),
+	})
+
 
 ];

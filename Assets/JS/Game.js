@@ -2,9 +2,16 @@
 Game.prototype.init = function() {
 	for (var i = 0; i < workers.length; i++)
 	{
-		workerButtons.push(document.querySelector("#workerButton" + (i + 1)))
-		workerButtons[i].innerHTML = workers[i].name + "<div> Cost: " + (workers[i].emptyMugCost * workers[i].coffeeScaling) + " Empty Mugs</div>";
+		workerButtons.push(document.querySelector("#workerButton" + (i + 1)));
+		workerButtons[i].innerHTML = workers[i].name + "<div> Mug Cost: " + (workers[i].emptyMugCost * workers[i].coffeeScaling) + " Empty Mugs</div>";
 		workerButtons[i].value = i;
+	}
+
+	for (var i = 0; i < cultists.length; i++)
+	{
+		cultistButtons.push(document.querySelector("#cultistButton" + (i + 1)));
+		cultistButtons[i].innerHTML = cultists[i].name + "<div> Cost: " + (cultists[i].influenceCost) + " Influence</div>";
+		cultistButtons[i].value = i;
 	}
 
 	for (var i = 0; i < workerButtons.length; i++) {
@@ -18,9 +25,20 @@ Game.prototype.init = function() {
 		});
 	}
 
+	for (var i = 0; i < cultistButtons.length; i++) {
+		cultistButtons[i].addEventListener("click", function() {
+			cultists[this.value].purchase();
+
+			if(cultists[this.value].owned > 0)
+			{
+				game.updateCultistButton(this.value);
+			}
+		});
+	}
+
 	drinkCoffeeButton.addEventListener("click", drinkCoffeeClick);
 
-	document.querySelector("body").style.transition = "background-color 2s";
+	document.querySelector("body").style.transition = "background-color 5s";
 	document.querySelector("#drinkCoffeeButton").style.transition = "opacity .9s";
 
 	this.gameLoop();
@@ -62,15 +80,25 @@ Game.prototype.updateGameState = function() {
 	}
 	
 	this.updateUpgrades();
+	this.updateCultists();
 
 	//Update Research Timers once per second, might need to refactor this? Should be % 2 but needs to be % 3
 	if(frameCounter % 3 === 0)
 		this.updateResearch();
 
+
 	for(var i = 0; i < workers.length; i++)
 	{
 		if(!workers[i].isUnlocked && workers[i].unlockMugs <= player.emptyMugs)
 		{
+			if(i === 0)
+			{
+				var parent = document.querySelector("#centerLeftColumn");
+				var newElement = document.createElement("h2");
+				newElement.innerText = "Workers";
+				parent.prepend(newElement);
+			}
+
 			workerButtons[i].classList.remove("hide");
 			workers[i].isUnlocked = true;
 		}
@@ -92,6 +120,7 @@ Game.prototype.updateGameState = function() {
 	emptyMugsDisplay.textContent = roundTwoDecimals(player.emptyMugs);
 	coffeeRemainingDisplay.textContent = roundTwoDecimals(player.coffeeRemaining * 100) + "%";
 	sipSizeDisplay.textContent = player.calculateSipSize();
+	influenceDisplay.textContent = player.influence;
 }
 
 function caffeineColorScheme(){
@@ -168,7 +197,38 @@ Game.prototype.updateWorkers = function() {
 
 		workers[i].generateProduction()
 	}
-}
+};
+
+Game.prototype.updateCultists = function() {
+	for(var i = 0; i < cultists.length; i++) {
+
+		if(!cultists[i].isUnlocked && cultists[i].unlockInfluence <= player.influence){	
+			if(i === 0)
+			{
+				//Add "Cultists" above the column
+				var parent = document.querySelector("#centerRightColumn");
+				var newElement = document.createElement("h2");
+				newElement.innerText = "Cultists";
+				parent.prepend(newElement);
+				//Add influence to main stats display
+				for(var j = 0; j < document.querySelectorAll("li").length; j++)
+				{
+					document.querySelectorAll("li")[j].classList.remove("hide2");
+				}
+
+			}
+			//Unhide the associated cultist button and set isUnlocked to true
+			cultistButtons[i].classList.remove("hide");
+			cultists[i].isUnlocked = true;
+		}
+		//Only generate influence every 4th frame
+		else {
+			if(frameCounter % 4 === 0){
+				cultists[i].generateInfluence();
+			}
+		}
+	}
+};
 
 Game.prototype.updateWorkerButton = function(index) {
 	workerButtons[index].innerHTML = workers[index].name + 
@@ -178,6 +238,14 @@ Game.prototype.updateWorkerButton = function(index) {
 								"<div>Sip Size(Total): " + roundTwoDecimals(workers[index].baseSipSize * workers[index].owned) + " cups</div>";
 };
 
+Game.prototype.updateCultistButton = function(index) {
+	cultistButtons[index].innerHTML = cultists[index].name +
+								"<div> Cost: " + (cultists[index].influenceCost) + " Influence</div>" +
+								"<div>Influence Production(Each): " + cultists[index].baseInfluence + "</div>" + 
+								"<div>Owned: " + cultists[index].owned + "</div>" + 
+								"<div>Influence Production(Total): " + roundTwoDecimals(cultists[index].baseInfluence * cultists[index].owned)+ "</div>";
+}
+
 
 function Game() {
 	return;
@@ -185,12 +253,14 @@ function Game() {
 
 //Should be outside loop
 workerButtons = [];
+cultistButtons = [];
 
 drinkCoffeeButton = document.querySelector("#drinkCoffeeButton");
 emptyMugsDisplay = document.querySelector("#emptyMugs");
 caffeineLevelDisplay = document.querySelector("#caffeineLevel");
 coffeeRemainingDisplay = document.querySelector("#coffeeRemaining");
 sipSizeDisplay = document.querySelector("#sipSize");
+influenceDisplay = document.querySelector("#influence");
 
 frameCounter = 0; 	//Keeps track of the number of game update cycles so far
 tickSpeed = 500; 	//The time in milliseconds between each game tick

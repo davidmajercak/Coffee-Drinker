@@ -38,7 +38,7 @@ Player.prototype.updateCaffeineLevel = function() {
 	} else if (this.caffeineLevel < 50) {
 		tickSpeed = 400 - 3 * this.caffeineLevel;
 	} else if (this.caffeinLevel < 100) {
-		tickSpeed = 400 - 2 * this.caffeineLevel;
+		tickSpeed = 280 - 2 * this.caffeineLevel;
 	}
 	else 
 		tickSpeed = 100;
@@ -58,6 +58,7 @@ function Player() {
 	this.sipSizeBase = .1; //Percentage of a coffee that is consumed with each sip - tuned to .1 starting sip size
 	this.coffeeRemaining = .3; //Percentage of coffee left in current cup - Start at .3
 	this.knowledge = 0;	//Current Amount of knowledge (used to unlock/start researches)
+	this.influence = 0; //Current Amount of Influence (used to unlock Cultists)
 
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
 	this.hasBottomLessMug = false;
@@ -65,10 +66,10 @@ function Player() {
 	this.hasAutoSipper = false;
 
 	//Dev Testing
-	// this.emptyMugs = 10000;
-	// this.caffeineLevel = 55;
-	// this.sipSizeBase = 10;
-	// this.hasBottomLessMug = true;
+	 // this.emptyMugs = 10000;
+	 // this.caffeineLevel = 55;
+	 // this.sipSizeBase = 10;
+	 // this.hasBottomLessMug = true;
 
 
 };

@@ -55,12 +55,12 @@ h2 {
 	transition: opacity .9s;
 }
 
-.hide {
+.hide, .hide2 {
 	opacity: 0; 
 	transition: none !important;
 }
 
-#centerColumn, #rightColumn {
+#centerLeftColumn, #centerRightColumn ,#rightColumn {
 	text-align: center;
 }
 
@@ -91,10 +91,10 @@ button:not(#drinkCoffeeButton){
 	display: block;
 /*	justify-content: start;
 	align-items: flex-start;*/
-	height: 256px;
+	height: 310px; /*Will need to figure out a better solution that setting a height in px*/
 }
 
-.upgradeButton {
+.upgradeButton, .cultistButton {
 	width: 80%;
 	margin: 5px auto;
 	transition: all .9s;
@@ -117,7 +117,7 @@ button:disabled {
     	display: block;
   	}
   	/*Need to fix big gap in page on mobile size screen between workers and upgrades*/
-  	/*#centerColumn {
+  	/*#centerLeftColumn {
 		height: 0;
 	}*/
 	.hide {
