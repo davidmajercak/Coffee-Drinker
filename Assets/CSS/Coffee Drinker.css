@@ -1,0 +1,126 @@
+
+/*Add CSS variables (custom properties) to keep track of colors and animation
+https://www.w3schools.com/css/css3_variables.asp*/
+:root {
+	--button-text-color: #F5ECE1;
+	--button-border-color: #F5ECE1;
+}
+
+body {
+	color: #F5ECE1;
+	margin: 0;
+	padding: .5%;
+	background-color: #4B311B; /*old color 5f3f21*/
+
+}
+
+#displayConsole {
+	padding: 1%;
+	color: #C0C0C0;
+	background-color: #000;
+}
+
+#consoleDisplay0{
+	color: #FFF;
+}
+
+.container {
+	display: flex;
+}
+
+.row {
+	display: flex;
+	flex-flow: row wrap;
+	width: 100%;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+}
+
+ul {
+	list-style-type: none;
+	line-height: 1em;
+}
+
+li {
+	transition: opacity 2.5s;
+}
+
+h2 {
+	width: 100%;
+	transition: opacity .9s;
+}
+
+.hide {
+	opacity: 0; 
+	transition: none !important;
+}
+
+#centerColumn, #rightColumn {
+	text-align: center;
+}
+
+button {
+	outline: none;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px;
+	background-color: Transparent;
+	color: var(--button-text-color);
+	border: 2px solid var(--button-border-color);
+	user-select: none;	/*User not able to select text*/
+
+}
+
+
+button:not(#drinkCoffeeButton){
+    transition: opacity .9s;
+}
+
+.workerButton {
+	width: 80%;
+	transition: all .9s;
+	margin: 5px auto;
+}
+
+#upgrades {
+	display: block;
+/*	justify-content: start;
+	align-items: flex-start;*/
+	height: 256px;
+}
+
+.upgradeButton {
+	width: 80%;
+	margin: 5px auto;
+	transition: all .9s;
+}
+
+.researchButton {
+	width: 80%;
+	margin: 5px auto;
+	transition: all 1.5s !important;
+}
+
+button:disabled {
+	opacity: 0.4;
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 800px) {
+	.container {
+    	display: block;
+  	}
+  	/*Need to fix big gap in page on mobile size screen between workers and upgrades*/
+  	/*#centerColumn {
+		height: 0;
+	}*/
+	.hide {
+		height: 0;
+	}
+}

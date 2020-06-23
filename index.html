@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Coffee Drinker</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="Assets/CSS/Coffee Drinker.css">
+</head>
+<body>
+	<div id="displayConsole" rows="5" readonly>
+		<div id="consoleDisplay4">. </div>
+		<div id="consoleDisplay3">. </div>
+		<div id="consoleDisplay2">. </div>
+		<div id="consoleDisplay1">. </div>
+		<div id="consoleDisplay0">> Maybe try drinking some coffee</div>
+	</div>
+	<div class="container">
+		<div class="column" id="leftColumn">
+			<div class="row">
+				<h1>Coffee Drinker 0.3.1</h1>
+			</div>
+			<div class="row"> 
+				<ul>
+					<li class="hide"><h3>Empty Mugs: <span id="emptyMugs">0</span> </h3></li>
+					<li class="hide"><h3>Caffeine Level: <span id="caffeineLevel">0</span></h3></li>	
+					<li class="hide"><h3>Coffee Remaining in Current Cup: <span id="coffeeRemaining">1</span></h3></li>
+					<li class="hide"><h3>Sip Size: <span id="sipSize">.1</span> cups</h3></li>
+					<li><button id="drinkCoffeeButton">Sip some Coffee</button></li>
+				</ul>
+			</div>
+		</div>
+		<div class="column" id="centerColumn">
+			<div class="row">
+				<!-- Creating buttons for Workers -->
+				<button class="workerButton hide" id="workerButton1"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton2"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton3"></button>
+			</div>	
+			<div class="row">
+				<button class="workerButton hide" id="workerButton4"></button>
+			</div>
+			<div class="row">
+
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton5"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton6"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton7"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton8"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton9"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton10"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton11"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton12"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton13"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton14"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton15"></button>
+			</div>
+			<div class="row">
+				<button class="workerButton hide" id="workerButton16"></button>
+			</div>
+		</div>
+
+		<!-- Need to make a better system to control upgrade buttons
+		Maybe limit to 9 cheapest upgrades? -->
+		<div class="column" id="rightColumn">
+			<div class="row" id="upgrades">
+				
+			</div>
+			<div class="row" id="research">
+				<h2 class="hide">Research: <em>Only Costs Time</em></h2>
+			</div>
+		</div>
+
+	
+	</div>
+	<script type="text/javascript" src="Assets/JS/Player.js" async defer></script>
+	<script type="text/javascript" src="Assets/JS/Worker.js" async defer></script>
+	<script type="text/javascript" src="Assets/JS/Upgrade.js" async defer></script>
+	<script type="text/javascript" src="Assets/JS/Research.js" async defer></script>
+	<script type="text/javascript" src="Assets/JS/Game.js" async defer></script>
+	<script type="text/javascript" src="Assets/JS/ConsoleDisplay.js" async defer></script>
+	<script type="text/javascript" src="Assets/JS/Coffee Drinker.js" async defer></script>
+	
+</body>
+</html>
