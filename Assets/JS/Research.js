@@ -81,47 +81,47 @@ var research = [
 	new Research("Think About Why You're Doing This", "", 5, .2, 0, 1),
 	new Research("Think a Little Harder This Time", "",	 10,  0, 1, 1), 
 	new Research("Get your G.E.D.", "", 				 30,  0, 2, 1, 0, function(){
-		consoleDisplay.pushMessage("You can now research 2 researches at a time!");
 		player.numResearches += 1;
+		consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 	}),
 	new Research("Apply to College", "", 				 20,  0, 3, 1),
 	new Research("Decide on a Major", "", 				 5,   0, 4, 1),
 	new Research("BS in Chemistry", "", 				 120, 0, 5, 1),
 	new Research("MS in Chemistry", "", 				 240, 0, 6, 1),
 	new Research("PHD in Chemistry", "", 				 480, 0, 7, 1, 0, function(){
-		consoleDisplay.pushMessage("You can now research 3 researches at a time!");
 		player.numResearches += 1;
+		consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 	}),
 	//Start of 2nd research track
 	new Research("Auto-Sipper", "", 				 	 60,  0, 3, 0, 0, function(){
 		consoleDisplay.pushMessage("You will now automatically sip from the mug when available (no more clicking)!");
+		consoleDisplay.pushMessage("That's My Secret, I'm Always Sippin'!");
 		player.hasAutoSipper = true;
 		drinkCoffeeClick();
-		//TODO - "That's My Secret, I'm Always Sippin'!" to the console display at the top when this is finished
 		drinkCoffeeButton.innerText = "I'm Always Sippin'!";
 	}),
-	new Research("Max Caffeine to 40", "",				 60,  30, 0, 0, 0, function(){
+	new Research("Max Caffeine to 40", "",				 60,  25, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
 	}),
 	new Research("Start a Cult", "",					 60,  10, 0, 0, 0, function(){
 		player.influence += 1;
 	}),
-	new Research("Max Caffeine to 50", "",				 60,  40, 0, 0, 0, function(){
+	new Research("Max Caffeine to 50", "",				 60,  35, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
 	}),
-	new Research("Max Caffeine to 60", "",				 60,  50, 0, 0, 0, function(){
+	new Research("Max Caffeine to 60", "",				 60,  45, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
 	}),
-	new Research("Max Caffeine to 70", "",				 60,  60, 0, 0, 0, function(){
+	new Research("Max Caffeine to 70", "",				 60,  55, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
 	}),
-	new Research("Max Caffeine to 80", "",				 60,  70, 0, 0, 0, function(){
+	new Research("Max Caffeine to 80", "",				 60,  65, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
 	}),
-	new Research("Max Caffeine to 90", "",				 60,  80, 0, 0, 0, function(){
+	new Research("Max Caffeine to 90", "",				 120,  75, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
 	}),
-	new Research("Max Caffeine to 100", "",				 60,  90, 0, 0, 0, function(){
+	new Research("Max Caffeine to 100", "",				 180,  85, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
 	})
 

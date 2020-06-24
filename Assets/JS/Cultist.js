@@ -1,7 +1,7 @@
 
 Cultist.prototype.purchase = function() {
 	if(player.influence >= this.influenceCost){
-		player.influnce = roundTwoDecimals(player.influence - this.influenceCost);
+		player.influence = roundTwoDecimals(player.influence - this.influenceCost);
 		this.owned += 1;
 		this.influenceCost = roundTwoDecimals(this.influenceCost * 1.2);
 	}
@@ -30,8 +30,8 @@ function Cultist(name, flavorText, unlockInfluence, baseInfluence, influenceCost
 
 var cultists = [
 	new Cultist("Initiate","", 1, 1, 1),
-	new Cultist("Zelator", "", 10, 5, 10),
-	new Cultist("Adept", "", 200, 10, 200),
-	new Cultist("Master", "", 1000, 25, 1000),
-	new Cultist("Ipsissimus", "", 10000, 50, 10000),
+	new Cultist("Zelator", "", 50, 5, 50),
+	new Cultist("Adept", "", 1000, 10, 1000),
+	new Cultist("Master", "", 10000, 25, 10000),
+	new Cultist("Ipsissimus", "", 100000, 50, 100000),
 ];

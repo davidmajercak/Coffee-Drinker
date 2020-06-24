@@ -216,7 +216,8 @@ Game.prototype.updateCultists = function() {
 					document.querySelectorAll("li")[j].classList.remove("hide2");
 				}
 
-			}
+			} else if(i === 3)
+				mainTitleDisplay.textContent = "Cultist"
 			//Unhide the associated cultist button and set isUnlocked to true
 			cultistButtons[i].classList.remove("hide");
 			cultists[i].isUnlocked = true;
@@ -261,9 +262,10 @@ caffeineLevelDisplay = document.querySelector("#caffeineLevel");
 coffeeRemainingDisplay = document.querySelector("#coffeeRemaining");
 sipSizeDisplay = document.querySelector("#sipSize");
 influenceDisplay = document.querySelector("#influence");
+mainTitleDisplay = document.querySelector("#mainTitle");
 
 frameCounter = 0; 	//Keeps track of the number of game update cycles so far
-tickSpeed = 500; 	//The time in milliseconds between each game tick
+tickSpeed = 500; 	//The time in milliseconds between each game tick 
 
 var game = new Game();
 
