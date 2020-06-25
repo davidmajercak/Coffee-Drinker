@@ -77,9 +77,9 @@ button {
 }
 
 
-button:not(#drinkCoffeeButton){
+/*button:not(#drinkCoffeeButton){
     transition: opacity .9s;
-}
+}*/
 
 .workerButton {
 	width: 80%;
@@ -104,6 +104,11 @@ button:not(#drinkCoffeeButton){
 	width: 80%;
 	margin: 5px auto;
 	transition: all 1.5s !important;
+}
+
+.canAfford {
+	color: #0CAC64;
+	border-color: #0CAC64;
 }
 
 button:disabled {

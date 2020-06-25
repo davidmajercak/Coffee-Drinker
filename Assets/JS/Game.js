@@ -172,6 +172,17 @@ function caffeineColorScheme(){
 Game.prototype.updateUpgrades = function() {
 	
 	upgrades.forEach(function(upgrade){
+		if(player.emptyMugs >= upgrade.emptyMugCost){
+			for(var i = 0; i < document.querySelectorAll(".upgradeButton").length; i++) {
+				if(document.querySelectorAll(".upgradeButton")[i].value == upgrades.indexOf(upgrade)) {
+					document.querySelectorAll(".upgradeButton")[i].classList.add("canAfford");
+					break;
+				} else {
+					document.querySelectorAll(".upgradeButton")[i].classList.remove("canAfford");
+					break;
+				}
+			}
+		}
 		//Limit of 5 upgrades on display
 		if(document.querySelector("#upgrades").childElementCount > 3)
 			return;	//No more upgrades until current upgrades are completed
@@ -179,6 +190,7 @@ Game.prototype.updateUpgrades = function() {
 		{
 			upgrade.addButton();
 		}
+		
 	});
 };
 
@@ -214,9 +226,15 @@ Game.prototype.updateWorkers = function() {
 	var mugsPerSecond = 0;
 	for(var i = 0; i < workers.length; i++)
 	{
-		if(workers[i].unlockMugs <= player.emptyMugs)
-		{
+		if(!workers[i].isUnlocked && workers[i].unlockMugs <= player.emptyMugs){
 			workerButtons[i].classList.remove("hide");
+			workerButtons[i].classList.add("canAfford");
+		} else if(player.emptyMugs >= workers[i].emptyMugCost) {
+			workerButtons[i].classList.add("canAfford");
+		}
+		else
+		{
+			workerButtons[i].classList.remove("canAfford");
 		}
 
 		workers[i].generateProduction()
@@ -247,13 +265,18 @@ Game.prototype.updateCultists = function() {
 				mainTitleDisplay.textContent = "Cultist"
 			//Unhide the associated cultist button and set isUnlocked to true
 			cultistButtons[i].classList.remove("hide");
+			cultistButtons[i].classList.add("canAfford");
 			cultists[i].isUnlocked = true;
 		}
+		
+		if(player.influence >= cultists[i].influenceCost){
+			cultistButtons[i].classList.add("canAfford");
+		} else {
+			cultistButtons[i].classList.remove("canAfford");
+		}
 		//Only generate influence every 4th frame
-		else {
-			if(frameCounter % 4 === 0){
-				cultists[i].generateInfluence();
-			}
+		if(frameCounter % 4 === 0){
+			cultists[i].generateInfluence();
 		}
 	}
 };
