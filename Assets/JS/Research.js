@@ -85,7 +85,7 @@ var research = [
 		consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 	}),
 	new Research("Apply to College", "", 				 20,  0, 3, 1),
-	new Research("Decide on a Major", "", 				 5,   0, 4, 1),
+	new Research("Decide on a College Major", "", 				 5,   0, 4, 1),
 	new Research("BS in Chemistry", "", 				 120, 0, 5, 1),
 	new Research("MS in Chemistry", "", 				 240, 0, 6, 1),
 	new Research("PHD in Chemistry", "", 				 480, 0, 7, 1, 0, function(){

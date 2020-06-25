@@ -33,6 +33,11 @@
 
 //Highlight buttons green if can purchase worker or upgrade
 
+//Show Purchased Upgrades in a separate in game "tab"?
+
+//Decide on a number system?
+//have empty mugs updated 4 or 8 times more often but 4 or 8 times less amount
+//Start with "quantum mug ability", but maybe have to brew coffee to be able to drink it?
 
 
 

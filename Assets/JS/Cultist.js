@@ -1,9 +1,9 @@
 
 Cultist.prototype.purchase = function() {
 	if(player.influence >= this.influenceCost){
-		player.influence = roundTwoDecimals(player.influence - this.influenceCost);
+		player.influence = roundThreeDecimals(player.influence - this.influenceCost);
 		this.owned += 1;
-		this.influenceCost = roundTwoDecimals(this.influenceCost * 1.2);
+		this.influenceCost = roundThreeDecimals(this.influenceCost * 1.2);
 	}
 	else {
 		if(this.isUnlocked)
@@ -12,7 +12,7 @@ Cultist.prototype.purchase = function() {
 };
 
 Cultist.prototype.generateInfluence = function() {
-	player.influence = roundTwoDecimals(player.influence + this.baseInfluence * this.owned);
+	player.influence = roundThreeDecimals(player.influence + this.baseInfluence * this.owned);
 	return this.baseInfluence * this.owned;
 }
 

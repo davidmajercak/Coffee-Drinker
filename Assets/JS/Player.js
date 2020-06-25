@@ -1,27 +1,19 @@
 Player.prototype.calculateSipSize = function() { 
-	return roundTwoDecimals(this.sipSizeBase);
+	return roundThreeDecimals(this.sipSizeBase);
 };
 
 Player.prototype.takeSip = function() {
-	this.coffeeRemaining = roundTwoDecimals(this.coffeeRemaining - this.calculateSipSize());
+	this.coffeeRemaining = roundThreeDecimals(this.coffeeRemaining - this.calculateSipSize());
+	this.caffeineLevel = roundThreeDecimals(this.caffeineLevel + this.sipSizeBase * .1); //need a function to determine caffeine level soon
 
-	if(this.hasBottomLessMug){
-		//This allows for higher multipliers in which more than one cup can be consumed in one sip
-		while(this.coffeeRemaining <= 0){
-			this.allTimeCoffee = roundTwoDecimals(this.allTimeCoffee + 1);
-			this.emptyMugs = roundTwoDecimals(this.emptyMugs + 1);
-			this.caffeineLevel = roundTwoDecimals(this.caffeineLevel + 0.1); //need a function to determine caffeine level soon
-			this.coffeeRemaining = roundTwoDecimals(this.coffeeRemaining + 1);
-		}
-	} else {
-		if(this.coffeeRemaining <= 0){
-			this.allTimeCoffee = roundTwoDecimals(this.allTimeCoffee + 1);
-			this.emptyMugs = roundTwoDecimals(this.emptyMugs + 1);
-			this.caffeineLevel = roundTwoDecimals(this.caffeineLevel + 0.1); //need a function to determine caffeine level soon
-			this.coffeeRemaining = 1;
-		}
+	while(this.coffeeRemaining <= 0){
+			this.allTimeCoffee = roundThreeDecimals(this.allTimeCoffee + 1);
+			this.emptyMugs = roundThreeDecimals(this.emptyMugs + 1);
+			this.coffeeRemaining = roundThreeDecimals(this.coffeeRemaining + 1);
 	}
-		
+	
+	//Update Caffine Level Display
+	caffeineLevelDisplay.textContent = this.caffeineLevel + "%";
 	
 };
 
@@ -37,14 +29,16 @@ Player.prototype.updateCaffeineLevel = function() {
 		tickSpeed = 500 - 10 * this.caffeineLevel;
 	} else if (this.caffeineLevel < 50) {
 		tickSpeed = 400 - 3 * this.caffeineLevel;
-	} else if (this.caffeinLevel < 100) {
+	} else if (this.caffeineLevel < 100) {
 		tickSpeed = 280 - 2 * this.caffeineLevel;
 	}
 	else 
 		tickSpeed = 100;
 
 	if(this.caffeineLevel > 0)
-		this.caffeineLevel = roundTwoDecimals(this.caffeineLevel - .01);
+		this.caffeineLevel = roundThreeDecimals(this.caffeineLevel - .01);
+	if(this.caffeineLevel < 0)
+		this.caffeineLevel = 0;
 
 	caffeineLevelDisplay.textContent = this.caffeineLevel + "%";
 };
@@ -61,7 +55,6 @@ function Player() {
 	this.influence = 0; //Current Amount of Influence (used to unlock Cultists)
 
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
-	this.hasBottomLessMug = false;
 	this.hasUnlockedUpgrades = false;
 	this.hasAutoSipper = false;
 
@@ -69,7 +62,6 @@ function Player() {
 	 // this.emptyMugs = 10000;
 	 // this.caffeineLevel = 55;
 	 // this.sipSizeBase = 10;
-	 // this.hasBottomLessMug = true;
 
 
 };

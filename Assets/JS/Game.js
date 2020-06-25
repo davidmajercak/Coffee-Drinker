@@ -82,7 +82,7 @@ Game.prototype.updateGameState = function() {
 	this.updateUpgrades();
 	this.updateCultists();
 
-	//Update Research Timers once per second, might need to refactor this? Should be % 2 but needs to be % 3
+
 	if(frameCounter % 3 === 0)
 		this.updateResearch();
 
@@ -117,10 +117,12 @@ Game.prototype.updateGameState = function() {
 	
 
 	//Update displays at the end of the game loop to keep display consistent
-	emptyMugsDisplay.textContent = roundTwoDecimals(player.emptyMugs);
-	coffeeRemainingDisplay.textContent = roundTwoDecimals(player.coffeeRemaining * 100) + "%";
+	emptyMugsDisplay.textContent = roundThreeDecimals(player.emptyMugs);
+	coffeeRemainingDisplay.textContent = roundThreeDecimals(player.coffeeRemaining * 100) + "%";
 	sipSizeDisplay.textContent = player.calculateSipSize();
 	influenceDisplay.textContent = player.influence;
+	//TODO - Add Mugs per second (total)
+	//TODO - Add buy multiple options (1, 5, 10, max?)
 }
 
 function caffeineColorScheme(){
@@ -233,10 +235,10 @@ Game.prototype.updateCultists = function() {
 
 Game.prototype.updateWorkerButton = function(index) {
 	workerButtons[index].innerHTML = workers[index].name + 
-								"<div>Cost: " + (roundTwoDecimals(workers[index].emptyMugCost * workers[index].coffeeScaling)) + " Empty Mugs</div>" +
+								"<div>Cost: " + (roundThreeDecimals(workers[index].emptyMugCost * workers[index].coffeeScaling)) + " Empty Mugs</div>" +
 								"<div>Sip Size(Each): " + workers[index].baseSipSize + " cups</div>" +
 								"<div>Owned: " + workers[index].owned + "</div>" +
-								"<div>Sip Size(Total): " + roundTwoDecimals(workers[index].baseSipSize * workers[index].owned) + " cups</div>";
+								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].baseSipSize * workers[index].owned) + " cups</div>";
 };
 
 Game.prototype.updateCultistButton = function(index) {
@@ -244,7 +246,7 @@ Game.prototype.updateCultistButton = function(index) {
 								"<div> Cost: " + (cultists[index].influenceCost) + " Influence</div>" +
 								"<div>Influence Production(Each): " + cultists[index].baseInfluence + "</div>" + 
 								"<div>Owned: " + cultists[index].owned + "</div>" + 
-								"<div>Influence Production(Total): " + roundTwoDecimals(cultists[index].baseInfluence * cultists[index].owned)+ "</div>";
+								"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].owned)+ "</div>";
 }
 
 
@@ -269,6 +271,6 @@ tickSpeed = 500; 	//The time in milliseconds between each game tick
 
 var game = new Game();
 
-function roundTwoDecimals(num){
-	return Math.round((num) * 100) / 100;
+function roundThreeDecimals(num){
+	return Math.round((num) * 1000) / 1000;
 }

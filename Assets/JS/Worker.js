@@ -6,9 +6,9 @@ Worker.prototype.purchase = function() {
 
 	if(player.emptyMugs >= this.emptyMugCost * this.coffeeScaling)
 	{
-		player.emptyMugs = roundTwoDecimals(player.emptyMugs - this.emptyMugCost * this.coffeeScaling);
+		player.emptyMugs = roundThreeDecimals(player.emptyMugs - this.emptyMugCost * this.coffeeScaling);
 		this.owned += 1;
-		this.emptyMugCost = roundTwoDecimals(this.emptyMugCost * this.coffeeScaling);
+		this.emptyMugCost = roundThreeDecimals(this.emptyMugCost * this.coffeeScaling);
 		this.coffeeScaling += .2;
 	}
 	else
@@ -24,30 +24,20 @@ Worker.prototype.generateProduction = function() {
 
 	this.takeSip();
 	//Probably will want a separate function for this
-	coffeeRemainingDisplay.textContent = roundTwoDecimals(player.coffeeRemaining * 100) + "%";
-	//player.emptyMugs = roundTwoDecimals(player.emptyMugs + this.baseSipSize * this.owned);
+	coffeeRemainingDisplay.textContent = roundThreeDecimals(player.coffeeRemaining * 100) + "%";
+	//player.emptyMugs = roundThreeDecimals(player.emptyMugs + this.baseSipSize * this.owned);
 }
 
 Worker.prototype.takeSip = function() {
-	player.coffeeRemaining = roundTwoDecimals(player.coffeeRemaining - this.baseSipSize * this.owned);
+	player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining - this.baseSipSize * this.owned);
 
-	if(player.hasBottomLessMug){
-		//This allows for higher multipliers in which more than one cup can be consumed in one sip
-		while(player.coffeeRemaining <= 0){
-			player.allTimeCoffee = roundTwoDecimals(player.allTimeCoffee + 1);
-			player.emptyMugs = roundTwoDecimals(player.emptyMugs + 1);
+	while(player.coffeeRemaining <= 0){
+			player.allTimeCoffee = roundThreeDecimals(player.allTimeCoffee + 1);
+			player.emptyMugs = roundThreeDecimals(player.emptyMugs + 1);
 			//TODO - Determine how exactly how workers can influence caffeine level
-			//player.caffeineLevel = roundTwoDecimals(player.caffeineLevel + 0.1); //need a function to determine caffeine level soon
-			player.coffeeRemaining = roundTwoDecimals(player.coffeeRemaining + 1);
+			//player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + 0.1); //need a function to determine caffeine level soon
+			player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining + 1);
 		}
-	} else {
-		if(player.coffeeRemaining <= 0){
-			player.allTimeCoffee = roundTwoDecimals(player.allTimeCoffee + 1);
-			player.emptyMugs = roundTwoDecimals(player.emptyMugs + 1);
-			//player.caffeineLevel = roundTwoDecimals(player.caffeineLevel + 0.1); //need a function to determine caffeine level soon
-			player.coffeeRemaining = 1;
-		}
-	}
 		
 	
 };
