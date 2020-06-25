@@ -40,7 +40,7 @@ Player.prototype.updateCaffeineLevel = function() {
 	if(this.caffeineLevel < 0)
 		this.caffeineLevel = 0;
 
-	caffeineLevelDisplay.textContent = this.caffeineLevel + "%";
+
 };
 
 

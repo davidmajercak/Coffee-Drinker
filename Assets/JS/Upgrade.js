@@ -66,15 +66,17 @@ function Upgrade(name, flavorText, unlockMugs, unlockCaffeineLevel, emptyMugCost
 	this.callback = callback;							//An optional callback to create more interesting upgrades
 };
 
+//TODO - Only Unlock Worker Upgrades when You Own a Certain Amount of them (10, 25, 50, 100, etc)
+
 var upgrades = [
 	new Upgrade("Become Slightly More Thirsty", "", 1, 0, .5, 0, .05),
 	new Upgrade("Become Slightly More Thirsty Again", "", 1.5, 0, 1.5, 0, .05),
 	new Upgrade("Pretzels That Make You Thirsty", "", 2, 0, 2, 0, .15),
-	new Upgrade("Coffee That Doesn't Burn Your Mouth as Much", "", 8, 0, 4, 0, .3),
+	new Upgrade("Coffee That Doesn't Burn Your Mouth as Much", "", 4, 0, 4, 0, .3),
 	new Upgrade("Confidence in Yourself", "Best 16 Empty Mugs You Ever Spent", 16, 0, 8, 0, .5),
 	new Upgrade("Wide-Mouth Coffee Mug", "", 32, 0, 16, 0, 1),
 	//Create New prototypes to use as the callback functions?
-	new Upgrade("Improved Friends", "", 6, 0, 5, 0, 0, function(){
+	new Upgrade("Improved Friends", "", 5, 0, 5, 0, 0, function(){
 		consoleDisplay.pushMessage("Sip Size of friends increased by 300%");
 		workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*3);
 		workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*3);

@@ -17,7 +17,6 @@
 //Coffee cultists worship you/the coffee God (Whom you later become when you prestige)
 //Provide different type of perks and bonuses
 
-//Change Title to Coffee Cultist once you get far enough?
 
 //Spend Caffeine level to gain research points
 

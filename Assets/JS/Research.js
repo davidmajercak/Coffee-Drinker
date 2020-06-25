@@ -85,14 +85,22 @@ var research = [
 		consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 	}),
 	new Research("Apply to College", "", 				 20,  0, 3, 1),
-	new Research("Decide on a College Major", "", 				 5,   0, 4, 1),
+	new Research("Decide on a College Major", "", 		  5,  0, 4, 1),
 	new Research("BS in Chemistry", "", 				 120, 0, 5, 1),
 	new Research("MS in Chemistry", "", 				 240, 0, 6, 1),
 	new Research("PHD in Chemistry", "", 				 480, 0, 7, 1, 0, function(){
 		player.numResearches += 1;
 		consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 	}),
-	//Start of 2nd research track
+	new Research("Someone Calls Out To You (Listen)", "", 15, 1, 0, 0, 0, function(){
+		consoleDisplay.pushMessage("You can't Quite Make Out What The Voice is Saying...")
+	}),
+	new Research("Listen Closely To The Voices", "",	 20,  1.5, 0, 0, 8, function(){
+		consoleDisplay.pushMessage("The Voices Told You To Start a Cult");
+	}),
+	new Research("Start a Cult", "",					 60,  0, 0, 0, 9, function(){
+		player.influence += 1;
+	}),
 	new Research("Auto-Sipper", "", 				 	 60,  0, 3, 0, 0, function(){
 		consoleDisplay.pushMessage("You will now automatically sip from the mug when available (no more clicking)!");
 		consoleDisplay.pushMessage("That's My Secret, I'm Always Sippin'!");
@@ -102,9 +110,6 @@ var research = [
 	}),
 	new Research("Max Caffeine to 40", "",				 60,  25, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
-	}),
-	new Research("Start a Cult", "",					 60,  10, 0, 0, 0, function(){
-		player.influence += 1;
 	}),
 	new Research("Max Caffeine to 50", "",				 60,  35, 0, 0, 0, function(){
 		player.maxCaffeineLevel += 10;
