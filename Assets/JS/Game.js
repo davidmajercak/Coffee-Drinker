@@ -1,5 +1,209 @@
+Game.prototype.prestige = function() {
+	clearTimeout(gameLoopTimeout);
+	workerButtons = [];
+	cultistButtons = [];
+
+	while(document.querySelectorAll(".upgradeButton").length > 0)
+		document.querySelector(".upgradeButton").remove();
+
+	while(document.querySelectorAll(".researchButton").length > 0)
+		document.querySelector(".researchButton").remove();
+
+	this.prestigeCount++;
+
+	this.init();
+}
 
 Game.prototype.init = function() {
+	player = new Player();
+
+	cultists = [
+		new Cultist("Initiate","", 1, 1, 1),
+		new Cultist("Zelator", "", 50, 5, 50),
+		new Cultist("Adept", "", 1000, 10, 1000),
+		new Cultist("Master", "", 10000, 25, 10000),
+		new Cultist("Ipsissimus", "", 100000, 50, 100000),
+	];
+
+	research = [
+		new Research("Think About Why You're Doing This", "", 5, .2, 0, 1),
+		new Research("Think a Little Harder This Time", "",	 10,  0, 1, 1), 
+		new Research("Get your G.E.D.", "", 				 30,  0, 2, 1, 0, function(){
+			player.numResearches += 1;
+			consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
+		}),
+		new Research("Apply to College", "", 				 20,  0, 3, 1),
+		new Research("Decide on a College Major", "", 		  5,  0, 4, 1),
+		new Research("BS in Chemistry", "", 				 120, 0, 5, 1),
+		new Research("MS in Chemistry", "", 				 240, 0, 6, 1),
+		new Research("PHD in Chemistry", "", 				 480, 0, 7, 1, 0, function(){
+			player.numResearches += 1;
+			consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
+		}),
+		new Research("Someone Calls Out To You (Listen)", "", 15, 1, 0, 0, 0, function(){
+			consoleDisplay.pushMessage("You Can't Quite Make Out What The Voice is Saying...")
+		}),
+		new Research("Listen Closely To The Voices", "",	 20,  1.5, 0, 0, 8, function(){
+			consoleDisplay.pushMessage("The Voices Told You To Start a Cult");
+		}),
+		new Research("Start a Cult", "",					 60,  0, 0, 0, 9, function(){
+			player.influence += 1;
+		}),
+		new Research("Auto-Sipper", "", 				 	 60,  0, 3, 0, 0, function(){
+			consoleDisplay.pushMessage("You will now automatically sip from the mug when available (no more clicking)!");
+			consoleDisplay.pushMessage("That's My Secret, I'm Always Sippin'!");
+			player.hasAutoSipper = true;
+			drinkCoffeeClick();
+			drinkCoffeeButton.innerText = "I'm Always Sippin'!";
+		}),
+		new Research("Max Caffeine to 40", "",				 60,  25, 0, 0, 0, function(){
+			player.maxCaffeineLevel += 10;
+		}),
+		new Research("Max Caffeine to 50", "",				 60,  35, 0, 0, 0, function(){
+			player.maxCaffeineLevel += 10;
+		}),
+		new Research("Max Caffeine to 60", "",				 60,  45, 0, 0, 0, function(){
+			player.maxCaffeineLevel += 10;
+		}),
+		new Research("Max Caffeine to 70", "",				 60,  55, 0, 0, 0, function(){
+			player.maxCaffeineLevel += 10;
+		}),
+		new Research("Max Caffeine to 80", "",				 60,  65, 0, 0, 0, function(){
+			player.maxCaffeineLevel += 10;
+		}),
+		new Research("Max Caffeine to 90", "",				 120,  75, 0, 0, 0, function(){
+			player.maxCaffeineLevel += 10;
+		}),
+		new Research("Max Caffeine to 100", "",				 180,  85, 0, 0, 0, function(){
+			player.maxCaffeineLevel += 10;
+		}),
+		new Research("Prestige", "",						   5, 100, 0, 0)
+	];
+
+	upgrades = [
+		new Upgrade("Become Slightly More Thirsty", "", 1, 0, .5, 0, .05, -1, -1),
+		new Upgrade("Become Slightly More Thirsty Again", "", 1.5, 0, 1.5, 0, .05, 0, -1),
+		new Upgrade("Pretzels That Make You Thirsty", "", 2, 0, 2, 0, .15, 1, -1),
+		new Upgrade("Coffee That Doesn't Burn Your Mouth as Much", "", 4, 0, 4, 0, .3, 2, -1),
+		new Upgrade("Confidence in Yourself", "Best 16 Empty Mugs You Ever Spent", 16, 0, 8, 0, .5, 3, -1),
+		new Upgrade("Wide-Mouth Coffee Mug", "", 32, 0, 16, 0, 1, 4, -1),
+		//Create New prototypes to use as the callback functions?
+		new Upgrade("Improved Friends", "", 5, 0, 5, 0, 0, -1, 0, function(){
+			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
+			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
+			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
+
+			workers[0].numUpgrades++;
+
+			game.updateWorkerButton(0);
+			game.updateWorkerButton(1);
+		}),
+		new Upgrade("Robo-Friends", "", 10, 0, 10, 0, 0, 6, 0, function(){
+			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
+			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
+			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
+
+			workers[0].numUpgrades++;
+
+			game.updateWorkerButton(0);
+			game.updateWorkerButton(1);
+		}),
+		new Upgrade("Best Friends", "", 40, 0, 40, 0, 0, -1, 1, function(){
+			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
+			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
+			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
+
+			workers[1].numUpgrades++;
+
+			game.updateWorkerButton(0);
+			game.updateWorkerButton(1);
+		}),
+		new Upgrade("Robo-Best Friends", "", 100, 0, 100, 0, 0, 8, 1, function(){
+			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
+			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
+			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
+
+			workers[1].numUpgrades++;
+
+			game.updateWorkerButton(0);
+			game.updateWorkerButton(1);
+		}),
+		new Upgrade("Older Men Who Drink Blacker Coffee", "", 50, 0, 50, 0, 0, -1, 2, function(){
+			consoleDisplay.pushMessage("Sip Size of Old Men increased by 700%");
+			workers[2].baseSipSize = roundThreeDecimals(workers[2].baseSipSize*7);
+
+			workers[2].numUpgrades++;
+
+			game.updateWorkerButton(2);
+		}),
+		new Upgrade("Oldest Men Who Drink Blackest Coffee", "", 150, 0, 150, 0, 0, 10, 2, function(){
+			consoleDisplay.pushMessage("Sip Size of Old Men increased by 700%");
+			workers[2].baseSipSize = roundThreeDecimals(workers[2].baseSipSize*7);
+
+			workers[2].numUpgrades++;
+
+			game.updateWorkerButton(2);
+		}),
+		new Upgrade("Improved Vacuums", "", 250, 0, 250, 0, 0, -1, 3, function(){
+			consoleDisplay.pushMessage("Sip Size of Vacuums increased by 300%");
+			workers[3].baseSipSize = roundThreeDecimals(workers[2].baseSipSize*3);
+
+			workers[3].numUpgrades++;
+			game.updateWorkerButton(3);
+		}),
+		new Upgrade("Vacuums That Suck", "Technically an Improvement", 1000, 0, 1000, 0, 0, 12, 3, function(){
+			consoleDisplay.pushMessage("Sip Size of Vacuums increased by 300%");
+			workers[3].baseSipSize = roundThreeDecimals(workers[3].baseSipSize*3);
+
+			workers[3].numUpgrades++;
+			game.updateWorkerButton(3);
+		}),
+		new Upgrade("Vacuums That Suck More", "Technically More of an Improvement", 2500, 0, 2500, 0, 0, 13, 3, function(){
+			consoleDisplay.pushMessage("Sip Size of Vacuums increased by 300%");
+			workers[3].baseSipSize = roundThreeDecimals(workers[3].baseSipSize*3);
+
+			workers[3].numUpgrades++;
+			game.updateWorkerButton(3);
+		}),
+		new Upgrade("Trained Nurses", "Wait... Were They Untrained Before?", 3000, 0, 3000, 0, 0, -1, 4, function(){
+			consoleDisplay.pushMessage("Sip Size of Nurses increased by 400%");
+			workers[4].baseSipSize = roundThreeDecimals(workers[4].baseSipSize*4);
+
+			workers[4].numUpgrades++;
+			game.updateWorkerButton(4);
+		}),
+		new Upgrade("Bigger Needles", "Maybe It Helps", 7000, 0, 7000, 0, 0, 15, 4, function(){
+			consoleDisplay.pushMessage("Sip Size of Nurses increased by 400%");
+			workers[4].baseSipSize = roundThreeDecimals(workers[4].baseSipSize*4);
+
+			workers[4].numUpgrades++;
+			game.updateWorkerButton(4);
+		}),
+		new Upgrade("Coffethulu+", "", 50000, 0, 50000, 0, 0, -1, 5, function(){
+			consoleDisplay.pushMessage("Sip Size of Coffethulu increased by 500%");
+			workers[5].baseSipSize = roundThreeDecimals(workers[5].baseSipSize*5);
+
+			workers[5].numUpgrades++;
+			game.updateWorkerButton(5);
+		}),
+		new Upgrade("Coffethulu++", "", 150000, 0, 150000, 0, 0, 17, 5, function(){
+			consoleDisplay.pushMessage("Sip Size of Coffethulu increased by 500%");
+			workers[5].baseSipSize = roundThreeDecimals(workers[5].baseSipSize*5);
+
+			workers[5].numUpgrades++;
+			game.updateWorkerButton(5);
+		}),
+	];
+
+	workers = [
+		new Worker("Hire a Friend to Help You Drink Coffee", "Is it Weird if You Share a Cup?", 1.5, .01, 1),
+		new Worker("Hire a Friend with a Better Work Ethic", "When You say \"Drink Coffee\" They Say \"How Much?", 4, .02, 4),
+		new Worker("Hire an Old Man That Drinks Black Coffee While Reading The Paper", "You Know the One", 20, .1, 20),
+		new Worker("Hook up a Vacuum to Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5, 100),
+		new Worker("Hire a Nurse to Give You Coffee Intravenously", "This feels really hardcore", 500, 2, 500),
+		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100, 25000)
+	];
+
 	for (var i = 0; i < workers.length; i++)
 	{
 		workerButtons.push(document.querySelector("#workerButton" + (i + 1)));
@@ -14,32 +218,43 @@ Game.prototype.init = function() {
 		cultistButtons[i].value = i;
 	}
 
-	for (var i = 0; i < workerButtons.length; i++) {
-		workerButtons[i].addEventListener("click", function() {
-			workers[this.value].purchase();
+	if(game.prestigeCount === 0 || !addedEventListeners) {
+		for (var i = 0; i < workerButtons.length; i++) {
+			workerButtons[i].addEventListener("click", function() {
+				workers[this.value].purchase();
 
-			if(workers[this.value].owned > 0)
-			{
-				game.updateWorkerButton(this.value);
-			}
-		});
+				if(workers[this.value].owned > 0)
+				{
+					game.updateWorkerButton(this.value);
+				}
+			});
+		}
+
+		for (var i = 0; i < cultistButtons.length; i++) {
+			cultistButtons[i].addEventListener("click", function() {
+				cultists[this.value].purchase();
+
+				if(cultists[this.value].owned > 0)
+				{
+					game.updateCultistButton(this.value);
+				}
+			});
+		}
+
+		drinkCoffeeButton.addEventListener("click", drinkCoffeeClick);
+
+		addedEventListeners = true;
 	}
-
-	for (var i = 0; i < cultistButtons.length; i++) {
-		cultistButtons[i].addEventListener("click", function() {
-			cultists[this.value].purchase();
-
-			if(cultists[this.value].owned > 0)
-			{
-				game.updateCultistButton(this.value);
-			}
-		});
-	}
-
-	drinkCoffeeButton.addEventListener("click", drinkCoffeeClick);
+	
 
 	document.querySelector("body").style.transition = "background-color 5s";
 	document.querySelector("#drinkCoffeeButton").style.transition = "opacity .9s";
+
+	if(this.prestigeCount > 0) {
+		console.log(player.sipSizeBase);
+		player.sipSizeBase = roundThreeDecimals(player.sipSizeBase + 10 * this.prestigeCount);
+		console.log(player.sipSizeBase);
+	}
 
 	this.gameLoop();
 };
@@ -111,10 +326,7 @@ Game.prototype.updateMugsPerSecond = function() {
 
 Game.prototype.unlockElements = function() {
 	if(!player.hasUnlockedUpgrades && player.emptyMugs >= 1){
-		var parent = document.querySelector("#rightColumn");
-		var newElement = document.createElement("h2");
-		newElement.innerText = "Upgrades";
-		parent.prepend(newElement);
+		document.querySelector("#upgrades h2").classList.remove("hide");
 		player.hasUnlockedUpgrades = true;
 		for(var i = 0; i < document.querySelectorAll("li").length; i++)
 		{
@@ -132,11 +344,9 @@ Game.prototype.unlockElements = function() {
 		{
 			if(i === 0)
 			{
-				var parent = document.querySelector("#centerLeftColumn");
-				var newElement = document.createElement("h2");
-				newElement.innerText = "Workers";
-				parent.prepend(newElement);
-				document.querySelector(".hide2").classList.remove("hide2");
+				document.querySelector("#workers h2").classList.remove("hide");
+				if(document.querySelector(".hide2"))
+					document.querySelector(".hide2").classList.remove("hide2");
 			}
 
 			workerButtons[i].classList.remove("hide");
@@ -211,12 +421,12 @@ Game.prototype.updateResearch = function() {
 	});
 };
 
-
+var gameLoopTimeout;
 
 Game.prototype.gameLoop = function() {
 	this.updateGameState();
 
-	setTimeout(function() {
+	gameLoopTimeout = setTimeout(function() {
 		game.gameLoop();
 	}, tickSpeed);
 };
@@ -300,7 +510,7 @@ Game.prototype.updateCultistButton = function(index) {
 
 
 function Game() {
-	return;
+	this.prestigeCount = 0;
 };
 
 //Should be outside loop

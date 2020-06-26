@@ -52,7 +52,8 @@ function Worker(name, flavorText, unlockMugs, baseSipSize, emptyMugCost) {
 	this.numUpgrades = 0;
 };
 
-var workers = [
+var workers = [];
+workers = [
 	new Worker("Hire a Friend to Help You Drink Coffee", "Is it Weird if You Share a Cup?", 1.5, .01, 1),
 	new Worker("Hire a Friend with a Better Work Ethic", "When You say \"Drink Coffee\" They Say \"How Much?", 4, .02, 4),
 	new Worker("Hire an Old Man That Drinks Black Coffee While Reading The Paper", "You Know the One", 20, .1, 20),

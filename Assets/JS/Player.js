@@ -63,4 +63,4 @@ function Player() {
 };
 
 
-var player = new Player();
+var player; 

@@ -52,8 +52,7 @@
 // }    
 
 // docReady(initGame);
-
-
+var addedEventListeners = false;
 
 setTimeout(function() {
 	game.init();

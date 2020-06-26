@@ -29,7 +29,10 @@ Research.prototype.updateDisplay = function() {
 
 		if(this.callback)
 			this.callback();
-		
+		if(this.name == "Prestige") {
+			game.prestige();
+			return;
+		}
 		var thisButton = document.querySelector("#researchTimerDisplay" + research.indexOf(this)).parentElement;
 		thisButton.style.opacity = "0";
 		setTimeout(function() {
@@ -77,58 +80,4 @@ function Research(name, flavorText, researchTime, unlockCaffeineLevel, unlockKno
 }
 
 //Maybe feel ill-effects of high caffeine level first and then start doing research immediately?
-var research = [
-	new Research("Think About Why You're Doing This", "", 5, .2, 0, 1),
-	new Research("Think a Little Harder This Time", "",	 10,  0, 1, 1), 
-	new Research("Get your G.E.D.", "", 				 30,  0, 2, 1, 0, function(){
-		player.numResearches += 1;
-		consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
-	}),
-	new Research("Apply to College", "", 				 20,  0, 3, 1),
-	new Research("Decide on a College Major", "", 		  5,  0, 4, 1),
-	new Research("BS in Chemistry", "", 				 120, 0, 5, 1),
-	new Research("MS in Chemistry", "", 				 240, 0, 6, 1),
-	new Research("PHD in Chemistry", "", 				 480, 0, 7, 1, 0, function(){
-		player.numResearches += 1;
-		consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
-	}),
-	new Research("Someone Calls Out To You (Listen)", "", 15, 1, 0, 0, 0, function(){
-		consoleDisplay.pushMessage("You Can't Quite Make Out What The Voice is Saying...")
-	}),
-	new Research("Listen Closely To The Voices", "",	 20,  1.5, 0, 0, 8, function(){
-		consoleDisplay.pushMessage("The Voices Told You To Start a Cult");
-	}),
-	new Research("Start a Cult", "",					 60,  0, 0, 0, 9, function(){
-		player.influence += 1;
-	}),
-	new Research("Auto-Sipper", "", 				 	 60,  0, 3, 0, 0, function(){
-		consoleDisplay.pushMessage("You will now automatically sip from the mug when available (no more clicking)!");
-		consoleDisplay.pushMessage("That's My Secret, I'm Always Sippin'!");
-		player.hasAutoSipper = true;
-		drinkCoffeeClick();
-		drinkCoffeeButton.innerText = "I'm Always Sippin'!";
-	}),
-	new Research("Max Caffeine to 40", "",				 60,  25, 0, 0, 0, function(){
-		player.maxCaffeineLevel += 10;
-	}),
-	new Research("Max Caffeine to 50", "",				 60,  35, 0, 0, 0, function(){
-		player.maxCaffeineLevel += 10;
-	}),
-	new Research("Max Caffeine to 60", "",				 60,  45, 0, 0, 0, function(){
-		player.maxCaffeineLevel += 10;
-	}),
-	new Research("Max Caffeine to 70", "",				 60,  55, 0, 0, 0, function(){
-		player.maxCaffeineLevel += 10;
-	}),
-	new Research("Max Caffeine to 80", "",				 60,  65, 0, 0, 0, function(){
-		player.maxCaffeineLevel += 10;
-	}),
-	new Research("Max Caffeine to 90", "",				 120,  75, 0, 0, 0, function(){
-		player.maxCaffeineLevel += 10;
-	}),
-	new Research("Max Caffeine to 100", "",				 180,  85, 0, 0, 0, function(){
-		player.maxCaffeineLevel += 10;
-	})
-
-
-];
+var research = [];
