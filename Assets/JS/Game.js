@@ -1,16 +1,21 @@
 Game.prototype.prestige = function() {
+	//Reset Button Color
+	document.documentElement.style.setProperty("--button-text-color", "#F5ECE1");		
+	document.documentElement.style.setProperty("--button-border-color", "#F5ECE1");
+	//Clear previous setTimeout
 	clearTimeout(gameLoopTimeout);
+	//Clear Arrays
 	workerButtons = [];
 	cultistButtons = [];
-
+	//Delete Old Buttons
 	while(document.querySelectorAll(".upgradeButton").length > 0)
 		document.querySelector(".upgradeButton").remove();
 
 	while(document.querySelectorAll(".researchButton").length > 0)
 		document.querySelector(".researchButton").remove();
-
+	//Increment PrestigeCount
 	this.prestigeCount++;
-
+	//Call Init Again
 	this.init();
 }
 
@@ -251,9 +256,7 @@ Game.prototype.init = function() {
 	document.querySelector("#drinkCoffeeButton").style.transition = "opacity .9s";
 
 	if(this.prestigeCount > 0) {
-		console.log(player.sipSizeBase);
 		player.sipSizeBase = roundThreeDecimals(player.sipSizeBase + 10 * this.prestigeCount);
-		console.log(player.sipSizeBase);
 	}
 
 	this.gameLoop();
@@ -357,9 +360,9 @@ Game.prototype.unlockElements = function() {
 };
 
 function caffeineColorScheme(){
-	if(player.caffeineLevel < .999)
+	if(player.caffeineLevel < .99)
 	 	document.body.style.backgroundColor = "rgb(75, 49, 27)";
-	else if(player.caffeineLevel >= 99.999){
+	else if(player.caffeineLevel >= 99.99){
 		document.body.style.backgroundColor = "rgb(255, 255, 255)";
 		document.body.style.color = "rgb(0, 0, 0)";
 
@@ -368,13 +371,13 @@ function caffeineColorScheme(){
 			document.documentElement.style.setProperty("--button-border-color", "#000");
 		}, 500);
 	}
-	else if(player.caffeineLevel >= 49.999)
+	else if(player.caffeineLevel >= 49.99)
 		document.body.style.backgroundColor = "rgb(0, 0, 0)";
-	else if(player.caffeineLevel >= 24.999)
+	else if(player.caffeineLevel >= 24.99)
 		document.body.style.backgroundColor = "rgb(40, 16, 6)";
-	else if(player.caffeineLevel >= 9.999)
+	else if(player.caffeineLevel >= 9.99)
 		document.body.style.backgroundColor = "rgb(55, 29, 11)";
-	else if(player.caffeineLevel >= .999)
+	else if(player.caffeineLevel >= .99)
 		document.body.style.backgroundColor = "rgb(65, 39, 17)";
 };
 
