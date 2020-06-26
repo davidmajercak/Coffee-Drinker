@@ -283,7 +283,7 @@ Game.prototype.updateCultists = function() {
 Game.prototype.updateWorkerButton = function(index) {
 	workerButtons[index].innerHTML = workers[index].name + 
 								"<div>Cost: " + (roundThreeDecimals(workers[index].emptyMugCost)) + " Empty Mugs</div>" +
-								"<div>Cost Efficiency (Mugs per Second / Cost): " + (roundThreeDecimals(workers[index].baseSipSize/workers[index].emptyMugCost)) +
+								"<div>Cost Efficiency (Mugs per Second / Cost): " + (roundThreeDecimals(workers[index].baseSipSize/workers[index].emptyMugCost*100)) + "%" +
 								"<div>Sip Size(Each): " + workers[index].baseSipSize + " cups</div>" +
 								"<div>Owned: " + workers[index].owned + "</div>" +
 								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].baseSipSize * workers[index].owned) + " cups</div>";
