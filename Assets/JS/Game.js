@@ -1,9 +1,11 @@
 Game.prototype.prestige = function() {
+	//Clear previous setTimeout
+	clearTimeout(gameLoopTimeout);
+	//Reset Text Color
+	document.body.style.color = "rgb(255, 255, 255)";
 	//Reset Button Color
 	document.documentElement.style.setProperty("--button-text-color", "#F5ECE1");		
 	document.documentElement.style.setProperty("--button-border-color", "#F5ECE1");
-	//Clear previous setTimeout
-	clearTimeout(gameLoopTimeout);
 	//Clear Arrays
 	workerButtons = [];
 	cultistButtons = [];
@@ -15,11 +17,13 @@ Game.prototype.prestige = function() {
 		document.querySelector(".researchButton").remove();
 	//Increment PrestigeCount
 	this.prestigeCount++;
+
 	//Call Init Again
 	this.init();
 }
 
 Game.prototype.init = function() {
+
 	player = new Player();
 
 	cultists = [
@@ -366,10 +370,8 @@ function caffeineColorScheme(){
 		document.body.style.backgroundColor = "rgb(255, 255, 255)";
 		document.body.style.color = "rgb(0, 0, 0)";
 
-		setTimeout(function() {
-			document.documentElement.style.setProperty("--button-text-color", "#000");		
-			document.documentElement.style.setProperty("--button-border-color", "#000");
-		}, 500);
+		document.documentElement.style.setProperty("--button-text-color", "#000");		
+		document.documentElement.style.setProperty("--button-border-color", "#000");
 	}
 	else if(player.caffeineLevel >= 49.99)
 		document.body.style.backgroundColor = "rgb(0, 0, 0)";
