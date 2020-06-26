@@ -38,7 +38,7 @@
 //have empty mugs updated 4 or 8 times more often but 4 or 8 times less amount
 //Start with "quantum mug ability", but maybe have to brew coffee to be able to drink it?
 
-
+//Show ratio of empty mugs per second/cost for workers?
 
 
 // function docReady(fn) {

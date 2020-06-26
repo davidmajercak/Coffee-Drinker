@@ -103,7 +103,7 @@ button {
 .researchButton {
 	width: 80%;
 	margin: 5px auto;
-	transition: all 1.5s !important;
+	transition: all .6s !important;
 }
 
 .canAfford {

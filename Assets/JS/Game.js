@@ -147,9 +147,9 @@ Game.prototype.unlockElements = function() {
 };
 
 function caffeineColorScheme(){
-	if(player.caffeineLevel <= 1)
+	if(player.caffeineLevel < .999)
 	 	document.body.style.backgroundColor = "rgb(75, 49, 27)";
-	else if(player.caffeineLevel >= 100){
+	else if(player.caffeineLevel >= 99.999){
 		document.body.style.backgroundColor = "rgb(255, 255, 255)";
 		document.body.style.color = "rgb(0, 0, 0)";
 
@@ -158,13 +158,13 @@ function caffeineColorScheme(){
 			document.documentElement.style.setProperty("--button-border-color", "#000");
 		}, 500);
 	}
-	else if(player.caffeineLevel >= 50)
+	else if(player.caffeineLevel >= 49.999)
 		document.body.style.backgroundColor = "rgb(0, 0, 0)";
-	else if(player.caffeineLevel >= 25)
+	else if(player.caffeineLevel >= 24.999)
 		document.body.style.backgroundColor = "rgb(40, 16, 6)";
-	else if(player.caffeineLevel >= 10)
+	else if(player.caffeineLevel >= 9.999)
 		document.body.style.backgroundColor = "rgb(55, 29, 11)";
-	else if(player.caffeineLevel >= 1)
+	else if(player.caffeineLevel >= .999)
 		document.body.style.backgroundColor = "rgb(65, 39, 17)";
 };
 
@@ -283,6 +283,7 @@ Game.prototype.updateCultists = function() {
 Game.prototype.updateWorkerButton = function(index) {
 	workerButtons[index].innerHTML = workers[index].name + 
 								"<div>Cost: " + (roundThreeDecimals(workers[index].emptyMugCost)) + " Empty Mugs</div>" +
+								"<div>Cost Efficiency (Mugs per Second / Cost): " + (roundThreeDecimals(workers[index].baseSipSize/workers[index].emptyMugCost)) +
 								"<div>Sip Size(Each): " + workers[index].baseSipSize + " cups</div>" +
 								"<div>Owned: " + workers[index].owned + "</div>" +
 								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].baseSipSize * workers[index].owned) + " cups</div>";
