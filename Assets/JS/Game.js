@@ -291,7 +291,8 @@ Game.prototype.updateWorkerButton = function(index) {
 
 Game.prototype.updateCultistButton = function(index) {
 	cultistButtons[index].innerHTML = cultists[index].name +
-								"<div> Cost: " + (cultists[index].influenceCost) + " Influence</div>" +
+								"<div>Cost: " + (cultists[index].influenceCost) + " Influence</div>" +
+								"<div>Cost Efficiency (Influence / Cost): " + (roundThreeDecimals(cultists[index].baseInfluence/cultists[index].influenceCost*100)) + "%" +
 								"<div>Influence Production(Each): " + cultists[index].baseInfluence + "</div>" + 
 								"<div>Owned: " + cultists[index].owned + "</div>" + 
 								"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].owned)+ "</div>";
