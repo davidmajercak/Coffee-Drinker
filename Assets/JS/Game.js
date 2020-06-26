@@ -171,22 +171,21 @@ function caffeineColorScheme(){
 
 Game.prototype.updateUpgrades = function() {
 	
+	var currentUpgradeButtons = document.querySelectorAll(".upgradeButton");
+
 	upgrades.forEach(function(upgrade){
-		if(player.emptyMugs >= upgrade.emptyMugCost){
-			for(var i = 0; i < document.querySelectorAll(".upgradeButton").length; i++) {
-				if(document.querySelectorAll(".upgradeButton")[i].value == upgrades.indexOf(upgrade)) {
-					document.querySelectorAll(".upgradeButton")[i].classList.add("canAfford");
-					break;
-				} else {
-					document.querySelectorAll(".upgradeButton")[i].classList.remove("canAfford");
-					break;
-				}
+		//Highlight affordable upgrades in green
+		for(var i = 0; i < currentUpgradeButtons.length; i++) {
+			if(player.emptyMugs >= upgrade.emptyMugCost && currentUpgradeButtons[i].value == upgrades.indexOf(upgrade)) {
+				currentUpgradeButtons[i].classList.add("canAfford");
+				break;
+			} else if(player.emptyMugs < upgrade.emptyMugCost && currentUpgradeButtons[i].value == upgrades.indexOf(upgrade)) {
+				currentUpgradeButtons[i].classList.remove("canAfford");
+				break;
 			}
 		}
-		//Limit of 5 upgrades on display
-		if(document.querySelector("#upgrades").childElementCount > 3)
-			return;	//No more upgrades until current upgrades are completed
-		if(!upgrade.isUnlocked && upgrade.canUnlock())
+		//Limit of 4 upgrades on display
+		if(!upgrade.isUnlocked && document.querySelector("#upgrades").childElementCount <= 3 && upgrade.canUnlock())
 		{
 			upgrade.addButton();
 		}
