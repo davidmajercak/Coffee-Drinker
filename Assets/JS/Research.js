@@ -30,6 +30,7 @@ Research.prototype.updateDisplay = function() {
 		if(this.callback)
 			this.callback();
 		if(this.name == "Prestige") {
+			consoleDisplay.pushMessage("Welp, Back to the Old Grind");
 			game.prestige();
 			return;
 		}

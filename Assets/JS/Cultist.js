@@ -29,10 +29,3 @@ function Cultist(name, flavorText, unlockInfluence, baseInfluence, influenceCost
 };
 
 var cultists = [];
-cultists = [
-	new Cultist("Initiate","", 1, 1, 1),
-	new Cultist("Zelator", "", 50, 5, 50),
-	new Cultist("Adept", "", 1000, 10, 1000),
-	new Cultist("Master", "", 10000, 25, 10000),
-	new Cultist("Ipsissimus", "", 100000, 50, 100000),
-];

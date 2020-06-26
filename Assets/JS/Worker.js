@@ -53,13 +53,5 @@ function Worker(name, flavorText, unlockMugs, baseSipSize, emptyMugCost) {
 };
 
 var workers = [];
-workers = [
-	new Worker("Hire a Friend to Help You Drink Coffee", "Is it Weird if You Share a Cup?", 1.5, .01, 1),
-	new Worker("Hire a Friend with a Better Work Ethic", "When You say \"Drink Coffee\" They Say \"How Much?", 4, .02, 4),
-	new Worker("Hire an Old Man That Drinks Black Coffee While Reading The Paper", "You Know the One", 20, .1, 20),
-	new Worker("Hook up a Vacuum to Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5, 100),
-	new Worker("Hire a Nurse to Give You Coffee Intravenously", "This feels really hardcore", 500, 2, 500),
-	new Worker("Coffeethulu", "Kinda Creepy", 25000, 100, 25000)
-	//names from here? https://en.wikipedia.org/wiki/Adept
-];
+
 

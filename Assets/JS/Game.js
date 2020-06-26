@@ -1,6 +1,8 @@
 Game.prototype.prestige = function() {
 	//Clear previous setTimeout
 	clearTimeout(gameLoopTimeout);
+
+	drinkCoffeeButton.innerText = "Sip some Coffee";
 	//Reset Text Color
 	document.body.style.color = "rgb(255, 255, 255)";
 	//Reset Button Color
@@ -364,22 +366,27 @@ Game.prototype.unlockElements = function() {
 };
 
 function caffeineColorScheme(){
-	if(player.caffeineLevel < .99)
+	if(player.caffeineLevel < .98)
 	 	document.body.style.backgroundColor = "rgb(75, 49, 27)";
-	else if(player.caffeineLevel >= 99.99){
+	else if(player.caffeineLevel >= 99.98){
 		document.body.style.backgroundColor = "rgb(255, 255, 255)";
 		document.body.style.color = "rgb(0, 0, 0)";
 
 		document.documentElement.style.setProperty("--button-text-color", "#000");		
 		document.documentElement.style.setProperty("--button-border-color", "#000");
 	}
-	else if(player.caffeineLevel >= 49.99)
+	else if(player.caffeineLevel >= 49.98)
+	{
+		//Change Text color back to lighter colol caffeine falls back below 99.98
 		document.body.style.backgroundColor = "rgb(0, 0, 0)";
-	else if(player.caffeineLevel >= 24.99)
+		document.documentElement.style.setProperty("--button-text-color", "#F5ECE1");		
+		document.documentElement.style.setProperty("--button-border-color", "#F5ECE1");
+	}
+	else if(player.caffeineLevel >= 24.98)
 		document.body.style.backgroundColor = "rgb(40, 16, 6)";
-	else if(player.caffeineLevel >= 9.99)
+	else if(player.caffeineLevel >= 9.98)
 		document.body.style.backgroundColor = "rgb(55, 29, 11)";
-	else if(player.caffeineLevel >= .99)
+	else if(player.caffeineLevel >= .98)
 		document.body.style.backgroundColor = "rgb(65, 39, 17)";
 };
 
