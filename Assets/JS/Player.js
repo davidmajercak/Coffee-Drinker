@@ -11,10 +11,6 @@ Player.prototype.takeSip = function() {
 			this.emptyMugs = roundThreeDecimals(this.emptyMugs + 1);
 			this.coffeeRemaining = roundThreeDecimals(this.coffeeRemaining + 1);
 	}
-	
-	//Update Caffine Level Display
-	caffeineLevelDisplay.textContent = this.caffeineLevel + "%";
-	
 };
 
 Player.prototype.updateCaffeineLevel = function() {
@@ -48,7 +44,7 @@ function Player() {
 	this.allTimeCoffee = 0; //All time amount of coffees consumed (lasts through prestiges and resets)
 	this.emptyMugs = 0; //Total amount of coffees consumed this prestige
 	this.caffeineLevel = 0; //Amount of coffee currency left to spend
-	this.maxCaffeineLevel = 30.01; //Highest Caffeine Level Can Reach Currently
+	this.maxCaffeineLevel = 30; //Highest Caffeine Level Can Reach Currently
 	this.sipSizeBase = .1; //Percentage of a coffee that is consumed with each sip - tuned to .1 starting sip size
 	this.coffeeRemaining = .3; //Percentage of coffee left in current cup - Start at .3
 	this.knowledge = 0;	//Current Amount of knowledge (used to unlock/start researches)

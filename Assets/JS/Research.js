@@ -93,7 +93,7 @@ var research = [
 		consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 	}),
 	new Research("Someone Calls Out To You (Listen)", "", 15, 1, 0, 0, 0, function(){
-		consoleDisplay.pushMessage("You can't Quite Make Out What The Voice is Saying...")
+		consoleDisplay.pushMessage("You Can't Quite Make Out What The Voice is Saying...")
 	}),
 	new Research("Listen Closely To The Voices", "",	 20,  1.5, 0, 0, 8, function(){
 		consoleDisplay.pushMessage("The Voices Told You To Start a Cult");
