@@ -49,6 +49,7 @@ function Worker(name, flavorText, unlockMugs, baseSipSize, emptyMugCost) {
 	this.owned = 0;
 	this.emptyMugCost = emptyMugCost;
 	this.isUnlocked = false;
+	this.numUpgrades = 0;
 };
 
 var workers = [
