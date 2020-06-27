@@ -110,6 +110,11 @@ function buyMultiple() {
 		for (var i = 0; i < workerButtons.length; i++) {
 			game.updateWorkerButton(i);
 		}
+		//Update Cultist Buttons
+		for (var i = 0; i < cultistButtons.length; i++) {
+			game.updateCultistButton(i);
+		}
+
 	}
 };
 
@@ -151,10 +156,10 @@ Game.prototype.updateGameState = function() {
 	if(frameCounter % 8 === 0 && buyMultipleButton.value === "Max")
 	{
 		for (var i = 0; i < workerButtons.length; i++) {
-			if(workers[i].owned > 0)
-			{
-				game.updateWorkerButton(i);
-			}
+			game.updateWorkerButton(i);
+		}
+		for (var i = 0; i < cultistButtons.length; i++) {
+			game.updateCultistButton(i);
 		}
 	}
 
@@ -270,7 +275,7 @@ Game.prototype.updateUpgrades = function() {
 			}
 		}
 		//Limit of 4 upgrades on display
-		if(!upgrade.isUnlocked && document.querySelector("#upgrades").childElementCount <= 3 && upgrade.canUnlock())
+		if(!upgrade.isUnlocked && document.querySelector("#upgrades").childElementCount <= 4 && upgrade.canUnlock())
 		{
 			upgrade.addButton();
 		}
@@ -341,12 +346,12 @@ Game.prototype.updateWorkers = function() {
 };
 
 Game.prototype.updateCultists = function() {
+	var influencePerSecond = 0;
 	for(var i = 0; i < cultists.length; i++) {
 
 		if(!cultists[i].isUnlocked && cultists[i].unlockInfluence <= player.influence){	
 			//Unhide the associated cultist button and set isUnlocked to true
 			cultistButtons[i].classList.remove("hide");
-			cultistButtons[i].classList.add("canAfford");
 			cultists[i].isUnlocked = true;
 
 			if(i === 0)
@@ -363,17 +368,31 @@ Game.prototype.updateCultists = function() {
 				mainTitleDisplay.textContent = "Cultist"
 
 		}
-		
-		if(player.influence >= cultists[i].influenceCost){
-			cultistButtons[i].classList.add("canAfford");
-		} else {
-			cultistButtons[i].classList.remove("canAfford");
+
+		if(buyMultipleButton.value === "1" || buyMultipleButton.value === "Max") {
+			if(player.influence >= cultists[i].influenceCost) {
+				cultistButtons[i].classList.add("canAfford");
+			}
+			else
+			{
+				cultistButtons[i].classList.remove("canAfford");
+			}
 		}
-		//Only generate influence every 4th frame
-		if(frameCounter % 4 === 0){
-			cultists[i].generateInfluence();
+		else {
+			if(player.influence >= roundThreeDecimals(geometricSum(cultists[i].influenceCost, 1.2, buyMultipleButton.value))) {
+				cultistButtons[i].classList.add("canAfford");
+			}
+			else
+			{
+				cultistButtons[i].classList.remove("canAfford");
+			}
 		}
+
+		cultists[i].generateInfluence();
+		influencePerSecond += cultists[i].getTotalPower();
 	}
+
+	influencePerSecondDisplay.innerText = roundThreeDecimals(influencePerSecond);
 };
 
 Game.prototype.updateWorkerButton = function(index) {
@@ -392,7 +411,7 @@ Game.prototype.updateWorkerButton = function(index) {
 		}
 
 		if(tempCostTotal === 0)
-			workerButtons[index].innerHTML += "<div>Cost: Can't Afford</div>";
+			workerButtons[index].innerHTML += "<div>Cost: " + workers[index].emptyMugCost + " Empty Mugs</div>";
 		else 
 			workerButtons[index].innerHTML += "<div>Cost: " + roundThreeDecimals(tempCostTotal) + " Empty Mugs</div>";
 	} else if(buyMultipleButton.value === "1") {
@@ -414,12 +433,49 @@ Game.prototype.updateWorkerButton = function(index) {
 
 
 Game.prototype.updateCultistButton = function(index) {
-	cultistButtons[index].innerHTML = cultists[index].name +
-								"<div>Cost: " + (cultists[index].influenceCost) + " Influence</div>" +
+
+	cultistButtons[index].innerHTML = cultists[index].name;
+
+	if(buyMultipleButton.value === "Max") {
+		var tempCost = cultists[index].influenceCost;
+		var tempCostTotal = 0;
+		var tempPlayerInfluence = player.influence;
+
+		while(tempPlayerInfluence >= tempCost) {
+			tempPlayerInfluence = roundThreeDecimals(tempPlayerInfluence - tempCost);
+			tempCostTotal += tempCost;
+			tempCost = roundThreeDecimals(tempCost * 1.2);
+		}
+
+		if(tempCostTotal === 0)
+			cultistButtons[index].innerHTML += "<div>Cost: " + cultists[index].influenceCost + " Influence</div>";
+		else 
+			cultistButtons[index].innerHTML += "<div>Cost: " + roundThreeDecimals(tempCostTotal) + " Influence</div>";
+	} else if(buyMultipleButton.value === "1") {
+		cultistButtons[index].innerHTML += "<div>Cost: " + (roundThreeDecimals(cultists[index].influenceCost)) + " Influence</div>";
+	} else {
+		cultistButtons[index].innerHTML += "<div>Cost: " + roundThreeDecimals(geometricSum(cultists[index].influenceCost, 1.2, buyMultipleButton.value)) + " Influence</div>";
+	}
+
+	//Only Show Extended Information for cultists that are owned
+	if(cultists[index].owned > 0)
+		cultistButtons[index].innerHTML +=
 								"<div>Cost Efficiency (Influence / Cost): " + (roundThreeDecimals(cultists[index].baseInfluence/cultists[index].influenceCost*1000)) + "%" +
 								"<div>Influence Production(Each): " + cultists[index].baseInfluence + "</div>" + 
 								"<div>Owned: " + cultists[index].owned + "</div>" + 
 								"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].owned)+ "</div>";
+
+
+
+
+	//TODO - Remove This
+	//Old Way Just in Case
+	// cultistButtons[index].innerHTML = cultists[index].name +
+	// 							"<div>Cost: " + (cultists[index].influenceCost) + " Influence</div>" +
+	// 							"<div>Cost Efficiency (Influence / Cost): " + (roundThreeDecimals(cultists[index].baseInfluence/cultists[index].influenceCost*1000)) + "%" +
+	// 							"<div>Influence Production(Each): " + cultists[index].baseInfluence + "</div>" + 
+	// 							"<div>Owned: " + cultists[index].owned + "</div>" + 
+	// 							"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].owned)+ "</div>";
 }
 
 
@@ -434,6 +490,7 @@ cultistButtons = [];
 drinkCoffeeButton = document.querySelector("#drinkCoffeeButton");
 emptyMugsDisplay = document.querySelector("#emptyMugs");
 mugsPerSecondDisplay = document.querySelector("#emptyMugsSec");
+influencePerSecondDisplay = document.querySelector("#influencePerSecond")
 caffeineLevelDisplay = document.querySelector("#caffeineLevel");
 coffeeRemainingDisplay = document.querySelector("#coffeeRemaining");
 sipSizeDisplay = document.querySelector("#sipSize");
@@ -455,10 +512,10 @@ function roundThreeDecimals(num){
 
 Game.prototype.initCultists = function() {
 	cultists = [
-		new Cultist("Initiate","", 1, 1, 1),
-		new Cultist("Zelator", "", 50, 5, 50),
-		new Cultist("Adept", "", 1000, 10, 1000),
-		new Cultist("Master", "", 10000, 25, 10000),
+		new Cultist("Initiate","", 1, .25, 1),
+		new Cultist("Zelator", "", 50, 1, 50),
+		new Cultist("Adept", "", 1000, 5, 1000),
+		new Cultist("Master", "", 10000, 10, 10000),
 		new Cultist("Ipsissimus", "", 100000, 50, 100000),
 	];
 };

@@ -1,15 +1,51 @@
+Cultist.prototype.getTotalPower = function() { 
+	return this.baseInfluence * this.owned;
+}
 
 Cultist.prototype.purchase = function() {
-	var purchasesRemaining = buyMultipleButton.value;
-	if(player.influence >= this.influenceCost){
+
+
+	if(buyMultipleButton.value != "Max")
+		var buyMultipleNumber = Number(buyMultipleButton.value);
+	//Buy Multiple Functionality
+	//Buy Max
+	if(buyMultipleButton.value === "Max" && player.influence >= this.influenceCost) {
+		while(player.influence >= this.influenceCost) {
+			player.influence = roundThreeDecimals(player.influence - this.influenceCost);
+			this.owned += 1;
+			this.influenceCost = roundThreeDecimals(this.influenceCost * 1.2);
+		}
+		//Buy 5 or 10
+	} else if(buyMultipleNumber != 1 && player.influence >= geometricSum(this.influenceCost, 1.2, buyMultipleNumber)) {
+		player.influence = roundThreeDecimals(player.influence - geometricSum(this.influenceCost, 1.2, buyMultipleNumber))
+		this.owned += Number(buyMultipleNumber);
+		this.influenceCost = roundThreeDecimals(this.influenceCost * Math.pow(1.2, buyMultipleNumber));
+		//Buy 1
+	} else if(buyMultipleNumber === 1 && player.influence >= this.influenceCost) {
 		player.influence = roundThreeDecimals(player.influence - this.influenceCost);
 		this.owned += 1;
 		this.influenceCost = roundThreeDecimals(this.influenceCost * 1.2);
-	}
-	else {
+		//Can't Afford
+	} else {
 		if(this.isUnlocked)
 			consoleDisplay.pushMessage("You cannot afford " + this.name + " right now");
 	}
+
+
+
+
+
+
+	//Old Purchase Function just in case (for now)
+	// if(player.influence >= this.influenceCost){
+	// 	player.influence = roundThreeDecimals(player.influence - this.influenceCost);
+	// 	this.owned += 1;
+	// 	this.influenceCost = roundThreeDecimals(this.influenceCost * 1.2);
+	// }
+	// else {
+	// 	if(this.isUnlocked)
+	// 		consoleDisplay.pushMessage("You cannot afford " + this.name + " right now");
+	// }
 };
 
 Cultist.prototype.generateInfluence = function() {
