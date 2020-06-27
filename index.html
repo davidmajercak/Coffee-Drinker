@@ -16,9 +16,13 @@
 	<div class="container">
 		<div class="column" id="leftColumn">
 			<div class="row">
-				<h1>Coffee <span id="mainTitle">Drinker</span> 0.5.2</h1>
+				<h1>Coffee <span id="mainTitle">Drinker</span> 0.5.3</h1>
 			</div>
-			<div class="row"> 
+			<div class="row hide" id="buyMultipleRow">
+				<span><h3>Buy Multiple:</h3></span>
+				<button id="buyMultiple" value="1">x1</button>
+			</div>
+			<div class="row" id="mainDisplay"> 
 				<ul>
 					<li class="hide"><h3>Empty Mugs: <span id="emptyMugs">0</span> </h3></li>
 					<li class="hide2"><h3>Empty Mugs/Sec: <span id="emptyMugsSec">0</span> </h3></li>
@@ -59,6 +63,9 @@
 		</div>
 
 		<div class="column" id="centerRightColumn">
+			<div class="row" id="cultists">
+				<h2 class="hide">Cultists</h2>
+			</div>
 			<div class="row">
 				<button class="cultistButton hide" id="cultistButton1"></button>
 			</div>

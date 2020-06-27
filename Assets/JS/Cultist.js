@@ -1,5 +1,6 @@
 
 Cultist.prototype.purchase = function() {
+	var purchasesRemaining = buyMultipleButton.value;
 	if(player.influence >= this.influenceCost){
 		player.influence = roundThreeDecimals(player.influence - this.influenceCost);
 		this.owned += 1;

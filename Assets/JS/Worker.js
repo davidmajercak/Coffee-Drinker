@@ -3,20 +3,38 @@ Worker.prototype.getTotalPower = function() {
 }
 
 Worker.prototype.purchase = function() { 
-
-	if(player.emptyMugs >= this.emptyMugCost)
-	{
+	if(buyMultipleButton.value != "Max")
+		var buyMultipleNumber = Number(buyMultipleButton.value);
+	//Buy Multiple Functionality
+	//Buy Max
+	if(buyMultipleButton.value === "Max" && player.emptyMugs >= this.emptyMugCost) {
+		while(player.emptyMugs >= this.emptyMugCost) {
+			player.emptyMugs = roundThreeDecimals(player.emptyMugs - this.emptyMugCost);
+			this.owned += 1;
+			this.emptyMugCost = roundThreeDecimals(this.emptyMugCost * 1.2);
+		}
+		//Buy 5 or 10
+	} else if(buyMultipleNumber != 1 && player.emptyMugs >= geometricSum(this.emptyMugCost, 1.2, buyMultipleNumber)) {
+		player.emptyMugs = roundThreeDecimals(player.emptyMugs - geometricSum(this.emptyMugCost, 1.2, buyMultipleNumber))
+		this.owned += Number(buyMultipleNumber);
+		this.emptyMugCost = roundThreeDecimals(this.emptyMugCost * Math.pow(1.2, buyMultipleNumber));
+		//Buy 1
+	} else if(buyMultipleNumber === 1 && player.emptyMugs >= this.emptyMugCost) {
 		player.emptyMugs = roundThreeDecimals(player.emptyMugs - this.emptyMugCost);
 		this.owned += 1;
 		this.emptyMugCost = roundThreeDecimals(this.emptyMugCost * 1.2);
-	}
-	else
-	{
+		//Can't Afford
+	} else {
 		//Without this if user will get messages for workers not yet unlocked
 		if(this.isUnlocked)
 			//TODO - Need shorter names for workers
 			consoleDisplay.pushMessage("You cannot afford " + this.name + " right now");
 	}
+	
+}
+
+function geometricSum(firstTerm, commonRatio, numberOfTerms) {
+	return firstTerm * (1 - Math.pow(commonRatio, numberOfTerms))/(1 - commonRatio);
 }
 
 Worker.prototype.generateProduction = function() { 

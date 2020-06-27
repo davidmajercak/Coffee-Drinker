@@ -76,10 +76,20 @@ button {
 
 }
 
+div span h3 {
+	width: 100%;
+	margin-left: 35%;
+}
 
-/*button:not(#drinkCoffeeButton){
-    transition: opacity .9s;
-}*/
+#buyMultiple {
+	margin-left: 50px;
+}
+
+#mainDisplay {
+	margin-top: -15px;
+	margin-bottom: -20px;
+}
+
 
 .workerButton {
 	width: 80%;
