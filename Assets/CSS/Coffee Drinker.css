@@ -11,6 +11,7 @@ body {
 	margin: 0;
 	padding: .5%;
 	background-color: #4B311B; /*old color 5f3f21*/
+	user-select: none /*User not able to select text*/
 
 }
 
@@ -72,7 +73,6 @@ button {
 	background-color: Transparent;
 	color: var(--button-text-color);
 	border: 2px solid var(--button-border-color);
-	user-select: none;	/*User not able to select text*/
 
 }
 

@@ -226,7 +226,7 @@ Game.prototype.unlockElements = function() {
 		}
 	}
 
-	if(!player.unlockedBuyMultiple && workers[0].owned >= 5) {
+	if(!player.unlockedBuyMultiple && (workers[0].owned >= 5 || workers[3].isUnlocked)) {
 		player.hasUnlockedBuyMultiple = true;
 		document.querySelector("#buyMultipleRow").classList.remove("hide");
 	}
@@ -530,7 +530,10 @@ Game.prototype.initResearch = function() {
 		}),
 		new Research("Apply to College", "", 				 20,  0, 3, 1),
 		new Research("Decide on a College Major", "", 		  5,  0, 4, 1),
-		new Research("BS in Chemistry", "", 				 120, 0, 5, 1),
+		new Research("BS in Chemistry", "", 				 120, 0, 5, 1, 0, function(){
+			player.numResearches += 1;
+			consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
+		}),
 		new Research("MS in Chemistry", "", 				 240, 0, 6, 1),
 		new Research("PHD in Chemistry", "", 				 480, 0, 7, 1, 0, function(){
 			player.numResearches += 1;
