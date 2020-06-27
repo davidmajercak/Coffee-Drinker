@@ -1,6 +1,6 @@
 Game.prototype.prestige = function() {
 	//Clear previous setTimeout
-	clearTimeout(gameLoopTimeout);
+	//clearTimeout(gameLoopTimeout);
 
 	drinkCoffeeButton.innerText = "Sip some Coffee";
 	//Reset Text Color
@@ -90,7 +90,8 @@ Game.prototype.init = function() {
 		player.sipSizeBase = roundThreeDecimals(player.sipSizeBase + 10 * this.prestigeCount);
 	}
 
-	this.gameLoop();
+	if(!gameLoopTimeout)
+		this.gameLoop();
 };
 
 function buyMultiple() {
@@ -304,7 +305,7 @@ Game.prototype.updateResearch = function() {
 	});
 };
 
-var gameLoopTimeout;
+var gameLoopTimeout = 0;
 
 Game.prototype.gameLoop = function() {
 	this.updateGameState();
