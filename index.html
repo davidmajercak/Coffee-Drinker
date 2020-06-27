@@ -9,7 +9,7 @@
 	<!-- Creating Tab Links -->
 	<div class="tab">
 		<button class="tabLink" onclick="openTab(event, 'mainTab')">Main</button>
-		<button class="tabLink" onclick="openTab(event, 'prestigeTab')">Prestige</button>
+		<button class="tabLink" onclick="openTab(event, 'cultTab')">Cult</button>
 	</div>
 
 	<!-- Tab Content -->
@@ -24,7 +24,7 @@
 		<div class="container">
 			<div class="column" id="leftColumn">
 				<div class="row">
-					<h1>Coffee <span id="mainTitle">Drinker</span> 0.5.4</h1>
+					<h1>Coffee <span id="mainTitle">Drinker</span> 0.5.5</h1>
 				</div>
 				<div class="row hide" id="buyMultipleRow">
 					<span><h3>Buy Multiple:</h3></span>
@@ -105,8 +105,32 @@
 		</div>
 	</div>
 	
-	<div id="prestigeTab" class="tabContent">
-		<h3>This is The Prestige Tab!</h3>
+	<div id="cultTab" class="tabContent">
+		<div class="container">
+			<div class="row">
+				<h2><span id="godText">Which Coffee God Will Your Cult Dedicate Itself to?</span></h2>
+			</div>
+		</div>
+		<div class="container">
+			<div class="column">
+				<div class="row">
+					<button class="godButton" value="God of Better Coffee">God of Better Coffee - Bonus to Sip Size of Workers</button>
+				</div>
+				<div class="row">
+					<button class="godButton" value="God of Time">God of Time - Bonus to Game Speed</button>
+				</div>
+			</div>
+			<div class="column">
+				<div class="row">
+					<button class="godButton" value="God of Knowledge">God of Knowledge - Bonuses to Research</button>
+				</div>
+				<div class="row">
+					<button class="godButton" value="God of Cults">God of Cults - Bonuses to Your Cult</button>
+				</div>
+			</div>
+		</div>
+		
+		
 	</div>
 
 	<script type="text/javascript" src="Assets/JS/Player.js" async defer></script>

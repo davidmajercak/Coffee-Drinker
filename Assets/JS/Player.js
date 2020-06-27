@@ -46,7 +46,8 @@ Player.prototype.prestige = function() {
 	this.coffeeRemaining = .3; //Percentage of coffee left in current cup - Start at .3
 	this.knowledge = 0;	//Current Amount of knowledge (used to unlock/start researches)
 	this.influence = 0; //Current Amount of Influence (used to unlock Cultists)
-
+	
+	this.chosenGod = null;
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
 };
 
@@ -61,6 +62,7 @@ function Player() {
 	this.knowledge = 0;	//Current Amount of knowledge (used to unlock/start researches)
 	this.influence = 0; //Current Amount of Influence (used to unlock Cultists)
 
+	this.chosenGod = null;
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
 	this.hasUnlockedUpgrades = false;
 	this.hasUnlockedBuyMultiple = false;

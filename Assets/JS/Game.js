@@ -20,6 +20,14 @@ Game.prototype.prestige = function() {
 	//Increment PrestigeCount
 	this.prestigeCount++;
 
+	//Re-initialize the Cult Tab
+	for (var j = 0; j < godButtons.length; j++) {
+		godButtons[j].style.display = "block";
+	}
+
+	document.querySelector("#godText").innerText = "Which Coffee God Will Your Cult Dedicate Itself to?";
+	
+
 	//Call Init Again
 	this.init();
 }
@@ -51,6 +59,11 @@ Game.prototype.init = function() {
 		cultistButtons[i].value = i;
 	}
 
+	for (var i = 0; i < document.querySelectorAll(".godButton").length; i++) 
+	{
+		godButtons.push(document.querySelectorAll(".godButton")[i]);
+	}
+
 	if(!addedEventListeners) {
 		for (var i = 0; i < workerButtons.length; i++) {
 			workerButtons[i].addEventListener("click", function() {
@@ -71,6 +84,19 @@ Game.prototype.init = function() {
 				{
 					game.updateCultistButton(this.value);
 				}
+			});
+		}
+
+		for (var i = 0; i < godButtons.length; i++) {
+			godButtons[i].addEventListener("click", function() {
+				player.chosenGod = this.value;
+				console.log("hello2");
+				document.querySelector("#godText").innerText = this.value + " is Pleased With Your Choice";
+
+				for (var j = 0; j < godButtons.length; j++) {
+					godButtons[j].style.display = "none";
+				}
+				research.push(new Research("Prestige", "",						   5, 100, 0, 0));	
 			});
 		}
 
@@ -368,8 +394,16 @@ Game.prototype.updateCultists = function() {
 					document.querySelectorAll("li")[j].classList.remove("hide2");
 				}
 
-			} else if(i === 3)
-				mainTitleDisplay.textContent = "Cultist"
+			} else if(i === 3) {
+				//Change Name To Coffee Cultist
+				mainTitleDisplay.textContent = "Cultist";
+				//Show Tab Selection
+				var tabs = document.querySelectorAll(".tab");
+				for(var i = 0; i < tabs.length; i++) {
+					tabs[i].style.maxHeight = "200px";
+				}
+				consoleDisplay.pushMessage("It is Time to Decide What You Are Working Towards");
+			}
 
 		}
 
@@ -490,6 +524,7 @@ function Game() {
 //Should be outside loop
 workerButtons = [];
 cultistButtons = [];
+godButtons = [];
 
 drinkCoffeeButton = document.querySelector("#drinkCoffeeButton");
 emptyMugsDisplay = document.querySelector("#emptyMugs");
@@ -576,8 +611,7 @@ Game.prototype.initResearch = function() {
 		}),
 		new Research("Max Caffeine to 100", "",				 180,  85, 0, 0, 0, function(){
 			player.maxCaffeineLevel += 10;
-		}),
-		new Research("Prestige", "",						   5, 100, 0, 0)
+		})
 	];
 };
 

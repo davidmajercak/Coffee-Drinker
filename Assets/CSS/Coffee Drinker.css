@@ -54,6 +54,7 @@ li {
 h2 {
 	width: 100%;
 	transition: opacity .9s;
+	text-align: center
 }
 
 .hide, .hide2 {
@@ -115,6 +116,20 @@ div span h3 {
 	transition: all .6s !important;
 }
 
+.godButton {
+	transition: all .5s;
+	margin: 5px auto;
+}
+
+.godButton:hover {
+	color: #0CAC64;
+	border-color: #0CAC64;
+}
+
+#cultTab {
+	display: none;
+}
+
 .canAfford {
 	color: #0CAC64;
 	border-color: #0CAC64;
@@ -147,7 +162,7 @@ button:disabled {
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  	background-color: #7880B5;
+  	background-color: rgba(12, 172, 100, .3);
 }
 
 /* Create an active/current tablink class */
