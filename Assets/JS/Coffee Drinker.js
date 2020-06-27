@@ -38,7 +38,11 @@
 //have empty mugs updated 4 or 8 times more often but 4 or 8 times less amount
 //Start with "quantum mug ability", but maybe have to brew coffee to be able to drink it?
 
-//Show ratio of empty mugs per second/cost for workers?
+//Save The Game Somehow
+//Using cookies (more temporary)
+//https://dhmholley.co.uk/incrementals-part-2.html 
+//Using localStorage
+//https://www.reddit.com/r/incremental_games/comments/ahf6nx/how_to_make_an_incremental_game/
 
 
 // function docReady(fn) {
@@ -50,10 +54,36 @@
 //         document.addEventListener("DOMContentLoaded", fn);
 //     }
 // }    
-
 // docReady(initGame);
-var addedEventListeners = false;
 
+
+function openTab(evt, tabName) {
+  // Declare all variables
+  var i, tabContent, tablinks;
+
+  // Get all elements with class="tabContent" and hide them
+  tabContent = document.getElementsByClassName("tabContent");
+  for (i = 0; i < tabContent.length; i++) {
+    tabContent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tabLinks = document.querySelectorAll(".tabLink");
+  for (i = 0; i < tabLinks.length; i++) {
+    tabLinks[i].classList.remove("active");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+
+
+
+var addedEventListeners = false;
+//"Click" the main tab
+document.querySelector(".tabLink").click();
 setTimeout(function() {
 	game.init();
 }, 300);

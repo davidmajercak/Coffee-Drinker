@@ -39,6 +39,17 @@ Player.prototype.updateCaffeineLevel = function() {
 
 };
 
+Player.prototype.prestige = function() {
+	this.emptyMugs = 0; //Total amount of coffees consumed this prestige
+	this.caffeineLevel = 0; //Amount of coffee currency left to spend
+	this.maxCaffeineLevel = 40; //Highest Caffeine Level Can Reach Currently
+	this.coffeeRemaining = .3; //Percentage of coffee left in current cup - Start at .3
+	this.knowledge = 0;	//Current Amount of knowledge (used to unlock/start researches)
+	this.influence = 0; //Current Amount of Influence (used to unlock Cultists)
+
+	this.numResearches = 1; 	//Number of concurrent researches player is allowed
+};
+
 
 function Player() {
 	this.allTimeCoffee = 0; //All time amount of coffees consumed (lasts through prestiges and resets)

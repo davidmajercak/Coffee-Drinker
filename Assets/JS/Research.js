@@ -30,6 +30,10 @@ Research.prototype.updateDisplay = function() {
 		if(this.callback)
 			this.callback();
 		if(this.name == "Prestige") {
+			var tabs = document.querySelectorAll(".tab");
+			for(var i = 0; i < tabs.length; i++) {
+				tabs[i].style.maxHeight = "200px";
+			}
 			consoleDisplay.pushMessage("Welp, Back to the Old Grind");
 			game.prestige();
 			return;

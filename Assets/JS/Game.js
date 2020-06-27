@@ -27,7 +27,10 @@ Game.prototype.prestige = function() {
 
 Game.prototype.init = function() {
 
-	player = new Player();
+	if(this.prestigeCount > 0)
+		player.prestige();
+	else
+		player = new Player();
 
 	this.initCultists();
 	this.initResearch();

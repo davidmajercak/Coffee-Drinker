@@ -73,7 +73,6 @@ button {
 	background-color: Transparent;
 	color: var(--button-text-color);
 	border: 2px solid var(--button-border-color);
-
 }
 
 div span h3 {
@@ -124,6 +123,46 @@ div span h3 {
 button:disabled {
 	opacity: 0.4;
 }
+
+/*Placeholder Styling from https://www.w3schools.com/howto/howto_js_tabs.asp*/
+/* Style the tab */
+.tab {
+  	overflow: hidden;
+  	background-color: none;
+  	max-height: 0;
+  	transition: all 0.5s;
+  	transition: max-height 1s;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  	background-color: none;
+  	float: left;
+ 	border: none;
+  	outline: none;
+  	cursor: pointer;
+  	padding: 15px 15px;
+  	transition: all 0.5s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  	background-color: #7880B5;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  	background-color: #0CAC64;
+}
+
+/* Style the tab content */
+.tabcontent {
+  	display: none;
+}
+
+
+/*End Placeholder Styling*/
+
 
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
