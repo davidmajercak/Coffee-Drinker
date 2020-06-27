@@ -90,7 +90,6 @@ Game.prototype.init = function() {
 		for (var i = 0; i < godButtons.length; i++) {
 			godButtons[i].addEventListener("click", function() {
 				player.chosenGod = this.value;
-				console.log("hello2");
 				document.querySelector("#godText").innerText = this.value + " is Pleased With Your Choice";
 
 				for (var j = 0; j < godButtons.length; j++) {
@@ -551,65 +550,65 @@ function roundThreeDecimals(num){
 
 Game.prototype.initCultists = function() {
 	cultists = [
-		new Cultist("Initiate","", 1, .25, 1),
-		new Cultist("Zelator", "", 50, 1, 50),
-		new Cultist("Adept", "", 1000, 5, 1000),
-		new Cultist("Master", "", 10000, 10, 10000),
-		new Cultist("Ipsissimus", "", 100000, 50, 100000),
+		new Cultist("Initiate","", 1, .25 * player.cultProductionBonus, 1),
+		new Cultist("Zelator", "", 50, 1 * player.cultProductionBonus, 50),
+		new Cultist("Adept", "", 1000, 5 * player.cultProductionBonus, 1000),
+		new Cultist("Master", "", 10000, 10 * player.cultProductionBonus, 10000),
+		new Cultist("Ipsissimus", "", 100000, 50 * player.cultProductionBonus, 100000),
 	];
 };
 
 Game.prototype.initResearch = function() {
 	research = [
-		new Research("Think About Why You're Doing This", "", 5, .2, 0, 1),
-		new Research("Think a Little Harder This Time", "",	 10,  0, 1, 1), 
-		new Research("Get your G.E.D.", "", 				 30,  0, 2, 1, 0, function(){
+		new Research("Think About Why You're Doing This", "", Math.floor(5 / player.researchBonus), .2, 0, 1),
+		new Research("Think a Little Harder This Time", "",	 Math.floor(10 / player.researchBonus),  0 / player.researchBonus, 1, 1), 
+		new Research("Get your G.E.D.", "", 				 Math.floor(30 / player.researchBonus),  0, 2, 1, 0, function(){
 			player.numResearches += 1;
 			consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 		}),
-		new Research("Apply to College", "", 				 20,  0, 3, 1),
-		new Research("Decide on a College Major", "", 		  5,  0, 4, 1),
-		new Research("BS in Chemistry", "", 				 120, 0, 5, 1, 0, function(){
+		new Research("Apply to College", "", 				 Math.floor(20 / player.researchBonus),  0, 3, 1),
+		new Research("Decide on a College Major", "", 		  Math.floor(5 / player.researchBonus),  0, 4, 1),
+		new Research("BS in Chemistry", "", 				 Math.floor(120 / player.researchBonus), 0, 5, 1, 0, function(){
 			player.numResearches += 1;
 			consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 		}),
-		new Research("MS in Chemistry", "", 				 240, 0, 6, 1),
-		new Research("PHD in Chemistry", "", 				 480, 0, 7, 1, 0, function(){
+		new Research("MS in Chemistry", "", 				 Math.floor(240 / player.researchBonus), 0, 6, 1),
+		new Research("PHD in Chemistry", "", 				 Math.floor(480 / player.researchBonus), 0, 7, 1, 0, function(){
 			player.numResearches += 1;
 			consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 		}),
-		new Research("Someone Calls Out To You (Listen)", "", 15, 1, 0, 0, 0, function(){
+		new Research("Someone Calls Out To You (Listen)", "", Math.floor(15 / player.researchBonus), 1, 0, 0, 0, function(){
 			consoleDisplay.pushMessage("You Can't Quite Make Out What The Voice is Saying...")
 		}),
-		new Research("Listen Closely To The Voices", "",	 20,  1.5, 0, 0, 8, function(){
+		new Research("Listen Closely To The Voices", "",	 Math.floor(20 / player.researchBonus),  1.5, 0, 0, 8, function(){
 			consoleDisplay.pushMessage("The Voices Told You To Start a Cult");
 		}),
-		new Research("Start a Cult", "",					 60,  0, 0, 0, 9, function(){
+		new Research("Start a Cult", "",					 Math.floor(60 / player.researchBonus),  0, 0, 0, 9, function(){
 			player.influence += 1;
 		}),
-		new Research("Auto-Sipper", "", 				 	 60,  0, 3, 0, 0, function(){
+		new Research("Auto-Sipper", "", 				 	 Math.floor(60 / player.researchBonus),  0, 3, 0, 0, function(){
 			consoleDisplay.pushMessage("You will now automatically sip from the mug when available (no more clicking)!");
 			consoleDisplay.pushMessage("That's My Secret, I'm Always Sippin'!");
 			player.hasAutoSipper = true;
 			drinkCoffeeClick();
 			drinkCoffeeButton.innerText = "I'm Always Sippin'!";
 		}),
-		new Research("Max Caffeine to 50", "",				 40,  35, 0, 0, 0, function(){
+		new Research("Max Caffeine to 50", "",				 Math.floor(40 / player.researchBonus),  35, 0, 0, 0, function(){
 			player.maxCaffeineLevel += 10;
 		}),
-		new Research("Max Caffeine to 60", "",				 50,  45, 0, 0, 0, function(){
+		new Research("Max Caffeine to 60", "",				 Math.floor(50 / player.researchBonus),  45, 0, 0, 0, function(){
 			player.maxCaffeineLevel += 10;
 		}),
-		new Research("Max Caffeine to 70", "",				 60,  55, 0, 0, 0, function(){
+		new Research("Max Caffeine to 70", "",				 Math.floor(60 / player.researchBonus),  55, 0, 0, 0, function(){
 			player.maxCaffeineLevel += 10;
 		}),
-		new Research("Max Caffeine to 80", "",				 80,  65, 0, 0, 0, function(){
+		new Research("Max Caffeine to 80", "",				 Math.floor(80 / player.researchBonus),  65, 0, 0, 0, function(){
 			player.maxCaffeineLevel += 10;
 		}),
-		new Research("Max Caffeine to 90", "",				 100,  75, 0, 0, 0, function(){
+		new Research("Max Caffeine to 90", "",				 Math.floor(100 / player.researchBonus),  75, 0, 0, 0, function(){
 			player.maxCaffeineLevel += 10;
 		}),
-		new Research("Max Caffeine to 100", "",				 180,  85, 0, 0, 0, function(){
+		new Research("Max Caffeine to 100", "",				 Math.floor(180 / player.researchBonus),  85, 0, 0, 0, function(){
 			player.maxCaffeineLevel += 10;
 		})
 	];
@@ -734,11 +733,11 @@ Game.prototype.initUpgrades = function() {
 
 Game.prototype.initWorkers = function() {
 	workers = [
-		new Worker("Hire a Friend to Help You Drink Coffee", "Is it Weird if You Share a Cup?", 1.5, .01, 1),
-		new Worker("Hire a Friend with a Better Work Ethic", "When You say \"Drink Coffee\" They Say \"How Much?", 4, .02, 4),
-		new Worker("Hire an Old Man That Drinks Black Coffee While Reading The Paper", "You Know the One", 20, .1, 20),
-		new Worker("Hook up a Vacuum to Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5, 100),
-		new Worker("Hire a Nurse to Give You Coffee Intravenously", "This feels really hardcore", 500, 2, 500),
-		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100, 25000)
+		new Worker("Hire a Friend to Help You Drink Coffee", "Is it Weird if You Share a Cup?", 1.5, .01 * player.workerProductionBonus, 1),
+		new Worker("Hire a Friend with a Better Work Ethic", "When You say \"Drink Coffee\" They Say \"How Much?", 4, .02 * player.workerProductionBonus, 4),
+		new Worker("Hire an Old Man That Drinks Black Coffee While Reading The Paper", "You Know the One", 20, .1 * player.workerProductionBonus, 20),
+		new Worker("Hook up a Vacuum to Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5 * player.workerProductionBonus, 100),
+		new Worker("Hire a Nurse to Give You Coffee Intravenously", "This feels really hardcore", 500, 2 * player.workerProductionBonus, 500),
+		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100 * player.workerProductionBonus, 25000)
 	];
 };

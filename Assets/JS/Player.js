@@ -31,6 +31,9 @@ Player.prototype.updateCaffeineLevel = function() {
 	else 
 		tickSpeed = 100;
 
+	//Faster Ticks from choosing the god of time
+	tickSpeed = tickSpeed / this.timeBonus;
+
 	if(this.caffeineLevel > 0)
 		this.caffeineLevel = roundThreeDecimals(this.caffeineLevel - .01);
 	if(this.caffeineLevel < 0)
@@ -46,7 +49,19 @@ Player.prototype.prestige = function() {
 	this.coffeeRemaining = .3; //Percentage of coffee left in current cup - Start at .3
 	this.knowledge = 0;	//Current Amount of knowledge (used to unlock/start researches)
 	this.influence = 0; //Current Amount of Influence (used to unlock Cultists)
-	
+
+
+	if(this.chosenGod != null) {
+		if(this.chosenGod === "God of Better Coffee") {
+			this.workerProductionBonus += 1;
+		} else if(this.chosenGod === "God of Time") {
+			this.timeBonus += .2;
+		} else if(this.chosenGod === "God of Knowledge") {
+			this.researchBonus += .2;
+		} else if(this.chosenGod === "God of Cults") {
+			this.cultProductionBonus += 1;
+		}
+	}
 	this.chosenGod = null;
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
 };
@@ -63,6 +78,11 @@ function Player() {
 	this.influence = 0; //Current Amount of Influence (used to unlock Cultists)
 
 	this.chosenGod = null;
+	this.workerProductionBonus = 1;
+	this.timeBonus = 1;
+	this.researchBonus = 1;
+	this.cultProductionBonus = 1;
+
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
 	this.hasUnlockedUpgrades = false;
 	this.hasUnlockedBuyMultiple = false;
