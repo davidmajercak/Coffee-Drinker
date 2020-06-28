@@ -5,7 +5,6 @@
 //need to create sets for locked upgrades, unlocked upgrades, and purchased upgrades
 //Bathroom Break Mechanic? Cant sip any coffee yourself debuff. Takes like 20-30 seconds before upgrade
 //use flexbox to create the grid system https://dev.to/drews256/ridiculously-easy-row-and-column-layouts-with-flexbox-1k01
-//Give more functionality to displayConsole
 //Make caffeine level speed up game ticks instead of adding to sip size
 //Add different brewing methods for coffee
 //Brewing a new batch of coffee takes time, upgrades could increase number of cups per brew
@@ -20,10 +19,6 @@
 
 //Spend Caffeine level to gain research points
 
-//Need to create Game.js and add functions, especially for prestige
-
-//figure out how to call prototypes in other prototypes
-//player - create a coffeeEffect function to call when coffeeAmount < 0
 
 //Make sure page is loaded first - Think this is taken care of
 
