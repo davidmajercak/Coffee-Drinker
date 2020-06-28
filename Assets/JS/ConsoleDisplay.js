@@ -33,7 +33,6 @@ ConsoleDisplay.prototype.moveUp = function() {
 };
 
 ConsoleDisplay.prototype.moveDown = function() {
-
 	consoleDisplay.bottomMessageIndex -= 4;
 	if(consoleDisplay.bottomMessageIndex < 0)
 		consoleDisplay.bottomMessageIndex = 0;
@@ -51,9 +50,15 @@ ConsoleDisplay.prototype.updateMessages = function() {
 		consoleDisplay.messages.pop();
 
 	for(var i = consoleDisplay.display.length - 1; i >= 0; i--){
-		if(i != 0)
-			consoleDisplay.display[i].innerText = ". " + consoleDisplay.messages[consoleDisplay.bottomMessageIndex + i];
-		else
+		if(i === 0 && consoleDisplay.bottomMessageIndex === 0) {
 			consoleDisplay.display[i].innerText = "> " + consoleDisplay.messages[consoleDisplay.bottomMessageIndex + i];
+			consoleDisplay.display[i].classList.add("highlight")
+		}
+		else {
+			consoleDisplay.display[i].innerText = ". " + consoleDisplay.messages[consoleDisplay.bottomMessageIndex + i];
+
+			if(i === 0)
+				consoleDisplay.display[i].classList.remove("highlight")
+		}
 	}
 };

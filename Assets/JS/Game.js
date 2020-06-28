@@ -628,7 +628,7 @@ Game.prototype.initUpgrades = function() {
 		new Upgrade("Wide-Mouth Coffee Mug", "Now if Only Your Mug Would Change Color When Your Coffee is as Hot as the Rockies", 32, 0, 16, 0, 1, 4, -1),
 		//Create New prototypes to use as the callback functions?
 		new Upgrade("Improved Friends", "Now Even Friendlier", 5, 0, 5, 0, 0, -1, 0, function(){
-			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
+			consoleDisplay.pushMessage("Sip Size of friends Increased by 200%");
 			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
 			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
 
@@ -638,7 +638,7 @@ Game.prototype.initUpgrades = function() {
 			game.updateWorkerButton(1);
 		}),
 		new Upgrade("Robo-Friends", "I Think I Liked Them More Before They Were Robots", 10, 0, 10, 0, 0, 6, 0, function(){
-			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
+			consoleDisplay.pushMessage("Sip Size of friends Increased by 200%");
 			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
 			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
 
@@ -648,7 +648,7 @@ Game.prototype.initUpgrades = function() {
 			game.updateWorkerButton(1);
 		}),
 		new Upgrade("Best Friends", "Now You Can Have More Than One Best Friend", 40, 0, 40, 0, 0, -1, 1, function(){
-			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
+			consoleDisplay.pushMessage("Sip Size of friends Increased by 200%");
 			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
 			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
 
@@ -658,7 +658,7 @@ Game.prototype.initUpgrades = function() {
 			game.updateWorkerButton(1);
 		}),
 		new Upgrade("Robo-Best Friends", "", 100, 0, 100, 0, 0, 8, 1, function(){
-			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
+			consoleDisplay.pushMessage("Sip Size of friends Increased by 200%");
 			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
 			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
 
@@ -668,7 +668,7 @@ Game.prototype.initUpgrades = function() {
 			game.updateWorkerButton(1);
 		}),
 		new Upgrade("Older Men Who Drink Blacker Coffee", "", 50, 0, 50, 0, 0, -1, 2, function(){
-			consoleDisplay.pushMessage("Sip Size of Old Men increased by 700%");
+			consoleDisplay.pushMessage("Sip Size of Old Men Increased by 700%");
 			workers[2].baseSipSize = roundThreeDecimals(workers[2].baseSipSize*7);
 
 			workers[2].numUpgrades++;
@@ -676,7 +676,7 @@ Game.prototype.initUpgrades = function() {
 			game.updateWorkerButton(2);
 		}),
 		new Upgrade("Oldest Men Who Drink Blackest Coffee", "", 150, 0, 150, 0, 0, 10, 2, function(){
-			consoleDisplay.pushMessage("Sip Size of Old Men increased by 700%");
+			consoleDisplay.pushMessage("Sip Size of Old Men Increased by 700%");
 			workers[2].baseSipSize = roundThreeDecimals(workers[2].baseSipSize*7);
 
 			workers[2].numUpgrades++;
@@ -684,49 +684,49 @@ Game.prototype.initUpgrades = function() {
 			game.updateWorkerButton(2);
 		}),
 		new Upgrade("Improved Vacuums", "", 250, 0, 250, 0, 0, -1, 3, function(){
-			consoleDisplay.pushMessage("Sip Size of Vacuums increased by 300%");
+			consoleDisplay.pushMessage("Sip Size of Vacuums Increased by 300%");
 			workers[3].baseSipSize = roundThreeDecimals(workers[2].baseSipSize*3);
 
 			workers[3].numUpgrades++;
 			game.updateWorkerButton(3);
 		}),
 		new Upgrade("Vacuums That Suck", "Technically an Improvement", 1000, 0, 1000, 0, 0, 12, 3, function(){
-			consoleDisplay.pushMessage("Sip Size of Vacuums increased by 300%");
+			consoleDisplay.pushMessage("Sip Size of Vacuums Increased by 300%");
 			workers[3].baseSipSize = roundThreeDecimals(workers[3].baseSipSize*3);
 
 			workers[3].numUpgrades++;
 			game.updateWorkerButton(3);
 		}),
 		new Upgrade("Vacuums That Suck More", "Technically More of an Improvement", 2500, 0, 2500, 0, 0, 13, 3, function(){
-			consoleDisplay.pushMessage("Sip Size of Vacuums increased by 300%");
+			consoleDisplay.pushMessage("Sip Size of Vacuums Increased by 300%");
 			workers[3].baseSipSize = roundThreeDecimals(workers[3].baseSipSize*3);
 
 			workers[3].numUpgrades++;
 			game.updateWorkerButton(3);
 		}),
 		new Upgrade("Trained Nurses", "Wait... Were They Untrained Before?", 3000, 0, 3000, 0, 0, -1, 4, function(){
-			consoleDisplay.pushMessage("Sip Size of Nurses increased by 400%");
+			consoleDisplay.pushMessage("Sip Size of Nurses Increased by 400%");
 			workers[4].baseSipSize = roundThreeDecimals(workers[4].baseSipSize*4);
 
 			workers[4].numUpgrades++;
 			game.updateWorkerButton(4);
 		}),
 		new Upgrade("Bigger Needles", "Maybe It Helps", 7000, 0, 7000, 0, 0, 15, 4, function(){
-			consoleDisplay.pushMessage("Sip Size of Nurses increased by 400%");
+			consoleDisplay.pushMessage("Sip Size of Nurses Increased by 400%");
 			workers[4].baseSipSize = roundThreeDecimals(workers[4].baseSipSize*4);
 
 			workers[4].numUpgrades++;
 			game.updateWorkerButton(4);
 		}),
 		new Upgrade("Coffethulu+", "", 50000, 0, 50000, 0, 0, -1, 5, function(){
-			consoleDisplay.pushMessage("Sip Size of Coffethulu increased by 500%");
+			consoleDisplay.pushMessage("Sip Size of Coffethulu Increased by 500%");
 			workers[5].baseSipSize = roundThreeDecimals(workers[5].baseSipSize*5);
 
 			workers[5].numUpgrades++;
 			game.updateWorkerButton(5);
 		}),
 		new Upgrade("Coffethulu++", "", 150000, 0, 150000, 0, 0, 17, 5, function(){
-			consoleDisplay.pushMessage("Sip Size of Coffethulu increased by 500%");
+			consoleDisplay.pushMessage("Sip Size of Coffethulu Increased by 500%");
 			workers[5].baseSipSize = roundThreeDecimals(workers[5].baseSipSize*5);
 
 			workers[5].numUpgrades++;
