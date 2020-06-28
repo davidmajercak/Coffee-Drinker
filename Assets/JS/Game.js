@@ -268,7 +268,8 @@ function caffeineColorScheme(){
 	if(player.caffeineLevel < .98)
 	 	document.body.style.backgroundColor = "rgb(75, 49, 27)";
 	else if(player.caffeineLevel >= 99.98){
-		document.body.style.backgroundColor = "rgb(255, 255, 255)";
+		//This off-white background hurts my eyes less
+		document.body.style.backgroundColor = "rgb(225, 225, 225)";
 		document.body.style.color = "rgb(0, 0, 0)";
 
 		document.documentElement.style.setProperty("--button-text-color", "#000");		
@@ -739,7 +740,7 @@ Game.prototype.initWorkers = function() {
 	workers = [
 		new Worker("Hire a Friend to Help You Drink Coffee", "Is it Weird if You Share a Mug?", 1.5, .01 * player.workerProductionBonus, 1),
 		new Worker("Hire a Friend with a Better Work Ethic", "When You say \"Drink Coffee\" They Say \"How Much?\"", 4, .02 * player.workerProductionBonus, 4),
-		new Worker("Hire an Old Man That Drinks Black Coffee While Reading The Paper", "You Know the One", 20, .1 * player.workerProductionBonus, 20),
+		new Worker("Hire an Old Man That Drinks Black Coffee", "You Know the One", 20, .1 * player.workerProductionBonus, 20),
 		new Worker("Hook up a Vacuum to Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5 * player.workerProductionBonus, 100),
 		new Worker("Hire a Nurse to Give You Coffee Intravenously", "This Feels Really Hardcore", 500, 2 * player.workerProductionBonus, 500),
 		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100 * player.workerProductionBonus, 25000)
