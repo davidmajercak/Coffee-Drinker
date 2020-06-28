@@ -36,6 +36,12 @@ Research.prototype.updateDisplay = function() {
 		}
 		var thisButton = document.querySelector("#researchTimerDisplay" + research.indexOf(this)).parentElement;
 		thisButton.style.opacity = "0";
+
+		if(research[thisButton.value].flavorText != "")
+			setTimeout(function() {
+				consoleDisplay.pushMessage(research[thisButton.value].flavorText);
+			}, 400);
+
 		setTimeout(function() {
 			thisButton.remove();
 		}, 1100);

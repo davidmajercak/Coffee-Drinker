@@ -24,9 +24,18 @@ Upgrade.prototype.purchase = function() {
 
 		this.style.opacity = "0";
 		var thisButton = this;
+
+		//Show flavor text in the console at the top of the screen if this upgrade has flavor text
+		if(upgrades[thisButton.value].flavorText != "")
 		setTimeout(function() {
+			consoleDisplay.pushMessage(upgrades[thisButton.value].flavorText);
+		}, 400);
+
+
+		setTimeout(function() {
+
 			thisButton.remove();
-		}, 1100);
+		}, 900);
 	}
 	
 };

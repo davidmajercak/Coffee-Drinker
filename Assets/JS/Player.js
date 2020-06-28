@@ -50,7 +50,8 @@ Player.prototype.prestige = function() {
 	this.knowledge = 0;	//Current Amount of knowledge (used to unlock/start researches)
 	this.influence = 0; //Current Amount of Influence (used to unlock Cultists)
 
-
+	player.sipSizeBase = roundThreeDecimals(.1 + 10 * this.prestigeCount);
+	
 	if(this.chosenGod != null) {
 		if(this.chosenGod === "God of Better Coffee") {
 			this.workerProductionBonus += 1;

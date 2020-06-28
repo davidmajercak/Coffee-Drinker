@@ -99,6 +99,9 @@ Game.prototype.init = function() {
 			});
 		}
 
+		document.querySelector("#displayConsoleTop").addEventListener("click", consoleDisplay.moveUp);
+		document.querySelector("#displayConsoleBottom").addEventListener("click", consoleDisplay.moveDown);
+
 		drinkCoffeeButton.addEventListener("click", drinkCoffeeClick);
 
 		//Add Event Listener to the Whole Row instead of just the button (larger clickable area)
@@ -111,9 +114,6 @@ Game.prototype.init = function() {
 	document.querySelector("body").style.transition = "background-color 5s";
 	document.querySelector("#drinkCoffeeButton").style.transition = "opacity .9s";
 
-	if(this.prestigeCount > 0) {
-		player.sipSizeBase = roundThreeDecimals(player.sipSizeBase + 10 * this.prestigeCount);
-	}
 
 	if(!gameLoopTimeout)
 		this.gameLoop();
@@ -229,6 +229,8 @@ Game.prototype.unlockElements = function() {
 	if(!player.hasUnlockedUpgrades && player.emptyMugs >= 1){
 		document.querySelector("#upgrades h2").classList.remove("hide");
 		player.hasUnlockedUpgrades = true;
+		consoleDisplay.pushMessage("Click On The Upper Half of This Box to Scroll Up");
+		consoleDisplay.pushMessage("Click On The Lower Half of This Box to Scroll Down");
 		for(var i = 0; i < document.querySelectorAll("li").length; i++)
 		{
 			document.querySelectorAll("li")[i].classList.remove("hide");
@@ -550,7 +552,7 @@ function roundThreeDecimals(num){
 
 Game.prototype.initCultists = function() {
 	cultists = [
-		new Cultist("Initiate","", 1, .25 * player.cultProductionBonus, 1),
+		new Cultist("Initiate","This Game is Still About Drinking Coffee, Right?", 1, .25 * player.cultProductionBonus, 1),
 		new Cultist("Zelator", "", 50, 1 * player.cultProductionBonus, 50),
 		new Cultist("Adept", "", 1000, 5 * player.cultProductionBonus, 1000),
 		new Cultist("Master", "", 10000, 10 * player.cultProductionBonus, 10000),
@@ -560,14 +562,14 @@ Game.prototype.initCultists = function() {
 
 Game.prototype.initResearch = function() {
 	research = [
-		new Research("Think About Why You're Doing This", "", Math.floor(5 / player.researchBonus), .2, 0, 1),
+		new Research("Think About Why You're Doing This", "The Higher Your Caffiene Level, The Faster Time Will Go", Math.floor(5 / player.researchBonus), .2, 0, 1),
 		new Research("Think a Little Harder This Time", "",	 Math.floor(10 / player.researchBonus),  0 / player.researchBonus, 1, 1), 
 		new Research("Get your G.E.D.", "", 				 Math.floor(30 / player.researchBonus),  0, 2, 1, 0, function(){
 			player.numResearches += 1;
 			consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 		}),
 		new Research("Apply to College", "", 				 Math.floor(20 / player.researchBonus),  0, 3, 1),
-		new Research("Decide on a College Major", "", 		  Math.floor(5 / player.researchBonus),  0, 4, 1),
+		new Research("Decide on a College Major", "Coffee is Not a Major... Horseradish is Not a Major Either", 		  Math.floor(5 / player.researchBonus),  0, 4, 1),
 		new Research("BS in Chemistry", "", 				 Math.floor(120 / player.researchBonus), 0, 5, 1, 0, function(){
 			player.numResearches += 1;
 			consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
@@ -586,9 +588,8 @@ Game.prototype.initResearch = function() {
 		new Research("Start a Cult", "",					 Math.floor(60 / player.researchBonus),  0, 0, 0, 9, function(){
 			player.influence += 1;
 		}),
-		new Research("Auto-Sipper", "", 				 	 Math.floor(60 / player.researchBonus),  0, 3, 0, 0, function(){
+		new Research("Auto-Sipper", "That's My Secret, I'm Always Sippin'!",  Math.floor(60 / player.researchBonus),  0, 3, 0, 0, function(){
 			consoleDisplay.pushMessage("You will now automatically sip from the mug when available (no more clicking)!");
-			consoleDisplay.pushMessage("That's My Secret, I'm Always Sippin'!");
 			player.hasAutoSipper = true;
 			drinkCoffeeClick();
 			drinkCoffeeButton.innerText = "I'm Always Sippin'!";
@@ -615,15 +616,18 @@ Game.prototype.initResearch = function() {
 };
 
 Game.prototype.initUpgrades = function() {
+	//(name, flavorText, unlockMugs, unlockCaffeineLevel, emptyMugCost, caffeineCost, sipSizeIncrease, prerequisiteUpgrade, associatedWorkerIndex, callback) 
 	upgrades = [
-		new Upgrade("Become Slightly More Thirsty", "", 1, 0, .5, 0, .05, -1, -1),
-		new Upgrade("Become Slightly More Thirsty Again", "", 1.5, 0, 1.5, 0, .05, 0, -1),
-		new Upgrade("Pretzels That Make You Thirsty", "", 2, 0, 2, 0, .15, 1, -1),
-		new Upgrade("Coffee That Doesn't Burn Your Mouth as Much", "", 4, 0, 4, 0, .3, 2, -1),
-		new Upgrade("Confidence in Yourself", "Best 16 Empty Mugs You Ever Spent", 16, 0, 8, 0, .5, 3, -1),
-		new Upgrade("Wide-Mouth Coffee Mug", "", 32, 0, 16, 0, 1, 4, -1),
+		new Upgrade("Become Slightly More Thirsty", "Your Sip Size Increased by .05", 1, 0, .5, 0, .05, -1, -1),
+		new Upgrade("Become Slightly More Thirsty Again", "Your Sip Size Increased by .05 Again", 1.5, 0, 1.5, 0, .05, 0, -1),
+		new Upgrade("Pretzels That Make You Thirsty", "These Pretzels are Making me Thirsty!!!", 2, 0, 2, 0, .15, 1, -1, function(){
+			consoleDisplay.pushMessage("Your Sip Size Increased by .15");
+		}),
+		new Upgrade("Coffee That Doesn't Burn Your Mouth as Much", "Coffee That Doesn't Burn At All is Asking For A lot", 4, 0, 4, 0, .3, 2, -1),
+		new Upgrade("Confidence in Yourself", "Best 8 Empty Mugs You Ever Spent", 16, 0, 8, 0, .5, 3, -1),
+		new Upgrade("Wide-Mouth Coffee Mug", "Now if Only Your Mug Would Change Color When Your Coffee is as Hot as the Rockies", 32, 0, 16, 0, 1, 4, -1),
 		//Create New prototypes to use as the callback functions?
-		new Upgrade("Improved Friends", "", 5, 0, 5, 0, 0, -1, 0, function(){
+		new Upgrade("Improved Friends", "Now Even Friendlier", 5, 0, 5, 0, 0, -1, 0, function(){
 			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
 			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
 			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
@@ -633,7 +637,7 @@ Game.prototype.initUpgrades = function() {
 			game.updateWorkerButton(0);
 			game.updateWorkerButton(1);
 		}),
-		new Upgrade("Robo-Friends", "", 10, 0, 10, 0, 0, 6, 0, function(){
+		new Upgrade("Robo-Friends", "I Think I Liked Them More Before They Were Robots", 10, 0, 10, 0, 0, 6, 0, function(){
 			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
 			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
 			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
@@ -643,7 +647,7 @@ Game.prototype.initUpgrades = function() {
 			game.updateWorkerButton(0);
 			game.updateWorkerButton(1);
 		}),
-		new Upgrade("Best Friends", "", 40, 0, 40, 0, 0, -1, 1, function(){
+		new Upgrade("Best Friends", "Now You Can Have More Than One Best Friend", 40, 0, 40, 0, 0, -1, 1, function(){
 			consoleDisplay.pushMessage("Sip Size of friends increased by 200%");
 			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
 			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
@@ -733,11 +737,11 @@ Game.prototype.initUpgrades = function() {
 
 Game.prototype.initWorkers = function() {
 	workers = [
-		new Worker("Hire a Friend to Help You Drink Coffee", "Is it Weird if You Share a Cup?", 1.5, .01 * player.workerProductionBonus, 1),
-		new Worker("Hire a Friend with a Better Work Ethic", "When You say \"Drink Coffee\" They Say \"How Much?", 4, .02 * player.workerProductionBonus, 4),
+		new Worker("Hire a Friend to Help You Drink Coffee", "Is it Weird if You Share a Mug?", 1.5, .01 * player.workerProductionBonus, 1),
+		new Worker("Hire a Friend with a Better Work Ethic", "When You say \"Drink Coffee\" They Say \"How Much?\"", 4, .02 * player.workerProductionBonus, 4),
 		new Worker("Hire an Old Man That Drinks Black Coffee While Reading The Paper", "You Know the One", 20, .1 * player.workerProductionBonus, 20),
 		new Worker("Hook up a Vacuum to Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5 * player.workerProductionBonus, 100),
-		new Worker("Hire a Nurse to Give You Coffee Intravenously", "This feels really hardcore", 500, 2 * player.workerProductionBonus, 500),
+		new Worker("Hire a Nurse to Give You Coffee Intravenously", "This Feels Really Hardcore", 500, 2 * player.workerProductionBonus, 500),
 		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100 * player.workerProductionBonus, 25000)
 	];
 };

@@ -3,6 +3,8 @@ Worker.prototype.getTotalPower = function() {
 }
 
 Worker.prototype.purchase = function() { 
+	var currentAmountOwned = this.owned;
+
 	if(buyMultipleButton.value != "Max")
 		var buyMultipleNumber = Number(buyMultipleButton.value);
 	//Buy Multiple Functionality
@@ -28,7 +30,16 @@ Worker.prototype.purchase = function() {
 		//Without this if user will get messages for workers not yet unlocked
 		if(this.isUnlocked)
 			//TODO - Need shorter names for workers
-			consoleDisplay.pushMessage("You cannot afford " + this.name + " right now");
+			consoleDisplay.pushMessage("You Cannot Afford " + this.name + " Right Now");
+	}
+
+	if(currentAmountOwned === 0 && this.owned > 0) {
+		if(this.flavorText != "") {
+			var tempWorker = this;
+			setTimeout(function() {
+				consoleDisplay.pushMessage(tempWorker.flavorText);
+			}, 400);
+		}	
 	}
 	
 }

@@ -4,6 +4,7 @@ Cultist.prototype.getTotalPower = function() {
 
 Cultist.prototype.purchase = function() {
 
+	var currentAmountOwned = this.owned;
 
 	if(buyMultipleButton.value != "Max")
 		var buyMultipleNumber = Number(buyMultipleButton.value);
@@ -28,24 +29,18 @@ Cultist.prototype.purchase = function() {
 		//Can't Afford
 	} else {
 		if(this.isUnlocked)
-			consoleDisplay.pushMessage("You cannot afford " + this.name + " right now");
+			consoleDisplay.pushMessage("You Cannot Afford " + this.name + " Right Now");
 	}
 
 
-
-
-
-
-	//Old Purchase Function just in case (for now)
-	// if(player.influence >= this.influenceCost){
-	// 	player.influence = roundThreeDecimals(player.influence - this.influenceCost);
-	// 	this.owned += 1;
-	// 	this.influenceCost = roundThreeDecimals(this.influenceCost * 1.2);
-	// }
-	// else {
-	// 	if(this.isUnlocked)
-	// 		consoleDisplay.pushMessage("You cannot afford " + this.name + " right now");
-	// }
+	if(currentAmountOwned === 0 && this.owned > 0) {
+		if(this.flavorText != "") {
+			var tempCultist = this;
+			setTimeout(function() {
+				consoleDisplay.pushMessage(tempCultist.flavorText);
+			}, 400);
+		}	
+	}
 };
 
 Cultist.prototype.generateInfluence = function() {

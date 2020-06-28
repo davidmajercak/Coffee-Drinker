@@ -1,6 +1,9 @@
 var consoleDisplay = new ConsoleDisplay();
 
 function ConsoleDisplay(){
+
+	this.messages = ["Maybe Try Drinking Some Coffee", "", "", "", ""];
+	this.bottomMessageIndex = 0;
 	this.display = [
 		document.querySelector("#consoleDisplay0"),
 		document.querySelector("#consoleDisplay1"),
@@ -12,13 +15,45 @@ function ConsoleDisplay(){
 
 //Displays the message on the bottom row of the console (and moves up the old messages)
 ConsoleDisplay.prototype.pushMessage = function(message){	
-	//Don't display same message multiple times...
-	//TODO - Add a counter (x2... x3 etc) to show how many times message would have been displayed
-	if(!(this.display[0].innerText === "> " + message)){
-		for(var i = this.display.length - 1; i >= 1; i--){
-			this.display[i].innerText = ". " + this.display[i-1].innerText.substring(2);
-		}
-		this.display[0].innerText = "> " + message;
+	//Don't show the same cannot afford message multiple times in a row
+	if(!(message.length > 16 && message.substring(0, 17) === "You Cannot Afford" && consoleDisplay.messages[0] === message)) {
+		consoleDisplay.messages.unshift(message);
+		consoleDisplay.resetPosition();
 	}
-	
+};
+
+ConsoleDisplay.prototype.moveUp = function() {
+	consoleDisplay.bottomMessageIndex += 4;
+	if(consoleDisplay.bottomMessageIndex + 4 > consoleDisplay.messages.length - 1)
+	{
+		consoleDisplay.bottomMessageIndex = consoleDisplay.messages.length - 5;
+	}
+
+	consoleDisplay.updateMessages();
+};
+
+ConsoleDisplay.prototype.moveDown = function() {
+
+	consoleDisplay.bottomMessageIndex -= 4;
+	if(consoleDisplay.bottomMessageIndex < 0)
+		consoleDisplay.bottomMessageIndex = 0;
+	consoleDisplay.updateMessages();
+};
+
+ConsoleDisplay.prototype.resetPosition = function() {
+	consoleDisplay.bottomMessageIndex = 0;
+	consoleDisplay.updateMessages();
+};
+
+ConsoleDisplay.prototype.updateMessages = function() {
+	//Max of 50 Messages saved
+	if(consoleDisplay.messages.length > 50)
+		consoleDisplay.messages.pop();
+
+	for(var i = consoleDisplay.display.length - 1; i >= 0; i--){
+		if(i != 0)
+			consoleDisplay.display[i].innerText = ". " + consoleDisplay.messages[consoleDisplay.bottomMessageIndex + i];
+		else
+			consoleDisplay.display[i].innerText = "> " + consoleDisplay.messages[consoleDisplay.bottomMessageIndex + i];
+	}
 };
