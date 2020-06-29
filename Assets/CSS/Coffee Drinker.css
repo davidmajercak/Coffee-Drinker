@@ -58,7 +58,7 @@ h2 {
 	text-align: center
 }
 
-.hide, .hide2 {
+.hide, .hide2, .hide3 {
 	opacity: 0; 
 	transition: none !important;
 }

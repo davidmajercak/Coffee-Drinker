@@ -638,11 +638,11 @@ Game.prototype.initResearch = function() {
 			player.numResearches += 1;
 			consoleDisplay.pushMessage("You can now research " + player.numResearches + " researches at a time!");
 		}),
-		new Research("Someone Calls Out To You (Listen)", "", Math.floor(15 / player.researchBonus), 1, 0, 0, 0, function(){
+		new Research("A Voice Calls Out To You (Listen)", "", Math.floor(15 / player.researchBonus), 1, 0, 0, 0, function(){
 			consoleDisplay.pushMessage("You Can't Quite Make Out What The Voice is Saying...")
 		}),
-		new Research("Listen Closely To The Voices", "",	 Math.floor(20 / player.researchBonus),  1.5, 0, 0, 8, function(){
-			consoleDisplay.pushMessage("The Voices Told You To Start a Cult");
+		new Research("Listen Closely To The Voice", "",	 Math.floor(20 / player.researchBonus),  1.5, 0, 0, 8, function(){
+			consoleDisplay.pushMessage("The Voice Told You To Start a Cult");
 		}),
 		new Research("Start a Cult", "",					 Math.floor(60 / player.researchBonus),  0, 0, 0, 9, function(){
 			player.influence += 1;
@@ -797,9 +797,9 @@ Game.prototype.initUpgrades = function() {
 Game.prototype.initWorkers = function() {
 	workers = [
 		new Worker("Hire A Friend To Help You Drink Coffee", "Is It Weird If You Share A Mug? ... Nah", 1.5, .01 * player.workerProductionBonus, 1),
-		new Worker("Hire A Friend with A Better Work Ethic", "When You say \"Drink Coffee\" They Say \"How Much?\"", 4, .02 * player.workerProductionBonus, 4),
+		new Worker("Hire A Friend with A Better Work Ethic", "When You Say \"Drink Coffee\" They Say \"How Much?\"", 4, .02 * player.workerProductionBonus, 4),
 		new Worker("Hire An Old Man That Drinks Black Coffee", "You Know The One", 20, .1 * player.workerProductionBonus, 20),
-		new Worker("Hook Up a Vacuum To Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5 * player.workerProductionBonus, 100),
+		new Worker("Hook Up A Vacuum To Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5 * player.workerProductionBonus, 100),
 		new Worker("Hire A Nurse To Give You Coffee Intravenously", "This Is Getting Pretty Hardcore", 500, 2 * player.workerProductionBonus, 500),
 		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100 * player.workerProductionBonus, 25000)
 		//Maybe Add 'Monster With A Million Mouths' or something
