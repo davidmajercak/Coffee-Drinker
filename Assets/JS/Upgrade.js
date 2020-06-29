@@ -3,6 +3,8 @@ Upgrade.prototype.canUnlock = function() {
 		return false;
 	if(this.prerequisiteUpgrade != -1 && !upgrades[this.prerequisiteUpgrade].isPurchased)
 		return false;
+	if(this.isPurchased)
+		return false;
 	return (player.emptyMugs >= this.unlockMugs) && (player.caffeineLevel >= this.unlockCaffeineLevel);
 };
 
@@ -81,7 +83,28 @@ function Upgrade(name, flavorText, unlockMugs, unlockCaffeineLevel, emptyMugCost
 	this.callback = callback;							//An optional callback to create more interesting upgrades
 };
 
-//TODO - Only Unlock Worker Upgrades when You Own a Certain Amount of them (10, 25, 50, 100, etc)
+function loadUpgrades(savedUpgrades) {
+	if(savedUpgrades.length >= upgrades.length) {
+		for(var i = 0; i < upgrades.length; i++) {
+			//Don't Think Any of This Really Needs To Be Here
+			// upgrades[i].name = savedUpgrades[i].name;
+			// upgrades[i].flavorText = savedUpgrades[i].flavorText;
+			// upgrades[i].unlockMugs = savedUpgrades[i].unlockMugs;
+			// upgrades[i].unlockCaffeineLevel = savedUpgrades[i].unlockCaffeineLevel;
+			// upgrades[i].emptyMugCost = savedUpgrades[i].emptyMugCost;
+			// upgrades[i].caffeineCost = savedUpgrades[i].caffeineCost;
+			// upgrades[i].sipSizeIncrease = savedUpgrades[i].sipSizeIncrease;
+			// upgrades[i].prerequisiteUpgrade = savedUpgrades[i].prerequisiteUpgrade;
+			// upgrades[i].associatedWorkerIndex = savedUpgrades[i].associatedWorkerIndex;
+			// upgrades[i].callback = savedUpgrades[i].callback;
+			
+			upgrades[i].isPurchased = savedUpgrades[i].isPurchased;
+		}
+	}
+	else {
+		consoleDisplay.pushMessage("Sorry, Upgrades Have Been Updated And Your Upgrades Information Will Be Reset");
+	}
+}
 
 var upgrades = [];
 

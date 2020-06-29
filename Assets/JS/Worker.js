@@ -81,6 +81,23 @@ function Worker(name, flavorText, unlockMugs, baseSipSize, emptyMugCost) {
 	this.numUpgrades = 0;
 };
 
+function loadWorkers(savedWorkers) {
+	if(savedWorkers.length === workers.length) {
+		for(var i = 0; i < workers.length; i++) {
+			// workers[i].name = savedWorkers[i].name;
+			// workers[i].flavorText = savedWorkers[i].flavorText;
+			// workers[i].unlockMugs = savedWorkers[i].unlockMugs;
+			// workers[i].baseSipSize = savedWorkers[i].baseSipSize;
+			workers[i].emptyMugCost = savedWorkers[i].emptyMugCost;
+			workers[i].owned = savedWorkers[i].owned;
+			workers[i].numUpgrades = savedWorkers[i].numUpgrades;
+		}
+	}
+	else {
+		consoleDisplay.pushMessage("Sorry, Workers Have Been Updated And Your Worker Information Will Be Reset");
+	}
+}
+
 var workers = [];
 
 

@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171087605-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-171087605-1');
+	</script>
 
 	<title>Coffee Drinker</title>
 	<meta charset="UTF-8">
@@ -12,6 +20,7 @@
 	<div class="tab">
 		<button class="tabLink" onclick="openTab(event, 'mainTab')">Main</button>
 		<button class="tabLink" onclick="openTab(event, 'cultTab')">Cult</button>
+		<button class="tabLink" onclick="openTab(event, 'gameStatsTab')">Stats</button>
 	</div>
 
 	<!-- Tab Content -->
@@ -30,7 +39,7 @@
 		<div class="container">
 			<div class="column" id="leftColumn">
 				<div class="row">
-					<h1>Coffee <span id="mainTitle">Drinker</span> 0.6.1</h1>
+					<h1>Coffee <span id="mainTitle">Drinker</span> <span id="version">0.7.0</span></h1>
 				</div>
 				<div class="row hide" id="buyMultipleRow">
 					<span><h3>Buy Multiple:</h3></span>
@@ -135,8 +144,23 @@
 				</div>
 			</div>
 		</div>
-		
-		
+	</div>
+
+	<div id="gameStatsTab" class="tabContent">
+		<div class="container">
+			<div class="column">
+				<div class="row">
+					<ul>
+						<li>More Stats To Come!</li>
+						<li><h3>Game Tick Speed: <span id="gameTickSpeed">0</span> </h3></li>
+						<!-- <li><h3>Total Empty Mugs: <span id="totalEmptyMugs">0</span></h3></li> -->
+					</ul>
+				</div>
+				<div class="row">
+					<button id="deleteSaveButton">DELETE YOUR SAVE</button>
+				</div>
+			</div>
+		</div>		
 	</div>
 
 	<script type="text/javascript" src="Assets/JS/Player.js" async defer></script>

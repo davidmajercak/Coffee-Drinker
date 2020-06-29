@@ -62,3 +62,8 @@ ConsoleDisplay.prototype.updateMessages = function() {
 		}
 	}
 };
+
+ConsoleDisplay.prototype.loadConsoleDisplay = function(savedConsoleDisplay) {
+	this.messages = savedConsoleDisplay.messages;
+	this.resetPosition();
+};

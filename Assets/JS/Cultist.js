@@ -3,7 +3,6 @@ Cultist.prototype.getTotalPower = function() {
 }
 
 Cultist.prototype.purchase = function() {
-
 	var currentAmountOwned = this.owned;
 
 	if(buyMultipleButton.value != "Max")
@@ -32,7 +31,6 @@ Cultist.prototype.purchase = function() {
 			consoleDisplay.pushMessage("You Cannot Afford " + this.name + " Right Now");
 	}
 
-
 	if(currentAmountOwned === 0 && this.owned > 0) {
 		if(this.flavorText != "") {
 			var tempCultist = this;
@@ -59,5 +57,23 @@ function Cultist(name, flavorText, unlockInfluence, baseInfluence, influenceCost
 	this.influenceCost = influenceCost;
 	this.isUnlocked = false;
 };
+
+function loadCultists(savedCultists) {
+	if(savedCultists.length === cultists.length) {
+		for(var i = 0; i < cultists.length; i++) {
+			//cultists[i].name = savedCultists[i].name;
+			//cultists[i].flavorText = savedCultists[i].flavorText;
+			//cultists[i].unlockInfluence = savedCultists[i].unlockInfluence;
+			//cultists[i].baseInfluence = savedCultists[i].baseInfluence;
+			cultists[i].influenceCost = savedCultists[i].influenceCost;
+			cultists[i].owned = savedCultists[i].owned;
+			//cultists[i].isUnlocked = savedCultists[i].isUnlocked;
+		}
+	}
+	else {
+		consoleDisplay.pushMessage("Sorry, Cultists Have Been Updated And Your Cultist Information Will Be Reset");
+	}
+
+}
 
 var cultists = [];

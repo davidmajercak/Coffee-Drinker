@@ -84,6 +84,7 @@ div span h3 {
 
 #buyMultiple {
 	margin-left: 50px;
+	min-width: 50px;
 }
 
 #mainDisplay {
@@ -122,12 +123,21 @@ div span h3 {
 	margin: 5px auto;
 }
 
+#deleteSaveButton {
+	transition: all .3s;
+}
+
+#deleteSaveButton:hover {
+	color: #db0913;
+	border-color: #db0913;
+}
+
 .godButton:hover {
 	color: #0CAC64;
 	border-color: #0CAC64;
 }
 
-#cultTab {
+#cultTab, #gameStatsTab {
 	display: none;
 }
 

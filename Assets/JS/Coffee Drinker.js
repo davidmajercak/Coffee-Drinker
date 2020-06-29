@@ -75,11 +75,109 @@ function openTab(event, tabName) {
 
 
 
-
+var gameInitialized = false;
 var addedEventListeners = false;
+var loadedGame = false;
 //"Click" the main tab
 document.querySelector(".tabLink").click();
 setTimeout(function() {
-	game.init();
-}, 300);
+	game.init()
+}, 350);
 
+//Help from Here https://dhmholley.co.uk/incrementals-part-2.html
+function save() {
+
+	localStorage.setItem("playerSave",JSON.stringify(player));
+	localStorage.setItem("gameSave",JSON.stringify(game));
+	localStorage.setItem("cultistsSave",JSON.stringify(cultists));
+	localStorage.setItem("workersSave",JSON.stringify(workers));
+	localStorage.setItem("researchSave",JSON.stringify(research));
+	localStorage.setItem("upgradesSave",JSON.stringify(upgrades));
+	localStorage.setItem("consoleDisplaySave",JSON.stringify(consoleDisplay));
+	localStorage.setItem("versionSave",JSON.stringify(version));
+
+	var save = {
+		playerSave: player,
+		gameSave: game,
+		cultistsSave: cultists,
+		workersSave: workers,
+		researchSave: research,
+		upgradesSave: upgrades,
+		consoleDisplaySave: consoleDisplay,
+		versionSave: version
+	}
+
+	localStorage.setItem("save",JSON.stringify(save));
+}
+
+function load() {
+	var save = JSON.parse(localStorage.getItem("save"));
+
+	if(typeof save.versionSave !== undefined)
+		versionFromSave = save.versionSave;
+	else {
+		consoleDisplay.pushMessage("Sorry, Your Save Was Incompatible With The Current Version And Your Progress Has Been Reset")
+		setTimeout(function() {
+			deleteSave();
+		}, 1000);
+		return;
+	}
+
+	if(isSaveCompatible(versionFromSave)) {
+		if(typeof save.gameSave !== undefined)
+			game.loadGame(save.gameSave);
+		if(typeof save.playerSave !== undefined)
+			player.loadPlayer(save.playerSave);
+		if(typeof save.cultistSave !== undefined)
+			loadCultists(save.cultistsSave);
+		if(typeof save.workersSave !== undefined)
+			loadWorkers(save.workersSave);
+		if(typeof save.researchSave !== undefined)
+			loadResearch(save.researchSave);
+		if(typeof save.upgradesSave !== undefined)
+			loadUpgrades(save.upgradesSave);
+		if(typeof save.consoleDisplaySave !== undefined)
+			consoleDisplay.loadConsoleDisplay(save.consoleDisplaySave);
+	} else {
+		setTimeout(function() {
+			deleteSave();
+		}, 1000);
+		consoleDisplay.pushMessage("Sorry, Your Save Was Incompatible With The Current Version And Your Progress Has Been Reset");
+		return;
+	}
+
+	setTimeout(function() {
+		consoleDisplay.pushMessage("Welcome Back!")
+	}, 1000);
+
+	
+	loadedGame = true;
+}
+
+function deleteSave() {
+	localStorage.removeItem("save");
+
+	//This will refresh the page
+	window.location.reload(false);
+}
+
+function isSaveCompatible(savedVersion) {
+	return savedVersion >= "0.7.0";
+}
+
+//Save the Game Every 20 seconds
+setInterval(function() {
+	save();
+	console.log("Game was Saved!");
+}, 20000);
+
+deleteSaveButton = document.querySelector("#deleteSaveButton");
+
+deleteSaveButton.addEventListener("click", function() {
+	if(confirm("Are You Sure You Want To Delete Your Save?"))
+		if(confirm("Are You REALLY Sure You Want To Delete Your Save?\nThis Can't Be Undone."))
+			deleteSave();
+});
+
+gameTickSpeedDisplay = document.querySelector("#gameTickSpeed");
+//totalEmptyMugsDisplay = document.querySelector("#totalEmptyMugs");

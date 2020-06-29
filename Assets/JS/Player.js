@@ -63,8 +63,10 @@ Player.prototype.prestige = function() {
 			this.cultProductionBonus += 1;
 		}
 	}
+	consoleDisplay.pushMessage(this.chosenGod + " Has Given You Their Blessing");
 	this.chosenGod = null;
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
+
 };
 
 
@@ -94,6 +96,25 @@ function Player() {
 	 // this.sipSizeBase = 10;
 
 
+};
+
+Player.prototype.loadPlayer = function(savedPlayer) {
+	this.allTimeCoffee = savedPlayer.allTimeCoffee; //All time amount of coffees consumed (lasts through prestiges and resets)
+	this.emptyMugs = savedPlayer.emptyMugs; //Total amount of coffees consumed this prestige
+	this.caffeineLevel = savedPlayer.caffeineLevel; //Amount of coffee currency left to spend
+	this.maxCaffeineLevel = savedPlayer.maxCaffeineLevel; //Highest Caffeine Level Can Reach Currently
+	this.sipSizeBase = savedPlayer.sipSizeBase; //Percentage of a coffee that is consumed with each sip - tuned to .1 starting sip size
+	this.coffeeRemaining = savedPlayer.coffeeRemaining; //Percentage of coffee left in current cup - Start at .3
+	this.knowledge = savedPlayer.knowledge;	//Current Amount of knowledge (used to unlock/start researches)
+	this.influence = savedPlayer.influence; //Current Amount of Influence (used to unlock Cultists)
+
+	this.chosenGod = savedPlayer.chosenGod;
+	this.workerProductionBonus = savedPlayer.workerProductionBonus;
+	this.timeBonus = savedPlayer.timeBonus;
+	this.researchBonus = savedPlayer.researchBonus;
+	this.cultProductionBonus = savedPlayer.cultProductionBonus;
+
+	this.numResearches = savedPlayer.numResearches; 	//Number of concurrent researches player is allowed
 };
 
 

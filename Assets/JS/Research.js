@@ -8,6 +8,8 @@ Research.prototype.canUnlock = function() {
 			return false;
 		}
 	}
+	if(this.isCompleted)
+		return false;
 	//Then check that player has enough knowledge and caffeine level to unlock
 	return (player.knowledge >= this.unlockKnowledge) && (player.caffeineLevel >= this.unlockCaffeineLevel);
 };
@@ -29,8 +31,10 @@ Research.prototype.updateDisplay = function() {
 
 		if(this.callback)
 			this.callback();
-		if(this.name == "Prestige") {
+		//TODO - Find a better way to check for this exact research
+		if(this.name == "Ascend Into A Coffee God (Resets Game With Bonus)") {
 			consoleDisplay.pushMessage("Welp, Back to the Old Grind");
+			game.justPrestiged = true;
 			game.prestige();
 			return;
 		}
@@ -84,6 +88,27 @@ function Research(name, flavorText, researchTime, unlockCaffeineLevel, unlockKno
 	this.isUnlocked = false;
 	this.isStarted = false;
 	this.isCompleted = false;
+}
+
+function loadResearch(savedResearch) {
+	if(savedResearch.length >= research.length) {
+		for(var i = 0; i < research.length; i++) {
+			// research[i].name = savedResearch[i].name;
+			// research[i].flavorText = savedResearch[i].flavorText;
+			// research[i].researchTime = savedResearch[i].researchTime;
+			// research[i].unlockCaffeineLevel = savedResearch[i].unlockCaffeineLevel;
+			// research[i].unlockKnowledge = savedResearch[i].unlockKnowledge;
+			// research[i].knowledgeGain = savedResearch[i].knowledgeGain;
+			// research[i].prerequisiteResearch = savedResearch[i].prerequisiteResearch;
+			// research[i].callback = savedResearch[i].callback;
+
+			//research[i].isStarted = savedResearch[i].isStarted;
+			research[i].isCompleted = savedResearch[i].isCompleted;
+		}
+	}
+	else {
+		consoleDisplay.pushMessage("Sorry, Research Has Been Updated And Your Research Information Will Be Reset");
+	}
 }
 
 //Maybe feel ill-effects of high caffeine level first and then start doing research immediately?
