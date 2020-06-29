@@ -295,8 +295,8 @@ Game.prototype.unlockElements = function() {
 			if(i === 0)
 			{
 				document.querySelector("#workers h2").classList.remove("hide");
-				if(document.querySelector(".hide2"))
-					document.querySelector(".hide2").classList.remove("hide2");
+				if(document.querySelector(".hide3"))
+					document.querySelector(".hide3").classList.remove("hide3");
 			}
 
 			workerButtons[i].classList.remove("hide");

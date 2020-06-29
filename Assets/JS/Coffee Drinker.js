@@ -61,6 +61,7 @@
 //Decide if auto sipper lasts through prestige
 //Probably won't have inventions and similar research last through prestige
 //Research Progress is not saved (probably will be a bigger deal later)
+//Make Sure Screen Resizes on Mobile!
 
 
 function openTab(event, tabName) {
