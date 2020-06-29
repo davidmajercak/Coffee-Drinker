@@ -26,7 +26,8 @@ Game.prototype.prestige = function() {
 	}
 
 	document.querySelector("#godText").innerText = "Which Coffee God Will Your Cult Dedicate Itself to?";
-	
+	clearTimeout(autoSipper);
+	drinkCoffeeButton.disabled = false;
 	player.prestige();
 	//Call Init Again
 	this.init();
@@ -180,6 +181,7 @@ function buyMultiple() {
 	}
 };
 
+var autoSipper;
 function drinkCoffeeClick(){
 	player.takeSip();
 
@@ -187,7 +189,7 @@ function drinkCoffeeClick(){
 
 	//Disable Drinking coffees for 2 seconds after having a sip
 	drinkCoffeeButton.disabled = true;
-	setTimeout(function() {
+	autoSipper = setTimeout(function() {
 		if(player.hasAutoSipper){
 			drinkCoffeeClick();
 		} else {
@@ -195,6 +197,7 @@ function drinkCoffeeClick(){
 		}
 	}, 4 * tickSpeed);
 };
+
 
 Game.prototype.updateGameState = function() {
 	if(gameInitialized) {
@@ -269,6 +272,14 @@ Game.prototype.unlockElements = function() {
 		for(var i = 0; i < document.querySelectorAll("li").length; i++)
 		{
 			document.querySelectorAll("li")[i].classList.remove("hide");
+		}
+	}
+
+	if(!tabsDisplayed && game.prestigeCount > 0) {
+		var tabs = document.querySelectorAll(".tab");
+	
+		for(var i = 0; i < tabs.length; i++) {
+			tabs[i].style.maxHeight = "200px";
 		}
 	}
 

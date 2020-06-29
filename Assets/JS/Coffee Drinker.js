@@ -52,6 +52,17 @@
 // docReady(initGame);
 
 
+//TODO
+//TODO
+//TODO
+//Fix Bugs Associated with prestige and loading
+//Tabs Disappeared
+//Fix Auto Sipper after reload
+//Decide if auto sipper lasts through prestige
+//Probably won't have inventions and similar research last through prestige
+//Research Progress is not saved (probably will be a bigger deal later)
+
+
 function openTab(event, tabName) {
   // Declare all variables
   var i, tabContent, tablinks;
@@ -78,6 +89,7 @@ function openTab(event, tabName) {
 var gameInitialized = false;
 var addedEventListeners = false;
 var loadedGame = false;
+var tabsDisplayed = false;
 //"Click" the main tab
 document.querySelector(".tabLink").click();
 setTimeout(function() {
@@ -119,7 +131,7 @@ function load() {
 		consoleDisplay.pushMessage("Sorry, Your Save Was Incompatible With The Current Version And Your Progress Has Been Reset")
 		setTimeout(function() {
 			deleteSave();
-		}, 1000);
+		}, 2000);
 		return;
 	}
 
@@ -141,7 +153,7 @@ function load() {
 	} else {
 		setTimeout(function() {
 			deleteSave();
-		}, 1000);
+		}, 2000);
 		consoleDisplay.pushMessage("Sorry, Your Save Was Incompatible With The Current Version And Your Progress Has Been Reset");
 		return;
 	}
@@ -162,7 +174,7 @@ function deleteSave() {
 }
 
 function isSaveCompatible(savedVersion) {
-	return savedVersion >= "0.7.0";
+	return savedVersion >= "0.7.2";
 }
 
 //Save the Game Every 20 seconds

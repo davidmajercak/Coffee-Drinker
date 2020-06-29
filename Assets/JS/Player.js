@@ -66,6 +66,7 @@ Player.prototype.prestige = function() {
 	consoleDisplay.pushMessage(this.chosenGod + " Has Given You Their Blessing");
 	this.chosenGod = null;
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
+	this.hasAutoSipper = false;
 
 };
 
@@ -89,6 +90,8 @@ function Player() {
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
 	this.hasUnlockedUpgrades = false;
 	this.hasUnlockedBuyMultiple = false;
+	this.hasAutoSipper = false;
+
 
 	//Dev Testing
 	 // this.emptyMugs = 10000;
@@ -115,6 +118,7 @@ Player.prototype.loadPlayer = function(savedPlayer) {
 	this.cultProductionBonus = savedPlayer.cultProductionBonus;
 
 	this.numResearches = savedPlayer.numResearches; 	//Number of concurrent researches player is allowed
+	this.hasAutoSipper = savedPlayer.hasAutoSipper; 	//Number of concurrent researches player is allowed
 };
 
 
