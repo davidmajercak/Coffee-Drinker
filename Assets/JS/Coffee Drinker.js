@@ -16,27 +16,17 @@
 //Coffee cultists worship you/the coffee God (Whom you later become when you prestige)
 //Provide different type of perks and bonuses
 
-
 //Spend Caffeine level to gain research points
-
 
 //Make sure page is loaded first - Think this is taken care of
 
-//TODO - Add save game 
-//Probably to be implemented in localStorage but do more looking into it?
-
-//Highlight buttons green if can purchase worker or upgrade
-
-//Show Purchased Upgrades in a separate in game "tab"?
+//Show Purchased Upgrades in stats tab
 
 //Decide on a number system?
 //have empty mugs updated 4 or 8 times more often but 4 or 8 times less amount
 //Start with "quantum mug ability", but maybe have to brew coffee to be able to drink it?
 
-//Save The Game Somehow
-//Using cookies (more temporary)
-//https://dhmholley.co.uk/incrementals-part-2.html 
-//Using localStorage
+//Save The Game Using localStorage
 //https://www.reddit.com/r/incremental_games/comments/ahf6nx/how_to_make_an_incremental_game/
 
 
@@ -55,13 +45,11 @@
 //TODO
 //TODO
 //TODO
-//Fix Bugs Associated with prestige and loading
-//Tabs Disappeared
-//Fix Auto Sipper after reload
-//Decide if auto sipper lasts through prestige
+//Auto Sipper Should Start Automatically on page load if unlocked
+//Make sure sip coffee button text changes on page load if auto sipper unlocked
 //Probably won't have inventions and similar research last through prestige
 //Research Progress is not saved (probably will be a bigger deal later)
-//Make Sure Screen Resizes on Mobile!
+
 
 
 function openTab(event, tabName) {

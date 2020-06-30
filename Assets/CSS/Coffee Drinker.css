@@ -203,4 +203,8 @@ button:disabled {
 	.hide {
 		height: 0;
 	}
+	/*Add a bit of spacing in between lines in the console when on mobile since the lines will wrap frequently*/
+	#consoleDisplay0, #consoleDisplay1, #consoleDisplay2, #consoleDisplay3 {
+		margin-top: 5px;
+	}
 }

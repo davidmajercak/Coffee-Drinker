@@ -456,6 +456,10 @@ Game.prototype.updateCultists = function() {
 				for(var i = 0; i < tabs.length; i++) {
 					tabs[i].style.maxHeight = "200px";
 				}
+
+				if(game.prestigeCount === 0)
+					consoleDisplay.pushMessage("You Unlocked Tabs!");
+
 				if(player.chosenGod == null)
 					consoleDisplay.pushMessage("It is Time to Decide What You Are Working Towards");
 
@@ -648,7 +652,7 @@ Game.prototype.initResearch = function() {
 			player.influence += 1;
 		}),
 		new Research("Auto-Sipper", "That's My Secret, I'm Always Sippin'!",  Math.floor(60 / player.researchBonus),  0, 3, 0, 0, function(){
-			consoleDisplay.pushMessage("You will now automatically sip from the mug when available (no more clicking)!");
+			consoleDisplay.pushMessage("You will Now Automatically Sip From The Mug When Available (No More Clicking)!");
 			player.hasAutoSipper = true;
 			drinkCoffeeClick();
 			drinkCoffeeButton.innerText = "I'm Always Sippin'!";
@@ -684,7 +688,7 @@ Game.prototype.initUpgrades = function() {
 		}),
 		new Upgrade("Coffee That Doesn't Burn Your Mouth As Much", "Coffee That Doesn't Burn At All Is Asking For A Lot", 4, 0, 4, 0, .3, 2, -1),
 		new Upgrade("Confidence In Yourself", "Best 8 Empty Mugs You Ever Spent", 16, 0, 8, 0, .5, 3, -1),
-		new Upgrade("Wide-Mouth Coffee Mug", "Now If Only Your Mug Would Change Color When Your Coffee Is As Hot As The Rockies", 32, 0, 16, 0, 1, 4, -1),
+		new Upgrade("Wide-Mouth Coffee Mug", "If Only Your Mug Would Change Color When Your Coffee Is As Hot As The Rockies", 32, 0, 16, 0, 1, 4, -1),
 		//Create New prototypes to use as the callback functions?
 		new Upgrade("Improved Friends", "Now Even Friendlier", 5, 0, 5, 0, 0, -1, 0, function(){
 			consoleDisplay.pushMessage("Sip Size Of Friends Increased By 200%");
@@ -777,15 +781,15 @@ Game.prototype.initUpgrades = function() {
 			workers[4].numUpgrades++;
 			game.updateWorkerButton(4);
 		}),
-		new Upgrade("Coffethulu+", "", 50000, 0, 50000, 0, 0, -1, 5, function(){
-			consoleDisplay.pushMessage("Sip Size Of Coffethulu Increased By 500%");
+		new Upgrade("Coffeethulu+", "", 50000, 0, 50000, 0, 0, -1, 5, function(){
+			consoleDisplay.pushMessage("Sip Size Of Coffeethulu Increased By 500%");
 			workers[5].baseSipSize = roundThreeDecimals(workers[5].baseSipSize*5);
 
 			workers[5].numUpgrades++;
 			game.updateWorkerButton(5);
 		}),
-		new Upgrade("Coffethulu++", "", 150000, 0, 150000, 0, 0, 17, 5, function(){
-			consoleDisplay.pushMessage("Sip Size Of Coffethulu Increased By 500%");
+		new Upgrade("Coffeethulu++", "", 150000, 0, 150000, 0, 0, 17, 5, function(){
+			consoleDisplay.pushMessage("Sip Size Of Coffeethulu Increased By 500%");
 			workers[5].baseSipSize = roundThreeDecimals(workers[5].baseSipSize*5);
 
 			workers[5].numUpgrades++;
@@ -801,7 +805,7 @@ Game.prototype.initWorkers = function() {
 		new Worker("Hire An Old Man That Drinks Black Coffee", "You Know The One", 20, .1 * player.workerProductionBonus, 20),
 		new Worker("Hook Up A Vacuum To Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5 * player.workerProductionBonus, 100),
 		new Worker("Hire A Nurse To Give You Coffee Intravenously", "This Is Getting Pretty Hardcore", 500, 2 * player.workerProductionBonus, 500),
-		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100 * player.workerProductionBonus, 25000)
-		//Maybe Add 'Monster With A Million Mouths' or something
+		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100 * player.workerProductionBonus, 25000),
+		new Worker("Monster With One Million Mouths", "All The Better To Drink Coffee With", 1000000, 1000 * player.workerProductionBonus, 1000000)
 	];
 };
