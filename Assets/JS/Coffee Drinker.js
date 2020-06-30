@@ -96,6 +96,7 @@ function save() {
 	localStorage.setItem("upgradesSave",JSON.stringify(upgrades));
 	localStorage.setItem("consoleDisplaySave",JSON.stringify(consoleDisplay));
 	localStorage.setItem("versionSave",JSON.stringify(version));
+	localStorage.setItem("caffeineToleranceMessages",JSON.stringify(caffeineToleranceMessages));
 
 	var save = {
 		playerSave: player,
@@ -105,9 +106,9 @@ function save() {
 		researchSave: research,
 		upgradesSave: upgrades,
 		consoleDisplaySave: consoleDisplay,
-		versionSave: version
+		versionSave: version,
+		caffeineToleranceMessagesSave: caffeineToleranceMessages
 	}
-
 	localStorage.setItem("save",JSON.stringify(save));
 }
 
@@ -139,6 +140,9 @@ function load() {
 			loadUpgrades(save.upgradesSave);
 		if(typeof save.consoleDisplaySave !== undefined)
 			consoleDisplay.loadConsoleDisplay(save.consoleDisplaySave);
+		if(typeof save.caffeineToleranceMessagesSetSave !== undefined) {
+			caffeineToleranceMessages = save.caffeineToleranceMessagesSave;
+		}
 	} else {
 		setTimeout(function() {
 			deleteSave();
@@ -163,13 +167,12 @@ function deleteSave() {
 }
 
 function isSaveCompatible(savedVersion) {
-	return savedVersion >= "0.7.4";
+	return savedVersion >= "0.7.5";
 }
 
 //Save the Game Every 20 seconds
 setInterval(function() {
 	save();
-	console.log("Game was Saved!");
 }, 20000);
 
 deleteSaveButton = document.querySelector("#deleteSaveButton");

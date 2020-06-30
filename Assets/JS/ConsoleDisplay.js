@@ -16,6 +16,8 @@ function ConsoleDisplay(){
 //Displays the message on the bottom row of the console (and moves up the old messages)
 ConsoleDisplay.prototype.pushMessage = function(message){	
 	//Don't show the same cannot afford message multiple times in a row
+	if(message == "" || message == undefined)
+		return;
 	if(!(message.length > 16 && message.substring(0, 17) === "You Cannot Afford" && consoleDisplay.messages[0] === message)) {
 		consoleDisplay.messages.unshift(message);
 		consoleDisplay.resetPosition();

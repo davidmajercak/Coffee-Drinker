@@ -66,9 +66,16 @@ Worker.prototype.generateProduction = function() {
 Worker.prototype.takeSip = function() {
 	player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining - this.baseSipSize * this.owned);
 
+	if(player.caffeineSiphon > 0 && this.owned > 0) {
+		console.log(this.name)
+		console.log(roundThreeDecimals(.01 * player.caffeineSiphon * player.caffeineTolerance * this.getTotalPower()))
+		player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + 1 * player.caffeineSiphon * player.caffeineTolerance);
+	}
+
 	while(player.coffeeRemaining <= 0){
 			player.allTimeCoffee = roundThreeDecimals(player.allTimeCoffee + 1);
 			player.emptyMugs = roundThreeDecimals(player.emptyMugs + 1);
+
 			//TODO - Determine how exactly how workers can influence caffeine level
 			//player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + 0.1); //need a function to determine caffeine level soon
 			player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining + 1);
@@ -94,7 +101,7 @@ function loadWorkers(savedWorkers) {
 			workers[i].name = savedWorkers[i].name;
 			// workers[i].flavorText = savedWorkers[i].flavorText;
 			// workers[i].unlockMugs = savedWorkers[i].unlockMugs;
-			// workers[i].baseSipSize = savedWorkers[i].baseSipSize;
+			workers[i].baseSipSize = savedWorkers[i].baseSipSize;
 			workers[i].emptyMugCost = savedWorkers[i].emptyMugCost;
 			workers[i].owned = savedWorkers[i].owned;
 			workers[i].numUpgrades = savedWorkers[i].numUpgrades;
