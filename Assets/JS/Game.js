@@ -68,12 +68,18 @@ Game.prototype.initEventListeners = function () {
 
 				if(player.chosenGod === "God of Better Coffee") {
 					player.workerProductionBonus += 1;
+					for(var i = 0; i < workers.length; i++) {
+						game.updateWorkerButton(i);
+					}
 				} else if(player.chosenGod === "God of Time") {
 					player.timeBonus += .2;
 				} else if(player.chosenGod === "God of Knowledge") {
 					player.researchBonus += .2;
 				} else if(player.chosenGod === "God of Cults") {
 					player.cultProductionBonus += 1;
+					for(var i = 0; i < cultists.length; i++) {
+						game.updateCultistButton(i);
+					}
 				}
 				research.push(new Research("Ascend Into A Coffee God (Resets Game With Bonus)", "",						   5, 95, 0, 10000));	
 			});
@@ -536,9 +542,10 @@ Game.prototype.updateWorkerButton = function(index) {
 	if(workers[index].owned > 0)
 		workerButtons[index].innerHTML +=
 								"<div>Cost Efficiency (Mugs per Second / Cost): " + (roundThreeDecimals(workers[index].baseSipSize/workers[index].emptyMugCost*1000)) + "%" +
-								"<div>Sip Size(Each): " + workers[index].baseSipSize + " Mugs</div>" +
+								"<div>Sip Size(Each): " + workers[index].baseSipSize * player.workerProductionBonus * player.caffeineSacrificeProductionBonus + " Mugs</div>" +
 								"<div>Owned: " + workers[index].owned + "</div>" +
-								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].baseSipSize * workers[index].owned) + " Mugs</div>";
+								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].baseSipSize * workers[index].owned * 
+									player.workerProductionBonus * player.caffeineSacrificeProductionBonus) + " Mugs</div>";
 	
 	
 };
@@ -573,9 +580,9 @@ Game.prototype.updateCultistButton = function(index) {
 	if(cultists[index].owned > 0)
 		cultistButtons[index].innerHTML +=
 								"<div>Cost Efficiency (Influence / Cost): " + (roundThreeDecimals(cultists[index].baseInfluence/cultists[index].influenceCost*1000)) + "%" +
-								"<div>Influence Production(Each): " + cultists[index].baseInfluence + "</div>" + 
+								"<div>Influence Production(Each): " + cultists[index].baseInfluence * player.cultProductionBonus + "</div>" + 
 								"<div>Owned: " + cultists[index].owned + "</div>" + 
-								"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].owned)+ "</div>";
+								"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].owned * player.cultProductionBonus)+ "</div>";
 
 
 
@@ -672,15 +679,15 @@ Game.prototype.initResearch = function() {
 		player.caffeineSiphon += .1;
 		consoleDisplay.pushMessage("You Now Siphon " + player.caffeineSiphon * 100 + "% Caffeine From Workers");
 	});
-	research[13] = new Research("Caffeine Siphon v1", "", 150, 0, 0, 10000, 0, function() {
+	research[13] = new Research("Caffeine Siphon v1", "", 150, 0, 0, 10000, 12, function() {
 		player.caffeineSiphon += .2;
 		consoleDisplay.pushMessage("You Now Siphon " + player.caffeineSiphon * 100 + "% Caffeine From Workers");
 	});
-	research[14] = new Research("Caffeine Siphon v2", "", 180, 0, 0, 100000, 0, function() {
+	research[14] = new Research("Caffeine Siphon v2", "", 180, 0, 0, 100000, 13, function() {
 		player.caffeineSiphon += .2;
 		consoleDisplay.pushMessage("You Now Siphon " + player.caffeineSiphon * 100 + "% Caffeine From Workers");
 	});
-	research[15] = new Research("Perfect Caffeine Siphon", "", 210, 0, 0, 1000000, 0, function() {
+	research[15] = new Research("Perfect Caffeine Siphon", "", 210, 0, 0, 1000000, 14, function() {
 		player.caffeineSiphon = 1;
 		consoleDisplay.pushMessage("You Now Siphon " + player.caffeineSiphon * 100 + "% Caffeine From Workers");
 	});
@@ -695,14 +702,21 @@ Game.prototype.initResearch = function() {
 	research[17] = new Research("Caffeine Sacrifice Ritual 2", "", 360, 80, 70, 100000, 16, function() {
 		player.caffeineSacrificeProductionBonus = roundThreeDecimals(player.caffeineSacrificeProductionBonus * 1.5);
 		consoleDisplay.pushMessage("Your Workers Now Have 50% Bigger Sip Size Again");
+		for(var i = 0; i < workers.length; i++) {
+			workers[i].baseSipSize = roundThreeDecimals(workers[i].baseSipSize * 1.5)
+			game.updateWorkerButton(i);
+		}
 	});
 	research[18] = new Research("Caffeine Sacrifice Ritual 3", "", 720, 90, 80, 1000000, 17, function() {
 		player.caffeineSacrificeProductionBonus = roundThreeDecimals(player.caffeineSacrificeProductionBonus * 1.5);
 		consoleDisplay.pushMessage("Your Workers Now Have 50% Bigger Sip Size A Third Time");
+		for(var i = 0; i < workers.length; i++) {
+			workers[i].baseSipSize = roundThreeDecimals(workers[i].baseSipSize * 1.5)
+			game.updateWorkerButton(i);
+		}
 	});
 	research[19] = new Research("Max Caffeine To 105", "", 360, 100, 0, 100000, 0, function() {
-		player.caffeineSacrificeProductionBonus = roundThreeDecimals(player.caffeineSacrificeProductionBonus * 1.5);
-		consoleDisplay.pushMessage("Your Workers Now Have 50% Bigger Sip Size A Third Time");
+		player.maxCaffeineLevel = 105;
 	});
 };
 
@@ -848,13 +862,13 @@ Game.prototype.initUpgrades = function() {
 
 Game.prototype.initWorkers = function() {
 	workers = [
-		new Worker("Hire A Friend To Help You Drink Coffee", "Is It Weird If You Share A Mug? ... Nah", 1.5, .01 * player.workerProductionBonus * player.caffeineSacrificeProductionBonus, 1),
-		new Worker("Hire A Trained Horse", "You Can Lead A Horse To Coffee...", 4, .03 * player.workerProductionBonus * player.caffeineSacrificeProductionBonus, 4),
-		new Worker("Hire An Old Man That Drinks Black Coffee", "You Know The One", 20, .1 * player.workerProductionBonus * player.caffeineSacrificeProductionBonus, 20),
-		new Worker("Hook Up A Vacuum To Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5 * player.workerProductionBonus * player.caffeineSacrificeProductionBonus, 100),
-		new Worker("Hire A Nurse To Give You Coffee Intravenously", "This Is Getting Pretty Hardcore", 500, 2 * player.workerProductionBonus * player.caffeineSacrificeProductionBonus, 500),
-		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100 * player.workerProductionBonus * player.caffeineSacrificeProductionBonus, 25000),
-		new Worker("Monster With One Million Mouths", "All The Better To Drink Coffee With", 1000000, 1000 * player.workerProductionBonus * player.caffeineSacrificeProductionBonus, 1000000)
+		new Worker("Hire A Friend To Help You Drink Coffee", "Is It Weird If You Share A Mug? ... Nah", 1.5, .01, 1),
+		new Worker("Hire A Trained Horse", "You Can Lead A Horse To Coffee...", 4, .03, 4),
+		new Worker("Hire An Old Man That Drinks Black Coffee", "You Know The One", 20, .1, 20),
+		new Worker("Hook Up A Vacuum To Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5, 100),
+		new Worker("Hire A Nurse To Give You Coffee Intravenously", "This Is Getting Pretty Hardcore", 500, 2, 500),
+		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100, 25000),
+		new Worker("Monster With One Million Mouths", "All The Better To Drink Coffee With", 1000000, 1000, 1000000)
 	];
 };
 

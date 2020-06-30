@@ -1,5 +1,5 @@
 Worker.prototype.getTotalPower = function() { 
-	return this.baseSipSize * this.owned;
+	return this.baseSipSize * this.owned * player.workerProductionBonus;
 }
 
 Worker.prototype.increaseSipSize = function(increaseMultiplier) {
@@ -64,12 +64,10 @@ Worker.prototype.generateProduction = function() {
 }
 
 Worker.prototype.takeSip = function() {
-	player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining - this.baseSipSize * this.owned);
+	player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining - this.baseSipSize * this.owned * player.caffeineSacrificeProductionBonus);
 
 	if(player.caffeineSiphon > 0 && this.owned > 0) {
-		console.log(this.name)
-		console.log(roundThreeDecimals(.01 * player.caffeineSiphon * player.caffeineTolerance * this.getTotalPower()))
-		player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + 1 * player.caffeineSiphon * player.caffeineTolerance);
+		player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + 1 * player.caffeineSiphon * player.caffeineTolerance * player.caffeineSacrificeProductionBonus);
 	}
 
 	while(player.coffeeRemaining <= 0){

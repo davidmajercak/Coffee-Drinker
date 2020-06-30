@@ -109,33 +109,33 @@ Player.prototype.prestige = function() {
 
 	this.sipSizeBase = roundThreeDecimals(.1 + 10 * game.prestigeCount);
 
-	//Undo Current Run God Effect
-	if(this.chosenGod != null) {
-		if(this.chosenGod === "God of Better Coffee") {
-			this.workerProductionBonus -= 1;
-		} else if(this.chosenGod === "God of Time") {
-			this.timeBonus -= .2;
-		} else if(this.chosenGod === "God of Knowledge") {
-			this.researchBonus -= .2;
-		} else if(this.chosenGod === "God of Cults") {
-			this.cultProductionBonus -= 1;
-		}
-	}
+	// //Undo Current Run God Effect
+	// if(this.chosenGod != null) {
+	// 	if(this.chosenGod === "God of Better Coffee") {
+	// 		this.workerProductionBonus -= 1;
+	// 	} else if(this.chosenGod === "God of Time") {
+	// 		this.timeBonus -= .2;
+	// 	} else if(this.chosenGod === "God of Knowledge") {
+	// 		this.researchBonus -= .2;
+	// 	} else if(this.chosenGod === "God of Cults") {
+	// 		this.cultProductionBonus -= 1;
+	// 	}
+	// }
 
 	
-	//Also Check That Current Run God Effect is Updated
-	//Add Permanent Bonus Based On This run's God choice
-	if(this.chosenGod != null) {
-		if(this.chosenGod === "God of Better Coffee") {
-			this.workerProductionBonus += 1;
-		} else if(this.chosenGod === "God of Time") {
-			this.timeBonus += .2;
-		} else if(this.chosenGod === "God of Knowledge") {
-			this.researchBonus += .2;
-		} else if(this.chosenGod === "God of Cults") {
-			this.cultProductionBonus += 1;
-		}
-	}
+	// //Also Check That Current Run God Effect is Updated
+	// //Add Permanent Bonus Based On This run's God choice
+	// if(this.chosenGod != null) {
+	// 	if(this.chosenGod === "God of Better Coffee") {
+	// 		this.workerProductionBonus += 1;
+	// 	} else if(this.chosenGod === "God of Time") {
+	// 		this.timeBonus += .2;
+	// 	} else if(this.chosenGod === "God of Knowledge") {
+	// 		this.researchBonus += .2;
+	// 	} else if(this.chosenGod === "God of Cults") {
+	// 		this.cultProductionBonus += 1;
+	// 	}
+	// }
 	consoleDisplay.pushMessage(this.chosenGod + " Has Given A Permanent Blessing");
 	this.chosenGod = null;
 	this.numResearches = 1; 	//Number of concurrent researches player is allowed
