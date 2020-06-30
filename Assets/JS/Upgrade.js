@@ -5,7 +5,7 @@ Upgrade.prototype.canUnlock = function() {
 		return false;
 	if(this.isPurchased)
 		return false;
-	return (player.emptyMugs >= this.unlockMugs) && (player.caffeineLevel >= this.unlockCaffeineLevel);
+	return (player.emptyMugs >= this.unlockMugs);
 };
 
 Upgrade.prototype.purchase = function() {
@@ -14,8 +14,9 @@ Upgrade.prototype.purchase = function() {
 	if(upgrades[this.value].canUnlock())
 	{
 		player.emptyMugs -= upgrades[this.value].emptyMugCost;
-		player.caffeineLevel -=  upgrades[this.value].caffeineCost;
-		player.sipSizeBase +=  roundThreeDecimals(upgrades[this.value].sipSizeIncrease);
+
+		if(upgrades[this.value].updateName)
+			game.updateWorkerButtonName(upgrades[this.value].associatedWorkerIndex, upgrades[this.value].name)
 
 		game.updateDisplay();
 
@@ -68,18 +69,16 @@ Upgrade.prototype.addButton = function(){
 
 
 
-function Upgrade(name, flavorText, unlockMugs, unlockCaffeineLevel, emptyMugCost, caffeineCost, sipSizeIncrease, prerequisiteUpgrade, associatedWorkerIndex, callback) {
+function Upgrade(name, flavorText, unlockMugs, emptyMugCost, prerequisiteUpgrade, associatedWorkerIndex, updateName, callback) {
 	this.name = name;									//Name of Upgrade
 	this.flavorText = flavorText;						//Flavor Text for Upgrade
 	this.unlockMugs = unlockMugs;					//Amount of emptyMugs needed to Unlock
-	this.unlockCaffeineLevel = unlockCaffeineLevel;		//Amount of caffeine needed to unlock
 	this.emptyMugCost = emptyMugCost;					//Amount of coffee needed to buy
-	this.caffeineCost = caffeineCost;					//Amount of caffeine needed to buy
-	this.sipSizeIncrease = sipSizeIncrease;				//Amount sipSize increases by after upgrade
 	this.isUnlocked = false;							//Keeps track of unlocked upgrades
 	this.isPurchased = false;
 	this.prerequisiteUpgrade = prerequisiteUpgrade;		
 	this.associatedWorkerIndex = associatedWorkerIndex;	
+	this.updateName = updateName;
 	this.callback = callback;							//An optional callback to create more interesting upgrades
 };
 
@@ -90,10 +89,7 @@ function loadUpgrades(savedUpgrades) {
 			// upgrades[i].name = savedUpgrades[i].name;
 			// upgrades[i].flavorText = savedUpgrades[i].flavorText;
 			// upgrades[i].unlockMugs = savedUpgrades[i].unlockMugs;
-			// upgrades[i].unlockCaffeineLevel = savedUpgrades[i].unlockCaffeineLevel;
 			// upgrades[i].emptyMugCost = savedUpgrades[i].emptyMugCost;
-			// upgrades[i].caffeineCost = savedUpgrades[i].caffeineCost;
-			// upgrades[i].sipSizeIncrease = savedUpgrades[i].sipSizeIncrease;
 			// upgrades[i].prerequisiteUpgrade = savedUpgrades[i].prerequisiteUpgrade;
 			// upgrades[i].associatedWorkerIndex = savedUpgrades[i].associatedWorkerIndex;
 			// upgrades[i].callback = savedUpgrades[i].callback;
@@ -107,7 +103,6 @@ function loadUpgrades(savedUpgrades) {
 }
 
 var upgrades = [];
-
 
 var upgradeCutoffs = [
 	5,

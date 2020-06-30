@@ -2,6 +2,13 @@ Worker.prototype.getTotalPower = function() {
 	return this.baseSipSize * this.owned;
 }
 
+Worker.prototype.increaseSipSize = function(increaseMultiplier) {
+	this.baseSipSize = roundThreeDecimals(this.baseSipSize * increaseMultiplier);
+	this.numUpgrades++;
+	game.updateWorkerButton(workers.indexOf(this));
+	consoleDisplay.pushMessage("Sip Size Of " + this.name + " Increased By " + increaseMultiplier * 100 + "%!");
+};
+
 Worker.prototype.purchase = function() { 
 	var currentAmountOwned = this.owned;
 
@@ -84,7 +91,7 @@ function Worker(name, flavorText, unlockMugs, baseSipSize, emptyMugCost) {
 function loadWorkers(savedWorkers) {
 	if(savedWorkers.length === workers.length) {
 		for(var i = 0; i < workers.length; i++) {
-			// workers[i].name = savedWorkers[i].name;
+			workers[i].name = savedWorkers[i].name;
 			// workers[i].flavorText = savedWorkers[i].flavorText;
 			// workers[i].unlockMugs = savedWorkers[i].unlockMugs;
 			// workers[i].baseSipSize = savedWorkers[i].baseSipSize;

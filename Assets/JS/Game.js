@@ -679,133 +679,160 @@ Game.prototype.initResearch = function() {
 };
 
 Game.prototype.initUpgrades = function() {
-	//(name, flavorText, unlockMugs, unlockCaffeineLevel, emptyMugCost, caffeineCost, sipSizeIncrease, prerequisiteUpgrade, associatedWorkerIndex, callback) 
-	upgrades = [
-		new Upgrade("Become Slightly More Thirsty", "Your Sip Size Increased By .05", 1, 0, .5, 0, .05, -1, -1),
-		new Upgrade("Become Slightly More Thirsty Again", "Your Sip Size Increased By .05 Again", 1.5, 0, 1.5, 0, .05, 0, -1),
-		new Upgrade("Pretzels That Make You Thirsty", "These Pretzels Are Making Me Thirsty!!!", 2, 0, 2, 0, .15, 1, -1, function(){
-			consoleDisplay.pushMessage("Your Sip Size Increased By .15");
-		}),
-		new Upgrade("Coffee That Doesn't Burn Your Mouth As Much", "Coffee That Doesn't Burn At All Is Asking For A Lot", 4, 0, 4, 0, .3, 2, -1),
-		new Upgrade("Confidence In Yourself", "Best 8 Empty Mugs You Ever Spent", 16, 0, 8, 0, .5, 3, -1),
-		new Upgrade("Wide-Mouth Coffee Mug", "If Only Your Mug Would Change Color When Your Coffee Is As Hot As The Rockies", 32, 0, 16, 0, 1, 4, -1),
-		//Create New prototypes to use as the callback functions?
-		new Upgrade("Improved Friends", "Now Even Friendlier", 5, 0, 5, 0, 0, -1, 0, function(){
-			consoleDisplay.pushMessage("Sip Size Of Friends Increased By 200%");
-			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
-			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
+	//(name, flavorText, unlockMugs, emptyMugCost, prerequisiteUpgrade, associatedWorkerIndex, updateName, callback) {
 
-			workers[0].numUpgrades++;
-
-			game.updateWorkerButton(0);
-			game.updateWorkerButton(1);
-		}),
-		new Upgrade("Robo-Friends", "I Think I Liked Them More Before They Were Robots", 10, 0, 10, 0, 0, 6, 0, function(){
-			consoleDisplay.pushMessage("Sip Size Of Friends Increased By 200%");
-			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
-			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
-
-			workers[0].numUpgrades++;
-
-			game.updateWorkerButton(0);
-			game.updateWorkerButton(1);
-		}),
-		new Upgrade("Best Friends", "Now You Can Have More Than One Best Friend", 40, 0, 40, 0, 0, -1, 1, function(){
-			consoleDisplay.pushMessage("Sip Size Of Friends Increased By 200%");
-			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
-			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
-
-			workers[1].numUpgrades++;
-
-			game.updateWorkerButton(0);
-			game.updateWorkerButton(1);
-		}),
-		new Upgrade("Robo-Best Friends", "", 100, 0, 100, 0, 0, 8, 1, function(){
-			consoleDisplay.pushMessage("Sip Size Of Friends Increased By 200%");
-			workers[0].baseSipSize = roundThreeDecimals(workers[0].baseSipSize*2);
-			workers[1].baseSipSize = roundThreeDecimals(workers[1].baseSipSize*2);
-
-			workers[1].numUpgrades++;
-
-			game.updateWorkerButton(0);
-			game.updateWorkerButton(1);
-		}),
-		new Upgrade("Older Men Who Drink Blacker Coffee", "", 50, 0, 50, 0, 0, -1, 2, function(){
-			consoleDisplay.pushMessage("Sip Size Of Old Men Increased By 700%");
-			workers[2].baseSipSize = roundThreeDecimals(workers[2].baseSipSize*7);
-
-			workers[2].numUpgrades++;
-
-			game.updateWorkerButton(2);
-		}),
-		new Upgrade("Oldest Men Who Drink Blackest Coffee", "", 150, 0, 150, 0, 0, 10, 2, function(){
-			consoleDisplay.pushMessage("Sip Size Of Old Men Increased By 700%");
-			workers[2].baseSipSize = roundThreeDecimals(workers[2].baseSipSize*7);
-
-			workers[2].numUpgrades++;
-
-			game.updateWorkerButton(2);
-		}),
-		new Upgrade("Improved Vacuums", "", 250, 0, 250, 0, 0, -1, 3, function(){
-			consoleDisplay.pushMessage("Sip Size Of Vacuums Increased By 300%");
-			workers[3].baseSipSize = roundThreeDecimals(workers[2].baseSipSize*3);
-
-			workers[3].numUpgrades++;
-			game.updateWorkerButton(3);
-		}),
-		new Upgrade("Vacuums That Suck", "Technically an Improvement", 1000, 0, 1000, 0, 0, 12, 3, function(){
-			consoleDisplay.pushMessage("Sip Size Of Vacuums Increased By 300%");
-			workers[3].baseSipSize = roundThreeDecimals(workers[3].baseSipSize*3);
-
-			workers[3].numUpgrades++;
-			game.updateWorkerButton(3);
-		}),
-		new Upgrade("Vacuums That Suck More", "Technically More Of An Improvement", 2500, 0, 2500, 0, 0, 13, 3, function(){
-			consoleDisplay.pushMessage("Sip Size Of Vacuums Increased By 300%");
-			workers[3].baseSipSize = roundThreeDecimals(workers[3].baseSipSize*3);
-
-			workers[3].numUpgrades++;
-			game.updateWorkerButton(3);
-		}),
-		new Upgrade("Trained Nurses", "Wait... Were They Untrained Before?", 3000, 0, 3000, 0, 0, -1, 4, function(){
-			consoleDisplay.pushMessage("Sip Size Of Nurses Increased By 400%");
-			workers[4].baseSipSize = roundThreeDecimals(workers[4].baseSipSize*4);
-
-			workers[4].numUpgrades++;
-			game.updateWorkerButton(4);
-		}),
-		new Upgrade("Bigger Needles", "Maybe It Helps", 7000, 0, 7000, 0, 0, 15, 4, function(){
-			consoleDisplay.pushMessage("Sip Size Of Nurses Increased By 400%");
-			workers[4].baseSipSize = roundThreeDecimals(workers[4].baseSipSize*4);
-
-			workers[4].numUpgrades++;
-			game.updateWorkerButton(4);
-		}),
-		new Upgrade("Coffeethulu+", "", 50000, 0, 50000, 0, 0, -1, 5, function(){
-			consoleDisplay.pushMessage("Sip Size Of Coffeethulu Increased By 500%");
-			workers[5].baseSipSize = roundThreeDecimals(workers[5].baseSipSize*5);
-
-			workers[5].numUpgrades++;
-			game.updateWorkerButton(5);
-		}),
-		new Upgrade("Coffeethulu++", "", 150000, 0, 150000, 0, 0, 17, 5, function(){
-			consoleDisplay.pushMessage("Sip Size Of Coffeethulu Increased By 500%");
-			workers[5].baseSipSize = roundThreeDecimals(workers[5].baseSipSize*5);
-
-			workers[5].numUpgrades++;
-			game.updateWorkerButton(5);
-		}),
-	];
+	upgrades[0] = new Upgrade("Become Slightly More Thirsty", "", 1, .5, -1, -1, false, function(){
+		player.increaseSipSize(.05);
+	});
+	upgrades[1] = new Upgrade("Become Slightly More Thirsty Again", "", 1.5, 1.5, 0, -1, false, function(){
+		player.increaseSipSize(.05);
+	});
+	upgrades[2] = new Upgrade("Pretzels That Make You Thirsty", "These Pretzels Are Making Me Thirsty!!!", 2, 2, 1, -1, false, function(){
+		player.increaseSipSize(.15);
+	});
+	upgrades[3] = new Upgrade("Coffee That Doesn't Burn Your Mouth As Much", "Coffee That Doesn't Burn At All Is Asking For A Lot", 4, 4, 2, -1, false, function(){
+		player.increaseSipSize(.3);
+	});
+	upgrades[4] = new Upgrade("Confidence In Yourself", "Best 8 Empty Mugs You Ever Spent", 8, 8, 3, -1, false, function(){
+		player.increaseSipSize(.5);
+	});
+	upgrades[5] = new Upgrade("Wide-Mouth Coffee Mug", "If Only Your Mug Would Change Color When Your Coffee Is As Hot As The Rockies", 32, 32, 4, -1, false, function(){
+		player.increaseSipSize(1);
+	});
+	upgrades[6] = new Upgrade("Aerodynamic Mug", "", 2000, 2000, 5, -1, false, function(){
+		player.increaseSipSize(5);
+	});
+	upgrades[7] = new Upgrade("Extreme Thirst", "This Is An Extreme Thirst", 10000, 10000, 6, -1, false, function(){
+		player.increaseSipSize(10);
+	});
+	upgrades[8] = new Upgrade("Extreme Thirst 2", "This Is An Extreme Thirst 2", 100000, 100000, 7, -1, false, function(){
+		player.increaseSipSize(25);
+	});
+	upgrades[9] = new Upgrade("Sentient Mug", "Personally, I Feel That A Sentient Mug Would Slow Me Down...", 1000000, 1000000, 8, -1, false, function(){
+		player.increaseSipSize(50);
+	});
+	upgrades[10] = new Upgrade("Improved Friends", "Friendlier Friends!", 5, 5, -1, 0, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(2);
+	});
+	upgrades[11] = new Upgrade("Robo-Friends", "I Think I Liked Them More Before They Were Robots...", 10, 10, 10, 0, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(2);
+	});
+	upgrades[12] = new Upgrade("Best Friends", "Now You Have More Than One Best Friend!", 50, 50, 11, 0, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(2);
+	});
+	upgrades[13] = new Upgrade("Robo-Best Friends", "Hey There Have You Heard About My Robot Friend?", 150, 150, 12, 0, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(2);
+	});
+	upgrades[14] = new Upgrade("Super Friends", "Meanwhile, At The Hall Of Coffee Drinking", 1000, 1000, 13, 0, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(2);
+	});
+	upgrades[15] = new Upgrade("Make The Horse Drink", "The Horse Drinks, Therefore It Is", 30, 30, -1, 1, false, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[16] = new Upgrade("Make The Horse Drink More", "Man, That Proverb Was Way Off", 170, 170, 15, 1, false, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[17] = new Upgrade("Put The Horse Before The Mug", "", 500, 500, 16, 1, false, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[18] = new Upgrade("Horses That Aren't Annoyed By Puns Or Proverbs", "", 2500, 2500, 17, 1, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[19] = new Upgrade("Teach An Old Horse New Tricks", "", 15000, 15000, 18, 1, false, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[20] = new Upgrade("Older Men Who Drink Blacker Coffee", "", 100, 100, -1, 2, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
+	upgrades[21] = new Upgrade("Oldest Men Who Drink Blackest Coffee", "", 500, 500, 20, 2, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
+	upgrades[22] = new Upgrade("Less Grumpy Old Men", "", 2500, 2500, 21, 2, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
+	upgrades[23] = new Upgrade("Move The Old Men To Sumter County, Florida", "This Is Exactly The County For Old Men", 10000, 10000, 22, 2, false, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
+	upgrades[24] = new Upgrade("Free Newspapers For Old Men", "", 10000, 10000, 23, 2, false, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
+	upgrades[25] = new Upgrade("Improved Vacuums", "", 300, 300, -1, 3, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[26] = new Upgrade("Vacuums That Suck", "Technically An Improvement", 1500, 1500, 25, 3, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[27] = new Upgrade("Vacuums That Suck More", "Technically More Of An Improvement", 5000, 5000, 26, 3, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[28] = new Upgrade("Wet/Dry Vac", "", 25000, 25000, 27, 3, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[29] = new Upgrade("iCoffee Brand Vacuum", "State Of The Art", 125000, 125000, 28, 3, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(3);
+	});
+	upgrades[30] = new Upgrade("Trained Nurses", "Wait... Were They Untrained Before?", 5000, 5000, -1, 4, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(4);
+	});
+	upgrades[31] = new Upgrade("Bigger Needles", "Maybe Bigger Needles Help", 35000, 35000, 30, 4, false, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(4);
+	});
+	upgrades[32] = new Upgrade("Nurses That Drink Coffee", "", 135000, 135000, 31, 4, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(4);
+	});
+	upgrades[33] = new Upgrade("Super Nurses", "", 535000, 535000, 32, 4, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(4);
+	});
+	upgrades[34] = new Upgrade("Super Robo Nurses That Drink Coffee", "", 1535000, 1535000, 33, 4, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(4);
+	});
+	upgrades[35] = new Upgrade("Coffeethulu+", "", 100000, 100000, -1, 5, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(5);
+	});
+	upgrades[36] = new Upgrade("Coffeethulu++", "", 500000, 500000, 35, 5, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(5);
+	});
+	upgrades[37] = new Upgrade("Cappucinothulu", "", 3500000, 3500000, 36, 5, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(5);
+	});
+	upgrades[38] = new Upgrade("Mochathulu", "", 23500000, 23500000, 37, 5, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(5);
+	});
+	upgrades[39] = new Upgrade("Frenchpressthulu", "", 123500000, 123500000, 38, 5, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(5);
+	});
+	upgrades[40] = new Upgrade("Monster With One Billion Mouths", "", 23500000, 23500000, -1, 6, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
+	upgrades[41] = new Upgrade("Monster With One Trillion Mouths", "", 223500000, 223500000, 40, 6, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
+	upgrades[42] = new Upgrade("More Motivated Mouth Monster", "", 2223500000, 2223500000, 41, 6, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
+	upgrades[43] = new Upgrade("Master Motivated Mouth Monster", "", 9023500000, 9023500000, 42, 6, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
+	upgrades[44] = new Upgrade("Machiavellian Master Motivated Mouth Monster", "", 29023500000, 29023500000, 43, 6, true, function(){
+		workers[this.associatedWorkerIndex].increaseSipSize(6);
+	});
 };
 
 Game.prototype.initWorkers = function() {
 	workers = [
 		new Worker("Hire A Friend To Help You Drink Coffee", "Is It Weird If You Share A Mug? ... Nah", 1.5, .01 * player.workerProductionBonus, 1),
-		new Worker("Hire A Friend with A Better Work Ethic", "When You Say \"Drink Coffee\" They Say \"How Much?\"", 4, .02 * player.workerProductionBonus, 4),
+		new Worker("Hire A Trained Horse", "You Can Lead A Horse To Coffee...", 4, .02 * player.workerProductionBonus, 4),
 		new Worker("Hire An Old Man That Drinks Black Coffee", "You Know The One", 20, .1 * player.workerProductionBonus, 20),
 		new Worker("Hook Up A Vacuum To Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5 * player.workerProductionBonus, 100),
 		new Worker("Hire A Nurse To Give You Coffee Intravenously", "This Is Getting Pretty Hardcore", 500, 2 * player.workerProductionBonus, 500),
 		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100 * player.workerProductionBonus, 25000),
 		new Worker("Monster With One Million Mouths", "All The Better To Drink Coffee With", 1000000, 1000 * player.workerProductionBonus, 1000000)
 	];
+};
+
+Game.prototype.updateWorkerButtonName = function(index, newName) {
+	setTimeout(function(){
+		workers[index].name = newName;
+		game.updateWorkerButton(index);
+	}, 50)
 };

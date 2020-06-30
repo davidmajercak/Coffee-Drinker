@@ -163,7 +163,7 @@ function deleteSave() {
 }
 
 function isSaveCompatible(savedVersion) {
-	return savedVersion >= "0.7.2";
+	return savedVersion >= "0.7.4";
 }
 
 //Save the Game Every 20 seconds

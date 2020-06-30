@@ -13,6 +13,11 @@ Player.prototype.takeSip = function() {
 	}
 };
 
+Player.prototype.increaseSipSize = function(increaseAmount) {
+	this.sipSizeBase = roundThreeDecimals(this.sipSizeBase + increaseAmount);
+	consoleDisplay.pushMessage("Your Sip Size Increased By " + increaseAmount + "!");
+};
+
 Player.prototype.updateCaffeineLevel = function() {
 
 	//Player needs to complete research to push max caffeine level higher
