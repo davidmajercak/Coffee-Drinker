@@ -63,7 +63,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			caffeineToleranceMessages[4] = true;
 		}
 		consoleDisplay.pushMessage()
-		player.caffeineTolerance = .01;
+		player.caffeineTolerance = .005;
 	} else if(this.caffeineLevel > 100) { 
 		var message = "You Now Have A Caffeine Level Of 100%, Your Caffeine Tolerance Rises Extremely Sharply...";
 		if(!caffeineToleranceMessages[5]) {
@@ -71,7 +71,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			caffeineToleranceMessages[5] = true;
 		}
 		consoleDisplay.pushMessage()
-		player.caffeineTolerance = .0001;
+		player.caffeineTolerance = .00005;
 	}
  
 
@@ -105,6 +105,7 @@ Player.prototype.prestige = function() {
 	this.coffeeRemaining = .3; //Percentage of coffee left in current cup - Start at .3
 	this.influence = 0; //Current Amount of Influence (used to unlock Cultists)
 	this.caffeineSacrificeProductionBonus = 1;
+	this.caffeineSiphon = 0;
 
 
 	this.sipSizeBase = roundThreeDecimals(.1 + 10 * game.prestigeCount);

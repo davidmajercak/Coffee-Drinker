@@ -542,7 +542,7 @@ Game.prototype.updateWorkerButton = function(index) {
 	if(workers[index].owned > 0)
 		workerButtons[index].innerHTML +=
 								"<div>Cost Efficiency (Mugs per Second / Cost): " + (roundThreeDecimals(workers[index].baseSipSize/workers[index].emptyMugCost*1000)) + "%" +
-								"<div>Sip Size(Each): " + workers[index].baseSipSize * player.workerProductionBonus * player.caffeineSacrificeProductionBonus + " Mugs</div>" +
+								"<div>Sip Size(Each): " + roundThreeDecimals(workers[index].baseSipSize * player.workerProductionBonus * player.caffeineSacrificeProductionBonus) + " Mugs</div>" +
 								"<div>Owned: " + workers[index].owned + "</div>" +
 								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].baseSipSize * workers[index].owned * 
 									player.workerProductionBonus * player.caffeineSacrificeProductionBonus) + " Mugs</div>";
@@ -677,19 +677,19 @@ Game.prototype.initResearch = function() {
 	});
 	research[12] = new Research("Caffeine Siphon Prototype", "", 120, 0, 0, 1000, 0, function() {
 		player.caffeineSiphon += .1;
-		consoleDisplay.pushMessage("You Now Siphon " + player.caffeineSiphon * 100 + "% Caffeine From Workers");
+		consoleDisplay.pushMessage("You Now Siphon " + roundThreeDecimals(player.caffeineSiphon * 100) + "% Caffeine From Workers");
 	});
 	research[13] = new Research("Caffeine Siphon v1", "", 150, 0, 0, 10000, 12, function() {
 		player.caffeineSiphon += .2;
-		consoleDisplay.pushMessage("You Now Siphon " + player.caffeineSiphon * 100 + "% Caffeine From Workers");
+		consoleDisplay.pushMessage("You Now Siphon " + roundThreeDecimals(player.caffeineSiphon * 100) + "% Caffeine From Workers");
 	});
 	research[14] = new Research("Caffeine Siphon v2", "", 180, 0, 0, 100000, 13, function() {
 		player.caffeineSiphon += .2;
-		consoleDisplay.pushMessage("You Now Siphon " + player.caffeineSiphon * 100 + "% Caffeine From Workers");
+		consoleDisplay.pushMessage("You Now Siphon " + roundThreeDecimals(player.caffeineSiphon * 100) + "% Caffeine From Workers");
 	});
 	research[15] = new Research("Perfect Caffeine Siphon", "", 210, 0, 0, 1000000, 14, function() {
 		player.caffeineSiphon = 1;
-		consoleDisplay.pushMessage("You Now Siphon " + player.caffeineSiphon * 100 + "% Caffeine From Workers");
+		consoleDisplay.pushMessage("You Now Siphon " + roundThreeDecimals(player.caffeineSiphon * 100) + "% Caffeine From Workers");
 	});
 	research[16] = new Research("Caffeine Sacrifice Ritual", "", 180, 50, 40, 10000, 0, function() {
 		player.caffeineSacrificeProductionBonus = roundThreeDecimals(player.caffeineSacrificeProductionBonus * 1.5);
@@ -777,7 +777,7 @@ Game.prototype.initUpgrades = function() {
 	upgrades[17] = new Upgrade("Put The Horse Before The Mug", "", 400, 400, 16, 1, false, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(3);
 	});
-	upgrades[18] = new Upgrade("Horses That Aren't Annoyed By Puns Or Proverbs", "", 2500, 2500, 17, 1, true, function(){
+	upgrades[18] = new Upgrade("Horses That Aren't Annoyed By Puns Or Proverbs", "Want To Hear Another Pun? \"Neigh.\"", 2500, 2500, 17, 1, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(3);
 	});
 	upgrades[19] = new Upgrade("Teach An Old Horse New Tricks", "", 15000, 15000, 18, 1, false, function(){

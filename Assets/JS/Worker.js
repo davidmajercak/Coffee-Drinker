@@ -1,5 +1,5 @@
 Worker.prototype.getTotalPower = function() { 
-	return this.baseSipSize * this.owned * player.workerProductionBonus;
+	return this.baseSipSize * this.owned * player.workerProductionBonus * caffeineSacrificeProductionBonus;
 }
 
 Worker.prototype.increaseSipSize = function(increaseMultiplier) {
