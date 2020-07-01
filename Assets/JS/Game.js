@@ -39,7 +39,7 @@ Game.prototype.initEventListeners = function () {
 			workerButtons[i].addEventListener("click", function() {
 				workers[this.value].purchase();
 
-				if(workers[this.value].owned > 0)
+				if(workers[this.value].Hired > 0)
 				{
 					game.updateWorkerButton(this.value);
 				}
@@ -50,7 +50,7 @@ Game.prototype.initEventListeners = function () {
 			cultistButtons[i].addEventListener("click", function() {
 				cultists[this.value].purchase();
 
-				if(cultists[this.value].owned > 0)
+				if(cultists[this.value].Hired > 0)
 				{
 					game.updateCultistButton(this.value);
 				}
@@ -132,7 +132,7 @@ Game.prototype.init = function() {
 		workerButtons[i].value = i;
 
 		//If Player loads a save an has bought at least one of the workers, update the button
-		if(workers[i].owned > 0)
+		if(workers[i].Hired > 0)
 			game.updateWorkerButton(i);
 	}
 
@@ -143,7 +143,7 @@ Game.prototype.init = function() {
 		cultistButtons[i].value = i;
 
 		//If Player loads a save an has bought at least one of the workers, update the button
-		if(cultists[i].owned > 0)
+		if(cultists[i].Hired > 0)
 			game.updateCultistButton(i);
 	}
 
@@ -310,7 +310,7 @@ Game.prototype.unlockElements = function() {
 
 	for(var i = 0; i < workers.length; i++)
 	{
-		if(!workers[i].isUnlocked && workers[i].unlockMugs <= player.emptyMugs || workers[i].owned > 0)
+		if(!workers[i].isUnlocked && workers[i].unlockMugs <= player.emptyMugs || workers[i].Hired > 0)
 		{
 			if(i === 0)
 			{
@@ -324,7 +324,7 @@ Game.prototype.unlockElements = function() {
 		}
 	}
 
-	if(!player.unlockedBuyMultiple && (workers[0].owned >= 5 || workers[3].isUnlocked)) {
+	if(!player.unlockedBuyMultiple && (workers[0].Hired >= 5 || workers[3].isUnlocked)) {
 		player.hasUnlockedBuyMultiple = true;
 		document.querySelector("#buyMultipleRow").classList.remove("hide");
 	}
@@ -451,7 +451,7 @@ Game.prototype.updateCultists = function() {
 	var influencePerSecond = 0;
 	for(var i = 0; i < cultists.length; i++) {
 
-		if(!cultists[i].isUnlocked && (cultists[i].unlockInfluence <= player.influence || cultists[i].owned > 0)){	
+		if(!cultists[i].isUnlocked && (cultists[i].unlockInfluence <= player.influence || cultists[i].Hired > 0)){	
 			//Unhide the associated cultist button and set isUnlocked to true
 			cultistButtons[i].classList.remove("hide");
 			cultists[i].isUnlocked = true;
@@ -538,13 +538,13 @@ Game.prototype.updateWorkerButton = function(index) {
 		workerButtons[index].innerHTML += "<div>Cost: " + roundThreeDecimals(geometricSum(workers[index].emptyMugCost, 1.2, buyMultipleButton.value)) + " Empty Mugs</div>";
 	}
 
-	//Only Show Extended Information for Workers that are owned
-	if(workers[index].owned > 0)
+	//Only Show Extended Information for Workers that are Hired
+	if(workers[index].Hired > 0)
 		workerButtons[index].innerHTML +=
 								"<div>Cost Efficiency (Mugs per Second / Cost): " + (roundThreeDecimals(workers[index].baseSipSize/workers[index].emptyMugCost*1000)) + "%" +
 								"<div>Sip Size(Each): " + roundThreeDecimals(workers[index].baseSipSize * player.workerProductionBonus * player.caffeineSacrificeProductionBonus) + " Mugs</div>" +
-								"<div>Owned: " + workers[index].owned + "</div>" +
-								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].baseSipSize * workers[index].owned * 
+								"<div>Hired: " + workers[index].Hired + "</div>" +
+								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].baseSipSize * workers[index].Hired * 
 									player.workerProductionBonus * player.caffeineSacrificeProductionBonus) + " Mugs</div>";
 	
 	
@@ -576,25 +576,13 @@ Game.prototype.updateCultistButton = function(index) {
 		cultistButtons[index].innerHTML += "<div>Cost: " + roundThreeDecimals(geometricSum(cultists[index].influenceCost, 1.2, buyMultipleButton.value)) + " Influence</div>";
 	}
 
-	//Only Show Extended Information for cultists that are owned
-	if(cultists[index].owned > 0)
+	//Only Show Extended Information for cultists that are Hired
+	if(cultists[index].Hired > 0)
 		cultistButtons[index].innerHTML +=
 								"<div>Cost Efficiency (Influence / Cost): " + (roundThreeDecimals(cultists[index].baseInfluence/cultists[index].influenceCost*1000)) + "%" +
 								"<div>Influence Production(Each): " + cultists[index].baseInfluence * player.cultProductionBonus + "</div>" + 
-								"<div>Owned: " + cultists[index].owned + "</div>" + 
-								"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].owned * player.cultProductionBonus)+ "</div>";
-
-
-
-
-	//TODO - Remove This
-	//Old Way Just in Case
-	// cultistButtons[index].innerHTML = cultists[index].name +
-	// 							"<div>Cost: " + (cultists[index].influenceCost) + " Influence</div>" +
-	// 							"<div>Cost Efficiency (Influence / Cost): " + (roundThreeDecimals(cultists[index].baseInfluence/cultists[index].influenceCost*1000)) + "%" +
-	// 							"<div>Influence Production(Each): " + cultists[index].baseInfluence + "</div>" + 
-	// 							"<div>Owned: " + cultists[index].owned + "</div>" + 
-	// 							"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].owned)+ "</div>";
+								"<div>Hired: " + cultists[index].Hired + "</div>" + 
+								"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].Hired * player.cultProductionBonus)+ "</div>";
 }
 
 
@@ -648,7 +636,7 @@ Game.prototype.initResearch = function() {
 																						//prerequisitieResearch and callback are optional
 	//(name, flavorText, researchTime, unlockCaffeineLevel, caffeineCost, unlockInfluence, prerequisiteResearch, callback)
 	research[0] = new Research("Think About Why You're Doing This", "The Higher Your Caffeine Level, The Faster Time Will Go", 5, .2, 0, 0);
-	research[1] = new Research("Think a Little Harder This Time", "", 10, .3, 0, 0, 0);
+	research[1] = new Research("Think a Little Harder This Time", "Some Upgrades Only Serve As A Stepping Stone To Others(Just Like In Real Life!)", 10, .3, 0, 0, 0);
 	research[2] = new Research("Get your G.E.D.", "", 30, 0, 0, 0, 1, function() {
 		player.numResearches += 1;
 		consoleDisplay.pushMessage("You Can Now Research " + player.numResearches + " Researches At A Time!");
@@ -659,7 +647,7 @@ Game.prototype.initResearch = function() {
 		player.numResearches += 1;
 		consoleDisplay.pushMessage("You Can Now Research " + player.numResearches + " Researches At A Time!");
 	});
-	research[6] = new Research("MS In Chemistry", "", 240, 0, 0, 0, 5);
+	research[6] = new Research("MS In Chemistry", "What The Heck, This Is Just A Useless Piece Of Paper!", 240, 0, 0, 0, 5);
 	research[7] = new Research("PHD In Chemistry", "", 480, 0, 0, 0, 6, function() {
 		player.numResearches += 1;
 		consoleDisplay.pushMessage("You Can Now Research " + player.numResearches + " Researches At A Time!");
@@ -822,40 +810,40 @@ Game.prototype.initUpgrades = function() {
 	upgrades[32] = new Upgrade("Nurses That Drink Coffee", "", 135000, 135000, 31, 4, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(4);
 	});
-	upgrades[33] = new Upgrade("Super Nurses", "", 535000, 535000, 32, 4, true, function(){
+	upgrades[33] = new Upgrade("Super Nurses", "", 335000, 335000, 32, 4, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(4);
 	});
-	upgrades[34] = new Upgrade("Super Robo Nurses That Drink Coffee", "", 1535000, 1535000, 33, 4, true, function(){
+	upgrades[34] = new Upgrade("Super Robo Nurses That Drink Coffee", "", 935000, 935000, 33, 4, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(4);
 	});
 	upgrades[35] = new Upgrade("Espressothulu", "", 100000, 100000, -1, 5, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(5);
 	});
-	upgrades[36] = new Upgrade("Coldbrewthulu", "", 500000, 500000, 35, 5, true, function(){
+	upgrades[36] = new Upgrade("Coldbrewthulu", "", 300000, 300000, 35, 5, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(5);
 	});
-	upgrades[37] = new Upgrade("Cappucinothulu", "", 3500000, 3500000, 36, 5, true, function(){
+	upgrades[37] = new Upgrade("Cappucinothulu", "", 900000, 900000, 36, 5, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(5);
 	});
-	upgrades[38] = new Upgrade("Mochathulu", "", 23500000, 23500000, 37, 5, true, function(){
+	upgrades[38] = new Upgrade("Mochathulu", "", 2500000, 2500000, 37, 5, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(5);
 	});
-	upgrades[39] = new Upgrade("Frenchpressthulu", "", 123500000, 123500000, 38, 5, true, function(){
+	upgrades[39] = new Upgrade("Frenchpressthulu", "", 5000000, 5000000, 38, 5, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(5);
 	});
-	upgrades[40] = new Upgrade("Monster With One Billion Mouths", "", 23500000, 23500000, -1, 6, true, function(){
+	upgrades[40] = new Upgrade("Monster With One Billion Mouths", "", 15000000, 15000000, -1, 6, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
-	upgrades[41] = new Upgrade("Monster With One Trillion Mouths", "", 223500000, 223500000, 40, 6, true, function(){
+	upgrades[41] = new Upgrade("Monster With One Trillion Mouths", "", 7000000, 7000000, 40, 6, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
-	upgrades[42] = new Upgrade("More Motivated Mouth Monster", "", 2223500000, 2223500000, 41, 6, true, function(){
+	upgrades[42] = new Upgrade("More Motivated Mouth Monster", "", 25000000, 25000000, 41, 6, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
-	upgrades[43] = new Upgrade("Master Motivated Mouth Monster", "", 9023500000, 9023500000, 42, 6, true, function(){
+	upgrades[43] = new Upgrade("Master Motivated Mouth Monster", "", 85000000, 85000000, 42, 6, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
-	upgrades[44] = new Upgrade("Machiavellian Master Motivated Mouth Monster", "", 29023500000, 29023500000, 43, 6, true, function(){
+	upgrades[44] = new Upgrade("Machiavellian Master Motivated Mouth Monster", "", 185000000, 185000000, 43, 6, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
 };

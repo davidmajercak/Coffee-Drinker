@@ -45,10 +45,10 @@
 //TODO
 //TODO
 //TODO
-//Auto Sipper Should Start Automatically on page load if unlocked
 //Make sure sip coffee button text changes on page load if auto sipper unlocked
-//Probably won't have inventions and similar research last through prestige
-//Research Progress is not saved (probably will be a bigger deal later)
+//Highlight most Cost Efficient Worker in Orange
+//More Upgrade Clarity
+//Reconsisder Upgrade Timers, Multiple Researches At Once?
 
 
 
@@ -167,7 +167,7 @@ function deleteSave() {
 }
 
 function isSaveCompatible(savedVersion) {
-	return savedVersion >= "0.8.0";
+	return savedVersion >= "0.8.1";
 }
 
 //Save the Game Every 20 seconds
