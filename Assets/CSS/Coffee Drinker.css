@@ -104,7 +104,7 @@ div span h3 {
 	display: block;
 /*	justify-content: start;
 	align-items: flex-start;*/
-	height: 330px; /*Will need to figure out a better solution that setting a height in px*/
+	height: 360px; /*Will need to figure out a better solution that setting a height in px*/
 }
 
 .upgradeButton, .cultistButton {

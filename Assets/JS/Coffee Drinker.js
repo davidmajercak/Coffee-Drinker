@@ -51,6 +51,7 @@
 //Use influence and cultists to recruit summons?
 //Upon prestige, do favors for an ultimate coffee god?
 //Switch to scientific notation or similiar
+//Caffeine Siphon too strong.  Needs adjusting for sure
 
 
 

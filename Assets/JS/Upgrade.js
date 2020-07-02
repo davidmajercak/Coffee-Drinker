@@ -1,5 +1,5 @@
 Upgrade.prototype.canUnlock = function() {
-	if(this.associatedWorkerIndex != -1 && upgradeCutoffs[workers[this.associatedWorkerIndex].numUpgrades] > workers[this.associatedWorkerIndex].Hired)
+	if(this.associatedWorkerIndex != -1 && upgradeCutoffs[workers[this.associatedWorkerIndex].numUpgrades] > workers[this.associatedWorkerIndex].hired)
 		return false;
 	if(this.prerequisiteUpgrade != -1 && !upgrades[this.prerequisiteUpgrade].isPurchased)
 		return false;

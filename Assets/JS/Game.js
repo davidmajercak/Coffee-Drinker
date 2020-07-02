@@ -39,7 +39,7 @@ Game.prototype.initEventListeners = function () {
 			workerButtons[i].addEventListener("click", function() {
 				workers[this.value].purchase();
 
-				if(workers[this.value].Hired > 0)
+				if(workers[this.value].hired > 0)
 				{
 					game.updateWorkerButton(this.value);
 				}
@@ -50,7 +50,7 @@ Game.prototype.initEventListeners = function () {
 			cultistButtons[i].addEventListener("click", function() {
 				cultists[this.value].purchase();
 
-				if(cultists[this.value].Hired > 0)
+				if(cultists[this.value].hired > 0)
 				{
 					game.updateCultistButton(this.value);
 				}
@@ -128,22 +128,22 @@ Game.prototype.init = function() {
 	for (var i = 0; i < workers.length; i++)
 	{
 		workerButtons.push(document.querySelector("#workerButton" + (i + 1)));
-		workerButtons[i].innerHTML = workers[i].name + "<div> Mug Cost: " + workers[i].emptyMugCost + " Empty Mugs</div>";
+		workerButtons[i].innerHTML = workers[i].name + "<div> Mug Cost: " + displayNumber(workers[i].emptyMugCost) + " Empty Mugs</div>";
 		workerButtons[i].value = i;
 
 		//If Player loads a save an has bought at least one of the workers, update the button
-		if(workers[i].Hired > 0)
+		if(workers[i].hired > 0)
 			game.updateWorkerButton(i);
 	}
 
 	for (var i = 0; i < cultists.length; i++)
 	{
 		cultistButtons.push(document.querySelector("#cultistButton" + (i + 1)));
-		cultistButtons[i].innerHTML = cultists[i].name + "<div> Cost: " + (cultists[i].influenceCost) + " Influence</div>";
+		cultistButtons[i].innerHTML = cultists[i].name + "<div> Cost: " + displayNumber(cultists[i].influenceCost) + " Influence</div>";
 		cultistButtons[i].value = i;
 
 		//If Player loads a save an has bought at least one of the workers, update the button
-		if(cultists[i].Hired > 0)
+		if(cultists[i].hired > 0)
 			game.updateCultistButton(i);
 	}
 
@@ -260,10 +260,10 @@ Game.prototype.updateGameState = function() {
 
 Game.prototype.updateDisplay = function() {
 	//Update displays at the end of the game loop to keep display consistent
-	emptyMugsDisplay.textContent = roundThreeDecimals(player.emptyMugs);
-	coffeeRemainingDisplay.textContent = roundThreeDecimals(player.coffeeRemaining * 100) + "%";
-	sipSizeDisplay.textContent = player.calculateSipSize();
-	influenceDisplay.textContent = player.influence;
+	emptyMugsDisplay.textContent = displayNumber(player.emptyMugs);
+	coffeeRemainingDisplay.textContent = displayNumber(player.coffeeRemaining * 100) + "%";
+	sipSizeDisplay.textContent = displayNumber(player.calculateSipSize());
+	influenceDisplay.textContent = displayNumber(player.influence);
 
 	//Update Stats in the Stats Tab
 	gameTickSpeedDisplay.innerText =  roundThreeDecimals(tickSpeed) + " ms";
@@ -272,15 +272,7 @@ Game.prototype.updateDisplay = function() {
 	//Make sure caffeine level does not exceed current max caffeine level
 	if(player.caffeineLevel > player.maxCaffeineLevel)
 		player.caffeineLevel = player.maxCaffeineLevel;
-	caffeineLevelDisplay.textContent = player.caffeineLevel + "%";
-
-	this.updateMugsPerSecond();
-};
-
-Game.prototype.updateMugsPerSecond = function() {
-	for(var i = 0; i < workers.length; i++) {
-
-	}
+	caffeineLevelDisplay.textContent = displayNumber(player.caffeineLevel) + "%";
 };
 
 Game.prototype.unlockElements = function() {
@@ -310,7 +302,7 @@ Game.prototype.unlockElements = function() {
 
 	for(var i = 0; i < workers.length; i++)
 	{
-		if(!workers[i].isUnlocked && workers[i].unlockMugs <= player.emptyMugs || workers[i].Hired > 0)
+		if(!workers[i].isUnlocked && workers[i].unlockMugs <= player.emptyMugs || workers[i].hired > 0)
 		{
 			if(i === 0)
 			{
@@ -324,7 +316,7 @@ Game.prototype.unlockElements = function() {
 		}
 	}
 
-	if(!player.unlockedBuyMultiple && (workers[0].Hired >= 5 || workers[3].isUnlocked)) {
+	if(!player.unlockedBuyMultiple && (workers[0].hired >= 5 || workers[3].isUnlocked)) {
 		player.hasUnlockedBuyMultiple = true;
 		document.querySelector("#buyMultipleRow").classList.remove("hide");
 	}
@@ -444,14 +436,14 @@ Game.prototype.updateWorkers = function() {
 		mugsPerSecond += workers[i].getTotalPower();
 	}
 
-	mugsPerSecondDisplay.innerText = roundThreeDecimals(mugsPerSecond);
+	mugsPerSecondDisplay.innerText = displayNumber(mugsPerSecond);
 };
 
 Game.prototype.updateCultists = function() {
 	var influencePerSecond = 0;
 	for(var i = 0; i < cultists.length; i++) {
 
-		if(!cultists[i].isUnlocked && (cultists[i].unlockInfluence <= player.influence || cultists[i].Hired > 0)){	
+		if(!cultists[i].isUnlocked && (cultists[i].unlockInfluence <= player.influence || cultists[i].hired > 0)){	
 			//Unhide the associated cultist button and set isUnlocked to true
 			cultistButtons[i].classList.remove("hide");
 			cultists[i].isUnlocked = true;
@@ -510,7 +502,7 @@ Game.prototype.updateCultists = function() {
 		influencePerSecond += cultists[i].getTotalPower();
 	}
 
-	influencePerSecondDisplay.innerText = roundThreeDecimals(influencePerSecond);
+	influencePerSecondDisplay.innerText = displayNumber(influencePerSecond);
 };
 
 Game.prototype.updateWorkerButton = function(index) {
@@ -529,22 +521,22 @@ Game.prototype.updateWorkerButton = function(index) {
 		}
 
 		if(tempCostTotal === 0)
-			workerButtons[index].innerHTML += "<div>Cost: " + workers[index].emptyMugCost + " Empty Mugs</div>";
+			workerButtons[index].innerHTML += "<div>Cost: " + displayNumber(workers[index].emptyMugCost) + " Empty Mugs</div>";
 		else 
-			workerButtons[index].innerHTML += "<div>Cost: " + roundThreeDecimals(tempCostTotal) + " Empty Mugs</div>";
+			workerButtons[index].innerHTML += "<div>Cost: " + displayNumber(tempCostTotal) + " Empty Mugs</div>";
 	} else if(buyMultipleButton.value === "1") {
-		workerButtons[index].innerHTML += "<div>Cost: " + (roundThreeDecimals(workers[index].emptyMugCost)) + " Empty Mugs</div>";
+		workerButtons[index].innerHTML += "<div>Cost: " + (displayNumber(workers[index].emptyMugCost)) + " Empty Mugs</div>";
 	} else {
-		workerButtons[index].innerHTML += "<div>Cost: " + roundThreeDecimals(geometricSum(workers[index].emptyMugCost, 1.2, buyMultipleButton.value)) + " Empty Mugs</div>";
+		workerButtons[index].innerHTML += "<div>Cost: " + displayNumber(geometricSum(workers[index].emptyMugCost, 1.2, buyMultipleButton.value)) + " Empty Mugs</div>";
 	}
 
-	//Only Show Extended Information for Workers that are Hired
-	if(workers[index].Hired > 0)
+	//Only Show Extended Information for Workers that are hired
+	if(workers[index].hired > 0)
 		workerButtons[index].innerHTML +=
-								"<div>Cost Efficiency (Mugs per Second / Cost): " + (roundThreeDecimals(workers[index].baseSipSize/workers[index].emptyMugCost*1000)) + "%" +
-								"<div>Sip Size(Each): " + roundThreeDecimals(workers[index].baseSipSize * player.workerProductionBonus * player.caffeineSacrificeProductionBonus) + " Mugs</div>" +
-								"<div>Hired: " + workers[index].Hired + "</div>" +
-								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].getTotalPower()) + " Mugs</div>";
+								"<div>Cost Efficiency (Mugs per Second / Cost): " + (displayNumber(workers[index].baseSipSize/workers[index].emptyMugCost*1000)) + "%" +
+								"<div>Sip Size(Each): " + displayNumber(workers[index].baseSipSize * player.workerProductionBonus * player.caffeineSacrificeProductionBonus) + " Mugs</div>" +
+								"<div>Hired: " + displayNumber(workers[index].hired) + "</div>" +
+								"<div>Sip Size(Total): " + displayNumber(workers[index].getTotalPower()) + " Mugs</div>";
 	
 	
 };
@@ -566,22 +558,22 @@ Game.prototype.updateCultistButton = function(index) {
 		}
 
 		if(tempCostTotal === 0)
-			cultistButtons[index].innerHTML += "<div>Cost: " + cultists[index].influenceCost + " Influence</div>";
+			cultistButtons[index].innerHTML += "<div>Cost: " + displayNumber(cultists[index].influenceCost) + " Influence</div>";
 		else 
-			cultistButtons[index].innerHTML += "<div>Cost: " + roundThreeDecimals(tempCostTotal) + " Influence</div>";
+			cultistButtons[index].innerHTML += "<div>Cost: " + displayNumber(tempCostTotal) + " Influence</div>";
 	} else if(buyMultipleButton.value === "1") {
-		cultistButtons[index].innerHTML += "<div>Cost: " + (roundThreeDecimals(cultists[index].influenceCost)) + " Influence</div>";
+		cultistButtons[index].innerHTML += "<div>Cost: " + (displayNumber(cultists[index].influenceCost)) + " Influence</div>";
 	} else {
-		cultistButtons[index].innerHTML += "<div>Cost: " + roundThreeDecimals(geometricSum(cultists[index].influenceCost, 1.2, buyMultipleButton.value)) + " Influence</div>";
+		cultistButtons[index].innerHTML += "<div>Cost: " + displayNumber(geometricSum(cultists[index].influenceCost, 1.2, buyMultipleButton.value)) + " Influence</div>";
 	}
 
-	//Only Show Extended Information for cultists that are Hired
-	if(cultists[index].Hired > 0)
+	//Only Show Extended Information for cultists that are hired
+	if(cultists[index].hired > 0)
 		cultistButtons[index].innerHTML +=
-								"<div>Cost Efficiency (Influence / Cost): " + (roundThreeDecimals(cultists[index].baseInfluence/cultists[index].influenceCost*1000)) + "%" +
-								"<div>Influence Production(Each): " + cultists[index].baseInfluence * player.cultProductionBonus + "</div>" + 
-								"<div>Hired: " + cultists[index].Hired + "</div>" + 
-								"<div>Influence Production(Total): " + roundThreeDecimals(cultists[index].baseInfluence * cultists[index].Hired * player.cultProductionBonus)+ "</div>";
+								"<div>Cost Efficiency (Influence / Cost): " + (displayNumber(cultists[index].baseInfluence/cultists[index].influenceCost*1000)) + "%" +
+								"<div>Influence Production(Each): " + displayNumber(cultists[index].baseInfluence * player.cultProductionBonus) + "</div>" + 
+								"<div>Hired: " + displayNumber(cultists[index].hired) + "</div>" + 
+								"<div>Influence Production(Total): " + displayNumber(cultists[index].baseInfluence * cultists[index].hired * player.cultProductionBonus)+ "</div>";
 }
 
 
@@ -618,7 +610,14 @@ tickSpeed = 500; 	//The time in milliseconds between each game tick
 var game = new Game();
 
 function roundThreeDecimals(num){
-	return Math.round((num) * 1000) / 1000;
+	return Math.round((num) * 100000) / 100000;
+}
+
+function displayNumber(num){
+ 	if(Math.abs(num) >= 100000 || (Math.abs(num) > 0 && Math.abs(num) < .01))
+ 		return num.toExponential(3);
+ 	else
+ 		return Math.round((num) * 100) / 100;
 }
 
 Game.prototype.initCultists = function() {
