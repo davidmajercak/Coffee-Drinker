@@ -36,7 +36,7 @@ ConsoleDisplay.prototype.moveUp = function() {
 
 ConsoleDisplay.prototype.moveDown = function() {
 	consoleDisplay.bottomMessageIndex -= 4;
-	if(consoleDisplay.bottomMessageIndex < 0)
+	if(consoleDisplay.bottomMessageIndex < 0)s
 		consoleDisplay.bottomMessageIndex = 0;
 	consoleDisplay.updateMessages();
 };
@@ -61,6 +61,11 @@ ConsoleDisplay.prototype.updateMessages = function() {
 
 			if(i === 0)
 				consoleDisplay.display[i].classList.remove("highlight")
+		}
+
+		if(consoleDisplay.display[i].innerText.substring(2) === "Check out the change log!") {
+			var marker = consoleDisplay.display[i].innerText.substring(0, 2)
+			consoleDisplay.display[i].innerHTML = marker + "<a href=changeLog/changeLog.html>Check out the change log!</a>";
 		}
 	}
 };

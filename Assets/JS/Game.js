@@ -610,14 +610,14 @@ tickSpeed = 500; 	//The time in milliseconds between each game tick
 var game = new Game();
 
 function roundThreeDecimals(num){
-	return Math.round((num) * 100000) / 100000;
+	return Math.round((num) * 1000000) / 1000000;
 }
 
 function displayNumber(num){
- 	if(Math.abs(num) >= 100000 || (Math.abs(num) > 0 && Math.abs(num) < .01))
+ 	if(Math.abs(num) >= 100000 || (Math.abs(num) > 0 && Math.abs(num) < .001))
  		return num.toExponential(3);
  	else
- 		return Math.round((num) * 100) / 100;
+ 		return Math.round((num) * 1000) / 1000;
 }
 
 Game.prototype.initCultists = function() {
@@ -727,7 +727,7 @@ Game.prototype.initUpgrades = function() {
 	upgrades[5] = new Upgrade("Wide-Mouth Coffee Mug", "If Only Your Mug Would Change Color When Your Coffee Is As Hot As The Rockies", 32, 32, 4, -1, false, function(){
 		player.increaseSipSize(1);
 	});
-	upgrades[6] = new Upgrade("Aerodynamic Mug", "", 2000, 2000, 5, -1, false, function(){
+	upgrades[6] = new Upgrade("Aerodynamic Mug", "", 1000, 100, 5, -1, false, function(){
 		player.increaseSipSize(5);
 	});
 	upgrades[7] = new Upgrade("Extreme Thirst", "This Is An Extreme Thirst", 10000, 10000, 6, -1, false, function(){
@@ -781,7 +781,7 @@ Game.prototype.initUpgrades = function() {
 	upgrades[23] = new Upgrade("Move The Old Men To Sumter County, Florida", "This Is Exactly The County For Old Men", 10000, 10000, 22, 2, false, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
-	upgrades[24] = new Upgrade("Free Newspapers For Old Men", "", 10000, 10000, 23, 2, false, function(){
+	upgrades[24] = new Upgrade("Free Newspapers For Old Men", "", 100000, 100000, 23, 2, false, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
 	upgrades[25] = new Upgrade("Improved Vacuums", "", 300, 300, -1, 3, true, function(){
@@ -829,10 +829,10 @@ Game.prototype.initUpgrades = function() {
 	upgrades[39] = new Upgrade("Frenchpressthulu", "", 5000000, 5000000, 38, 5, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(5);
 	});
-	upgrades[40] = new Upgrade("Monster With One Billion Mouths", "", 15000000, 15000000, -1, 6, true, function(){
+	upgrades[40] = new Upgrade("Monster With One Billion Mouths", "", 1000000, 1000000, -1, 6, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
-	upgrades[41] = new Upgrade("Monster With One Trillion Mouths", "", 7000000, 7000000, 40, 6, true, function(){
+	upgrades[41] = new Upgrade("Monster With One Trillion Mouths", "", 5000000, 5000000, 40, 6, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
 	upgrades[42] = new Upgrade("More Motivated Mouth Monster", "", 25000000, 25000000, 41, 6, true, function(){
@@ -841,7 +841,7 @@ Game.prototype.initUpgrades = function() {
 	upgrades[43] = new Upgrade("Master Motivated Mouth Monster", "", 85000000, 85000000, 42, 6, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
-	upgrades[44] = new Upgrade("Machiavellian Master Motivated Mouth Monster", "", 185000000, 185000000, 43, 6, true, function(){
+	upgrades[44] = new Upgrade("Machiavellian Master Motivated Mouth Monster", "", 285000000, 285000000, 43, 6, true, function(){
 		workers[this.associatedWorkerIndex].increaseSipSize(6);
 	});
 };
@@ -853,8 +853,8 @@ Game.prototype.initWorkers = function() {
 		new Worker("Hire An Old Man That Drinks Black Coffee", "You Know The One", 20, .1, 20),
 		new Worker("Hook Up A Vacuum To Your Coffee Mug", "You Really Should Have Thought of This Earlier", 100, .5, 100),
 		new Worker("Hire A Nurse To Give You Coffee Intravenously", "This Is Getting Pretty Hardcore", 500, 2, 500),
-		new Worker("Coffeethulu", "Kinda Creepy", 25000, 100, 25000),
-		new Worker("Monster With One Million Mouths", "All The Better To Drink Coffee With", 1000000, 1000, 1000000)
+		new Worker("Coffeethulu", "Kinda Creepy", 25000, 10, 25000),
+		new Worker("Monster With One Million Mouths", "All The Better To Drink Coffee With", 250000, 100, 250000)
 	];
 };
 

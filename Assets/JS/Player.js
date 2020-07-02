@@ -8,7 +8,7 @@ Player.prototype.takeSip = function() {
 
 	var numMugs = Math.abs(this.coffeeRemaining);
 
-	if(this.coffeeRemaining < 0) {
+	if(this.coffeeRemaining <= 0) {
 		this.coffeeRemaining = roundThreeDecimals(1 - (numMugs % 1));
 		
 		this.allTimeCoffee = roundThreeDecimals(this.allTimeCoffee + 1 + Math.floor(numMugs));
@@ -50,7 +50,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			consoleDisplay.pushMessage(message);
 			caffeineToleranceMessages[1] = true;
 		}
-		player.caffeineTolerance = .25;
+		player.caffeineTolerance = .2;
 	}
 	else if(this.caffeineLevel < 60) {
 		var message = "You Now Have A Caffeine Level Of 50%, Your Caffeine Tolerance Rises Yet Again...";
@@ -58,7 +58,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			consoleDisplay.pushMessage(message);
 			caffeineToleranceMessages[2] = true;
 		}
-		player.caffeineTolerance = .1;
+		player.caffeineTolerance = .05;
 	}
 	else if(this.caffeineLevel < 80) {
 		var message = "You Now Have A Caffeine Level Of 60%, Your Caffeine Tolerance Rises Even Further...";
@@ -66,7 +66,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			consoleDisplay.pushMessage(message);
 			caffeineToleranceMessages[3] = true;
 		}
-		player.caffeineTolerance = .05;
+		player.caffeineTolerance = .005;
 	} else if(this.caffeineLevel < 100) { 
 		var message = "You Now Have A Caffeine Level Of 80%, Your Caffeine Tolerance Rises Sharply...";
 		if(!caffeineToleranceMessages[4]) {
@@ -74,7 +74,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			caffeineToleranceMessages[4] = true;
 		}
 		consoleDisplay.pushMessage()
-		player.caffeineTolerance = .005;
+		player.caffeineTolerance = .0002;
 	} else if(this.caffeineLevel > 100) { 
 		var message = "You Now Have A Caffeine Level Of 100%, Your Caffeine Tolerance Rises Extremely Sharply...";
 		if(!caffeineToleranceMessages[5]) {
@@ -82,7 +82,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			caffeineToleranceMessages[5] = true;
 		}
 		consoleDisplay.pushMessage()
-		player.caffeineTolerance = .00003;
+		player.caffeineTolerance = .00001;
 	}
  
 

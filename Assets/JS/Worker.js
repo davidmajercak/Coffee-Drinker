@@ -70,7 +70,7 @@ Worker.prototype.takeSip = function() {
 		player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + this.getTotalPower() * .01 * player.caffeineTolerance * player.caffeineSiphon); 
 
 	var numMugs = Math.abs(player.coffeeRemaining);
-	if(player.coffeeRemaining < 0) {
+	if(player.coffeeRemaining <= 0) {
 		player.coffeeRemaining = roundThreeDecimals(1 - (numMugs % 1));
 	
 		player.allTimeCoffee = roundThreeDecimals(player.allTimeCoffee + 1 + Math.floor(numMugs));

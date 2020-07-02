@@ -79,7 +79,7 @@ Research.prototype.addButton = function(){
 	if(this.caffeineCost > 0)
 		researchButton.innerHTML +="<div>Caffeine Cost: " + this.caffeineCost + " Caffeine Level</div>"
 	if(this.influenceCost > 0)
-		researchButton.innerHTML +="<div>Infleunce Cost: " + this.influenceCost + " Influence</div>"
+		researchButton.innerHTML +="<div>Influence Cost: " + this.influenceCost + " Influence</div>"
 
 	researchButton.addEventListener("click", this.purchase);
 	parent.appendChild(researchButton);

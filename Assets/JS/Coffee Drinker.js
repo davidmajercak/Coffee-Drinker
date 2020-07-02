@@ -52,7 +52,9 @@
 //Upon prestige, do favors for an ultimate coffee god?
 //Switch to scientific notation or similiar
 //Caffeine Siphon too strong.  Needs adjusting for sure
-
+//Allow option to turn off background color change
+//Add a change log
+//Create a subreddit (limited by new account currently)
 
 
 function openTab(event, tabName) {
@@ -155,7 +157,8 @@ function load() {
 	}
 
 	setTimeout(function() {
-		consoleDisplay.pushMessage("Welcome Back!")
+		consoleDisplay.pushMessage("Welcome back!")
+		consoleDisplay.pushMessage("Check out the change log!")
 	}, 1000);
 
 	
@@ -170,7 +173,7 @@ function deleteSave() {
 }
 
 function isSaveCompatible(savedVersion) {
-	return savedVersion >= "0.8.1";
+	return savedVersion >= "0.8.3";
 }
 
 //Save the Game Every 20 seconds

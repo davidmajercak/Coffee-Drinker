@@ -1,0 +1,19 @@
+body {
+	font-family: 'Lato', sans-serif;
+	color: #F5ECE1;
+	padding: .5%;
+	background-color: #4B311B; 
+}
+
+h1, h2, h3 {
+	color: #0CAC64; 
+}
+
+a {
+	color: #7880B5;
+}
+
+.container {
+	display: box;
+	margin: 3%;
+}

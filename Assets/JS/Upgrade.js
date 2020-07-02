@@ -53,7 +53,7 @@ Upgrade.prototype.addButton = function(){
 
 	if(this.emptyMugCost > 0)
 	{
-		upgradeButton.innerHTML += this.emptyMugCost + " Empty Mugs";
+		upgradeButton.innerHTML += displayNumber(this.emptyMugCost) + " Empty Mugs";
 	}
 	upgradeButton.addEventListener("click", this.purchase);
 	parent.appendChild(upgradeButton);

@@ -5,14 +5,15 @@ https://www.w3schools.com/css/css3_variables.asp*/
 	--button-text-color: #F5ECE1;
 	--button-border-color: #F5ECE1;
 }
-
+* {
+	font-family: 'Lato', sans-serif;
+}
 body {
 	color: #F5ECE1;
 	margin: 0;
 	padding: .5%;
 	background-color: #4B311B; /*old color 5f3f21*/
-	user-select: none /*User not able to select text*/
-
+	user-select: none; /*User not able to select text*/
 }
 
 #displayConsole {
@@ -41,6 +42,10 @@ body {
 	flex-direction: column;
 	flex-basis: 100%;
 	flex: 1;
+}
+
+a {
+	color:#7880B5;
 }
 
 ul {
