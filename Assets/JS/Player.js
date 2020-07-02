@@ -4,13 +4,24 @@ Player.prototype.calculateSipSize = function() {
 
 Player.prototype.takeSip = function() {
 	this.coffeeRemaining = roundThreeDecimals(this.coffeeRemaining - this.calculateSipSize());
-	this.caffeineLevel = roundThreeDecimals(this.caffeineLevel + this.sipSizeBase * .1 * this.caffeineTolerance); //need a function to determine caffeine level soon
+	this.caffeineLevel = roundThreeDecimals(this.caffeineLevel + this.calculateSipSize() * .1 * this.caffeineTolerance); 
 
-	while(this.coffeeRemaining <= 0){
-			this.allTimeCoffee = roundThreeDecimals(this.allTimeCoffee + 1);
-			this.emptyMugs = roundThreeDecimals(this.emptyMugs + 1);
-			this.coffeeRemaining = roundThreeDecimals(this.coffeeRemaining + 1);
+	var numMugs = Math.abs(this.coffeeRemaining);
+
+	if(this.coffeeRemaining < 0) {
+		this.coffeeRemaining = roundThreeDecimals(1 - numMugs % 1)
+		
+		this.allTimeCoffee = roundThreeDecimals(this.allTimeCoffee + 1 + Math.floor(numMugs));
+		this.emptyMugs = roundThreeDecimals(this.emptyMugs + 1 + Math.floor(numMugs));
 	}
+
+	
+
+	// while(this.coffeeRemaining <= 0){
+	// 		this.allTimeCoffee = roundThreeDecimals(this.allTimeCoffee + 1);
+	// 		this.emptyMugs = roundThreeDecimals(this.emptyMugs + 1);
+	// 		this.coffeeRemaining = roundThreeDecimals(this.coffeeRemaining + 1);
+	// }
 };
 
 Player.prototype.increaseSipSize = function(increaseAmount) {
@@ -47,7 +58,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			consoleDisplay.pushMessage(message);
 			caffeineToleranceMessages[2] = true;
 		}
-		player.caffeineTolerance = .125;
+		player.caffeineTolerance = .1;
 	}
 	else if(this.caffeineLevel < 80) {
 		var message = "You Now Have A Caffeine Level Of 60%, Your Caffeine Tolerance Rises Even Further...";
@@ -55,7 +66,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			consoleDisplay.pushMessage(message);
 			caffeineToleranceMessages[3] = true;
 		}
-		player.caffeineTolerance = .0625;
+		player.caffeineTolerance = .05;
 	} else if(this.caffeineLevel < 100) { 
 		var message = "You Now Have A Caffeine Level Of 80%, Your Caffeine Tolerance Rises Sharply...";
 		if(!caffeineToleranceMessages[4]) {
@@ -71,7 +82,7 @@ Player.prototype.updateCaffeineLevel = function() {
 			caffeineToleranceMessages[5] = true;
 		}
 		consoleDisplay.pushMessage()
-		player.caffeineTolerance = .00005;
+		player.caffeineTolerance = .00003;
 	}
  
 

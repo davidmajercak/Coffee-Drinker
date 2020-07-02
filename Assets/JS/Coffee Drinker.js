@@ -12,11 +12,9 @@
 //Research will be tied into prestige
 //Research more to reduce toxicity associated with high caffeine level as well as other bonuses
 
-//Create a religion upgrade tree
 //Coffee cultists worship you/the coffee God (Whom you later become when you prestige)
 //Provide different type of perks and bonuses
 
-//Spend Caffeine level to gain research points
 
 //Make sure page is loaded first - Think this is taken care of
 
@@ -45,10 +43,14 @@
 //TODO
 //TODO
 //TODO
-//Make sure sip coffee button text changes on page load if auto sipper unlocked
 //Highlight most Cost Efficient Worker in Orange
 //More Upgrade Clarity
-//Reconsisder Upgrade Timers, Multiple Researches At Once?
+//Reconsider Upgrade Timers, Multiple Researches At Once?
+//triple check worker and cult bonuses, be sure they aren't being added multiple times or not enough
+//Make sure that research is not already started when clicking research again
+//Use influence and cultists to recruit summons?
+//Upon prestige, do favors for an ultimate coffee god?
+//Switch to scientific notation or similiar
 
 
 
@@ -185,3 +187,5 @@ deleteSaveButton.addEventListener("click", function() {
 
 gameTickSpeedDisplay = document.querySelector("#gameTickSpeed");
 //totalEmptyMugsDisplay = document.querySelector("#totalEmptyMugs");
+
+console.log("Your Mom Would Disappointed If She Knew You Cheated At Coffee Drinker (Depending On What Your Mom Is Like)");

@@ -544,8 +544,7 @@ Game.prototype.updateWorkerButton = function(index) {
 								"<div>Cost Efficiency (Mugs per Second / Cost): " + (roundThreeDecimals(workers[index].baseSipSize/workers[index].emptyMugCost*1000)) + "%" +
 								"<div>Sip Size(Each): " + roundThreeDecimals(workers[index].baseSipSize * player.workerProductionBonus * player.caffeineSacrificeProductionBonus) + " Mugs</div>" +
 								"<div>Hired: " + workers[index].Hired + "</div>" +
-								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].baseSipSize * workers[index].Hired * 
-									player.workerProductionBonus * player.caffeineSacrificeProductionBonus) + " Mugs</div>";
+								"<div>Sip Size(Total): " + roundThreeDecimals(workers[index].getTotalPower()) + " Mugs</div>";
 	
 	
 };

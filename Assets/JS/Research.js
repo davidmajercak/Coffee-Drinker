@@ -15,7 +15,7 @@ Research.prototype.canUnlock = function() {
 };
 
 Research.prototype.purchase = function() {
-	if((player.caffeineLevel >= research[this.value].caffeineCost) && (player.influence >= research[this.value].influenceCost)) {
+	if((player.caffeineLevel >= research[this.value].caffeineCost) && (player.influence >= research[this.value].influenceCost) && !research[this.value].isStarted) {
 		player.caffeineLevel = roundThreeDecimals(player.caffeineLevel - research[this.value].caffeineCost);
 		player.influence = roundThreeDecimals(player.influence - research[this.value].influenceCost);
 		research[this.value].startResearch();

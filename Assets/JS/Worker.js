@@ -6,7 +6,7 @@ Worker.prototype.increaseSipSize = function(increaseMultiplier) {
 	this.baseSipSize = roundThreeDecimals(this.baseSipSize * increaseMultiplier);
 	this.numUpgrades++;
 	game.updateWorkerButton(workers.indexOf(this));
-	consoleDisplay.pushMessage("Sip Size Of " + this.name + " Increased By " + increaseMultiplier * 100 + "%!");
+	consoleDisplay.pushMessage("Sip Size Of " + this.name + " Increased By " + (increaseMultiplier - 1) * 100 + "%!");
 };
 
 Worker.prototype.purchase = function() { 
@@ -64,21 +64,38 @@ Worker.prototype.generateProduction = function() {
 }
 
 Worker.prototype.takeSip = function() {
-	player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining - this.baseSipSize * this.Hired * player.caffeineSacrificeProductionBonus);
 
-	if(player.caffeineSiphon > 0 && this.Hired > 0) {
-		player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + 1 * player.caffeineSiphon * player.caffeineTolerance * player.caffeineSacrificeProductionBonus);
+
+	player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining - this.getTotalPower());
+	if(player.caffeineSiphon > 0 && this.Hired > 0)
+		player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + this.getTotalPower() * .1 * player.caffeineTolerance * player.caffeineSiphon); 
+
+	var numMugs = Math.abs(player.coffeeRemaining);
+	if(player.coffeeRemaining < 0) {
+		player.coffeeRemaining = roundThreeDecimals(1 - numMugs % 1)
+	
+		player.allTimeCoffee = roundThreeDecimals(player.allTimeCoffee + 1 + Math.floor(numMugs));
+		player.emptyMugs = roundThreeDecimals(player.emptyMugs + 1 + Math.floor(numMugs));
 	}
 
-	while(player.coffeeRemaining <= 0){
-			player.allTimeCoffee = roundThreeDecimals(player.allTimeCoffee + 1);
-			player.emptyMugs = roundThreeDecimals(player.emptyMugs + 1);
+	
 
-			//TODO - Determine how exactly how workers can influence caffeine level
-			//player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + 0.1); //need a function to determine caffeine level soon
-			player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining + 1);
-		}
-		
+
+	 // player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining - this.baseSipSize * this.Hired * player.caffeineSacrificeProductionBonus);
+
+	 // if(player.caffeineSiphon > 0 && this.Hired > 0) {
+	 // 	player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + 1 * player.caffeineSiphon * player.caffeineTolerance * player.caffeineSacrificeProductionBonus);
+	 // }
+
+	 // while(player.coffeeRemaining <= 0){
+	 // 		player.allTimeCoffee = roundThreeDecimals(player.allTimeCoffee + 1);
+	 // 		player.emptyMugs = roundThreeDecimals(player.emptyMugs + 1);
+
+	 // 		//TODO - Determine how exactly how workers can influence caffeine level
+	 // 		//player.caffeineLevel = roundThreeDecimals(player.caffeineLevel + 0.1); //need a function to determine caffeine level soon
+	 // 		player.coffeeRemaining = roundThreeDecimals(player.coffeeRemaining + 1);
+	 // 	}
+	
 	
 };
 
