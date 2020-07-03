@@ -15,13 +15,13 @@ Player.prototype.takeSip = function() {
 		this.emptyMugs = roundThreeDecimals(this.emptyMugs + 1 + Math.floor(numMugs));
 	}
 
-	
-
-	// while(this.coffeeRemaining <= 0){
-	// 		this.allTimeCoffee = roundThreeDecimals(this.allTimeCoffee + 1);
-	// 		this.emptyMugs = roundThreeDecimals(this.emptyMugs + 1);
-	// 		this.coffeeRemaining = roundThreeDecimals(this.coffeeRemaining + 1);
-	// }
+	//Short message for new users to continue to click the button
+	if(this.allTimeCoffee === 0) {
+		if(consoleDisplay.messages[0] === "Maybe Try Drinking Some Coffee")
+			consoleDisplay.pushMessage("Take Another Sip!");
+		else if(consoleDisplay.messages[0] === "Take Another Sip!")
+			consoleDisplay.pushMessage("Almost Finished With Your Coffee...")
+	} 
 };
 
 Player.prototype.increaseSipSize = function(increaseAmount) {

@@ -44,17 +44,20 @@
 //TODO
 //TODO
 //Highlight most Cost Efficient Worker in Orange
-//More Upgrade Clarity
+//More Upgrade Clarity (see tooltips)
 //Reconsider Upgrade Timers, Multiple Researches At Once?
 //triple check worker and cult bonuses, be sure they aren't being added multiple times or not enough
 //Make sure that research is not already started when clicking research again
 //Use influence and cultists to recruit summons?
 //Upon prestige, do favors for an ultimate coffee god?
-//Switch to scientific notation or similiar
-//Caffeine Siphon too strong.  Needs adjusting for sure
+//Monitor Caffeine Siphon strength.
 //Allow option to turn off background color change
-//Add a change log
-//Create a subreddit (limited by new account currently)
+//Make sure to update change log
+//Definitely going to need tooltips, no way around it, figure out a solution vanilla js
+//		reevaluate using jQuery, might be pretty helpful?
+//Achievements would be nice as well
+//Change buttons to show name only (maybe 1 or two other things tops)
+//Rest of button information can go in tooltip
 
 
 function openTab(event, tabName) {
