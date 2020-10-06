@@ -77,11 +77,26 @@ Research.prototype.addButton = function(){
 
 	researchButton.innerHTML +="<span id=\"researchTimerDisplay" + researchButton.value + "\">" + this.researchTimeRemaining + "</span>" + " Seconds";
 	if(this.caffeineCost > 0)
-		researchButton.innerHTML +="<div>Caffeine Cost: " + this.caffeineCost + " Caffeine Level</div>"
+		researchButton.innerHTML +="<div>Caffeine Cost: " + this.caffeineCost + " Caffeine Level</div>";
 	if(this.influenceCost > 0)
-		researchButton.innerHTML +="<div>Influence Cost: " + this.influenceCost + " Influence</div>"
+		researchButton.innerHTML +="<div>Influence Cost: " + this.influenceCost + " Influence</div>";
 
-	researchButton.addEventListener("click", this.purchase);
+	if (this.name == "Ascend Into A Coffee God (Resets Game With Bonus)") {
+		researchButton.addEventListener("click", function() {
+			if(confirm("This will cause you to ascend into a Coffee God.  Your God Bonus will become permanent, but the rest of your progress will be reset " +
+			"(It's worth it, trust me)"))
+			{
+				consoleDisplay.pushMessage("Welp, Back to the Old Grind");
+				game.justPrestiged = true;
+				game.prestige();
+			}
+		})
+	}
+	else {
+		researchButton.addEventListener("click", this.purchase);
+	}
+
+	
 	parent.appendChild(researchButton);
 
 	setTimeout(function() {

@@ -36,7 +36,7 @@ ConsoleDisplay.prototype.moveUp = function() {
 
 ConsoleDisplay.prototype.moveDown = function() {
 	consoleDisplay.bottomMessageIndex -= 4;
-	if(consoleDisplay.bottomMessageIndex < 0)s
+	if(consoleDisplay.bottomMessageIndex < 0)
 		consoleDisplay.bottomMessageIndex = 0;
 	consoleDisplay.updateMessages();
 };

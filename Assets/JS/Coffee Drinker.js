@@ -58,6 +58,7 @@
 //Achievements would be nice as well
 //Change buttons to show name only (maybe 1 or two other things tops)
 //Rest of button information can go in tooltip
+//Make "Start a Cult" Upgrade give you 1 initiate, instead of giving you 1 influence
 
 
 function openTab(event, tabName) {

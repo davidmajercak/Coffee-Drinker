@@ -81,7 +81,7 @@ Game.prototype.initEventListeners = function () {
 						game.updateCultistButton(i);
 					}
 				}
-				research.push(new Research("Ascend Into A Coffee God (Resets Game With Bonus)", "",						   5, 95, 0, 10000));	
+				research.push(new Research("Ascend Into A Coffee God (Resets Game With Bonus)", "",						   0, 95, 0, 10000));	
 			});
 		}
 
@@ -653,7 +653,7 @@ Game.prototype.initResearch = function() {
 	research[8] = new Research("A Voice Calls Out To You (Listen)", "You Can't Quite Make Out What The Voice is Saying...", 15, 1, 0, 0, 0);
 	research[9] = new Research("Listen Closely To The Voice", "The Voice Told You To Start a Cult", 15, 1.5, 0, 0, 8);
 	research[10] = new Research("Start A Cult", "Well, That Escalated Quickly", 60, 0, 0, 0, 9, function() {
-		player.influence += 1;
+		cultists[0].hired = 1;
 	});
 	research[11] = new Research("Auto-Sipper", "That's My Secret, I'm Always Sippin'!", 60, 0, 0, 10, 0, function() {
 		consoleDisplay.pushMessage("You will Now Automatically Sip From The Mug When Available (No More Clicking)!");
